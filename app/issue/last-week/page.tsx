@@ -161,8 +161,8 @@ const sections: Section[] = [
     id: 'security',
     icon: <Shield className="w-4 h-4" />,
     title: 'Security & Privacy',
-    color: 'text-red-400',
-    tagBg: 'bg-red-950/50 text-red-400',
+    color: 'text-red-600 dark:text-red-400',
+    tagBg: 'bg-red-100 text-red-700 dark:bg-red-950/50 dark:text-red-400',
     items: [
       {
         title: 'Apple M5 Chip Vulnerability Allows Side-Channel Key Extraction',
@@ -188,8 +188,8 @@ const sections: Section[] = [
     id: 'hardware',
     icon: <Zap className="w-4 h-4" />,
     title: 'Hardware & Chips',
-    color: 'text-amber-400',
-    tagBg: 'bg-amber-950/50 text-amber-400',
+    color: 'text-amber-600 dark:text-amber-400',
+    tagBg: 'bg-amber-100 text-amber-700 dark:bg-amber-950/50 dark:text-amber-400',
     items: [
       {
         title: 'Apple M5 Chip Benchmarks Leak — 40% Faster Than M4',
@@ -215,8 +215,8 @@ const sections: Section[] = [
     id: 'startups',
     icon: <Rocket className="w-4 h-4" />,
     title: 'Startups & Business',
-    color: 'text-sky-400',
-    tagBg: 'bg-sky-950/50 text-sky-400',
+    color: 'text-sky-600 dark:text-sky-400',
+    tagBg: 'bg-sky-100 text-sky-700 dark:bg-sky-950/50 dark:text-sky-400',
     items: [
       {
         title: 'Figma Acquires Replit for $1.2B',
@@ -242,12 +242,12 @@ const sections: Section[] = [
 
 function ImpactBadge({ level }: { level: string }) {
   const styles = {
-    high: 'bg-red-950 text-red-400 border-red-900',
-    medium: 'bg-amber-950 text-amber-400 border-amber-900',
-    low: 'bg-neutral-900 text-neutral-400 border-neutral-700',
+    high: 'bg-red-100 text-red-700 border-red-200 dark:bg-red-950 dark:text-red-400 dark:border-red-900',
+    medium: 'bg-amber-100 text-amber-700 border-amber-200 dark:bg-amber-950 dark:text-amber-400 dark:border-amber-900',
+    low: 'bg-neutral-100 text-neutral-600 border-neutral-200 dark:bg-neutral-900 dark:text-neutral-400 dark:border-neutral-700',
   }
   return (
-    <span className={`inline-flex items-center px-1.5 py-0.5 text-[10px] font-medium rounded border ${styles[level as keyof typeof styles]}`}>
+    <span className={`inline-flex items-center px-1.5 py-0.5 text-xs font-medium rounded border ${styles[level as keyof typeof styles]}`}>
       {level === 'high' && <TrendingUp className="w-2.5 h-2.5 mr-0.5" />}
       {level === 'medium' && <AlertTriangle className="w-2.5 h-2.5 mr-0.5" />}
       {level === 'low' && <CheckCircle className="w-2.5 h-2.5 mr-0.5" />}
@@ -357,7 +357,7 @@ export default function LastWeekPage() {
                       <span className="flex items-center gap-1">
                         <Clock className="w-3 h-3" /> {item.readTime}
                       </span>
-                      <span className={`px-1.5 py-0.5 rounded text-[10px] font-medium ${section.tagBg}`}>
+                      <span className={`px-1.5 py-0.5 rounded text-xs font-medium ${section.tagBg}`}>
                         {section.title.split(' ')[0]}
                       </span>
                     </div>
