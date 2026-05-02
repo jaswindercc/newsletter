@@ -1,0 +1,55 @@
+---
+import '../styles/global.css'
+
+interface Props {
+  title: string
+  description?: string
+}
+
+const { title, description = 'Interactive weekly tech newsletter — emerging tech, legacy systems, AI, security, and infrastructure.' } = Astro.props
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  </head>
+  <body class="bg-bg text-text min-h-screen">
+    <header class="sticky top-0 z-50 bg-bg/80 backdrop-blur-xl border-b border-border">
+      <div class="max-w-[1080px] mx-auto px-6 h-16 flex items-center justify-between">
+        <a href="/" class="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
+          <div class="w-8 h-8 rounded-lg bg-blue flex items-center justify-center">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+            </svg>
+          </div>
+          <span class="text-[20px] font-bold tracking-tight">jas</span>
+        </a>
+        <nav class="flex items-center gap-1">
+          <a href="/issue/this-week" class="px-3 py-1.5 text-[14px] font-medium text-text-secondary hover:text-text hover:bg-bg-hover rounded-lg transition-all">This Week</a>
+          <a href="/issue/last-week" class="px-3 py-1.5 text-[14px] font-medium text-text-secondary hover:text-text hover:bg-bg-hover rounded-lg transition-all">Last Week</a>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer class="border-t border-border mt-20">
+      <div class="max-w-[1080px] mx-auto px-6 py-8 flex items-center justify-between text-[14px] text-text-tertiary">
+        <span>&copy; 2026 jas</span>
+        <div class="flex gap-5">
+          <a href="#" class="hover:text-text transition-colors">Twitter</a>
+          <a href="#" class="hover:text-text transition-colors">RSS</a>
+          <a href="#" class="hover:text-text transition-colors">GitHub</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

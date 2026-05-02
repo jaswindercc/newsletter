@@ -1,0 +1,140 @@
+---
+import Base from '../../layouts/Base.astro'
+import NewsSection from '../../components/NewsSection.astro'
+
+const meta = {
+  number: 42,
+  date: 'Apr 21 – Apr 27, 2026',
+  title: 'Last Week in Tech',
+}
+
+const sections = [
+  {
+    title: 'AI & Machine Learning',
+    icon: '🧠',
+    color: 'text-purple',
+    items: [
+      { title: 'Google Announces Gemini Ultra 2.0', summary: 'Processes video, audio, code, and text simultaneously in a single forward pass. 50% improvement in complex reasoning. Available via Vertex AI and Gemini Advanced.', impact: 'high' as const, time: '4 min' },
+      { title: 'Microsoft Integrates Phi-4 into Windows 12', summary: 'Ships with a 14B parameter model running locally via NPU. Powers smart file search, email summarization, and coding assistant in Terminal.', impact: 'high' as const, time: '4 min' },
+      { title: 'EU AI Act Enforcement Begins', summary: 'First penalties for non-compliance now in effect. High-risk AI systems must register with national authorities. Fines up to 7% of global revenue.', impact: 'high' as const, time: '5 min' },
+      { title: 'Hugging Face Open LLM Leaderboard v3', summary: 'Revamped with harder benchmarks. Many previously top-ranked models dropped significantly in rankings.', impact: 'medium' as const, time: '2 min' },
+      { title: 'Midjourney v7 — 4K Video Generation', summary: 'Enters the video space. Produces 10-second 4K clips with consistent characters and physics. Pro subscribers only.', impact: 'medium' as const, time: '3 min' },
+    ],
+  },
+  {
+    title: 'Developer Tools',
+    icon: '⚡',
+    color: 'text-green',
+    items: [
+      { title: 'COBOL Gets Official LSP from IBM', summary: 'Full Language Server Protocol implementation bringing autocomplete, go-to-definition, and inline diagnostics to VS Code. Targets 220B lines of COBOL still in production.', impact: 'high' as const, time: '4 min' },
+      { title: 'React 20 — Server Actions v2', summary: 'New useOptimistic hook, server action pipelines, built-in form validation, streaming error boundaries, 40% smaller client bundle.', impact: 'high' as const, time: '5 min' },
+      { title: 'Prettier 4.0 Rewrites in Rust — 100x Faster', summary: 'Formats 50,000 lines in 12ms. Full backward compatibility with Prettier 3 configs.', impact: 'medium' as const, time: '3 min' },
+      { title: 'Go 1.24 — Iterators and try() Builtin', summary: 'Range-over-func goes stable. New try() simplifies error handling without abandoning explicit returns.', impact: 'medium' as const, time: '3 min' },
+      { title: 'JetBrains Fleet 2.0 Open-Sourced', summary: 'MIT license. Native AI pair programming, remote SSH dev, sub-100ms startup for polyglot projects.', impact: 'medium' as const, time: '3 min' },
+    ],
+  },
+  {
+    title: 'Infrastructure & Databases',
+    icon: '☁️',
+    color: 'text-blue',
+    items: [
+      { title: 'PostgreSQL 18 — Native Sharding', summary: 'Biggest Postgres release in a decade. Native horizontal sharding, columnar storage, pg_incremental, 3x JSON query improvement.', impact: 'high' as const, time: '6 min' },
+      { title: 'HashiCorp Vault Acquired by IBM — $6.4B', summary: 'IBM buys HashiCorp for Vault secrets management. OpenTofu fork gains momentum as community questions IBM open-source commitment.', impact: 'high' as const, time: '4 min' },
+      { title: 'Docker Desktop Goes Free for All Teams', summary: 'Reverses 2022 pricing. Revenue shifts to Hub Pro storage and Scout security scanning.', impact: 'high' as const, time: '3 min' },
+      { title: 'Cloudflare D1 Goes GA', summary: 'Exits beta with 99.99% SLA, read replicas in 50+ regions, automatic PITR. 10GB free tier.', impact: 'medium' as const, time: '3 min' },
+    ],
+  },
+  {
+    title: 'Security',
+    icon: '🔒',
+    color: 'text-red',
+    items: [
+      { title: 'Apple M5 Side-Channel Vulnerability', summary: 'MIT researchers find microarchitectural flaw leaking crypto keys via power analysis. Apple patches with ~3% perf impact. No known exploits.', impact: 'high' as const, time: '4 min' },
+      { title: 'Passkeys Reach 2 Billion Accounts', summary: 'FIDO Alliance reports 2B+ accounts using passkeys. Google, Apple, Microsoft, Amazon account for 80% of adoption.', impact: 'medium' as const, time: '2 min' },
+      { title: 'Tor Project Merges with Tails OS', summary: 'Combined entity focused on unified privacy OS and fighting censorship in 40+ countries.', impact: 'medium' as const, time: '3 min' },
+    ],
+  },
+  {
+    title: 'Hardware & Chips',
+    icon: '🔬',
+    color: 'text-pink',
+    items: [
+      { title: 'Apple M5 Benchmarks Leak — 40% Over M4', summary: 'Geekbench 6: SC 4,200 / MC 24,800. TSMC 2nm with 40-TOPS NPU for on-device AI.', impact: 'high' as const, time: '3 min' },
+      { title: 'NVIDIA B200 Ships — H100 Prices Crater', summary: 'B200 shipping to hyperscalers. Used H100 prices dropped 60% in two months on secondary markets.', impact: 'high' as const, time: '3 min' },
+      { title: 'AMD EPYC Turin — 192 Cores', summary: '192 Zen 6 cores, 384 threads, 512MB L3. Cloud providers see 35% better price-performance.', impact: 'medium' as const, time: '3 min' },
+    ],
+  },
+  {
+    title: 'Startups & Business',
+    icon: '🚀',
+    color: 'text-orange',
+    items: [
+      { title: 'Figma Acquires Replit — $1.2B', summary: 'Multiplayer IDE integrates into Figma. Designers and developers collaborate in same workspace.', impact: 'high' as const, time: '4 min' },
+      { title: 'Arc Browser Shuts Down → Google Chrome', summary: 'Browser Company sunsets Arc. 45-person team joins Google Chrome AI features.', impact: 'high' as const, time: '3 min' },
+      { title: 'Notion IPO Filing — $800M ARR', summary: '55% YoY growth, 42% net income margins. 35M MAU across 100K+ teams.', impact: 'medium' as const, time: '3 min' },
+    ],
+  },
+]
+
+const totalStories = sections.reduce((a, s) => a + s.items.length, 0)
+---
+
+<Base title={`Issue #${meta.number} — ${meta.title} | jas`}>
+  <div class="max-w-[1080px] mx-auto px-6">
+    <!-- Breadcrumb -->
+    <div class="flex items-center justify-between py-4 border-b border-border">
+      <div class="flex items-center gap-2 text-[13px] text-text-tertiary">
+        <a href="/" class="hover:text-text transition-colors">Home</a>
+        <span>/</span>
+        <span class="text-text-secondary">Issue #{meta.number}</span>
+      </div>
+      <a href="/issue/this-week" class="text-[13px] text-text-secondary hover:text-blue transition-colors">
+        Latest Issue →
+      </a>
+    </div>
+
+    <!-- Header -->
+    <div class="pt-8 pb-6">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="inline-flex items-center px-2 py-0.5 text-[11px] font-mono font-medium text-text-tertiary bg-bg-card border border-border rounded">
+          ARCHIVED
+        </span>
+        <span class="text-[13px] font-mono text-text-tertiary">{meta.date}</span>
+      </div>
+      <h1 class="text-[36px] font-bold text-text leading-tight">{meta.title}</h1>
+      <p class="mt-2 text-[16px] text-text-secondary">
+        {totalStories} stories · {sections.length} categories · ~15 min total read
+      </p>
+
+      <!-- Category nav -->
+      <div class="mt-5 flex flex-wrap gap-2">
+        {sections.map((s) => (
+          <a
+            href={`#${s.title.toLowerCase().split(' ')[0]}`}
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 text-[13px] text-text-secondary bg-bg-card border border-border rounded-lg hover:bg-bg-hover hover:border-blue/30 transition-all"
+          >
+            <span>{s.icon}</span>
+            <span>{s.title}</span>
+            <span class="text-text-tertiary font-mono ml-1">{s.items.length}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <!-- Sections -->
+    {sections.map((section) => (
+      <NewsSection
+        title={section.title}
+        icon={section.icon}
+        color={section.color}
+        items={section.items}
+      />
+    ))}
+
+    <!-- Bottom nav -->
+    <div class="py-8 flex items-center justify-between text-[14px]">
+      <a href="/" class="text-text-secondary hover:text-text transition-colors">← Back to Home</a>
+      <a href="/issue/this-week" class="text-blue hover:text-blue-dark transition-colors">This Week's Issue →</a>
+    </div>
+  </div>
+</Base>
