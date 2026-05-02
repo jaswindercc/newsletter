@@ -1,0 +1,401 @@
+---
+import Base from '../../layouts/Base.astro'
+import NewsSection from '../../components/NewsSection.astro'
+
+const meta = {
+  number: 43,
+  date: 'Apr 28 – May 1, 2026',
+  title: 'This Week in Tech',
+}
+
+const sections = [
+  {
+    title: 'AI & Machine Learning',
+    icon: '🧠',
+    color: 'text-purple',
+    items: [
+      { title: 'OpenAI Ships GPT-5 Turbo with 1M Token Context Window', summary: 'The latest model supports up to 1 million tokens of context, enabling entire codebases to be analyzed in a single prompt. Pricing starts at $5/M input tokens — 60% cheaper than GPT-4 Turbo. Early benchmarks show 40% improvement on complex reasoning tasks.', impact: 'high' as const, time: '4 min' },
+      { title: 'Anthropic Releases Claude 4.5 with Native Computer Use', summary: 'Claude 4.5 can now operate desktop applications, navigate browsers, and execute multi-step workflows autonomously. The model scored 92% on SWE-bench, up from 79% in the previous version.', impact: 'high' as const, time: '3 min' },
+      { title: 'Meta Open-Sources Llama 4 — 400B Parameters', summary: 'Meta continues its open-source AI strategy with Llama 4, a 400B parameter model released under Apache 2.0. It matches GPT-4 on most benchmarks and runs efficiently on 4x H100 nodes.', impact: 'high' as const, time: '4 min' },
+      { title: 'Google DeepMind Solves Protein Folding for RNA', summary: 'AlphaFold 4 now predicts RNA structures with near-experimental accuracy. Pharmaceutical companies are already licensing the technology for drug discovery pipelines.', impact: 'medium' as const, time: '3 min' },
+      { title: 'Stability AI Pivots to Enterprise', summary: 'After months of financial trouble, Stability AI has shut down DreamStudio and all consumer offerings. The company is now exclusively focused on B2B API customers with a new $60M funding round.', impact: 'medium' as const, time: '2 min' },
+      { title: 'NVIDIA CUDA Gets Official WebGPU Backend', summary: 'ML models can now run CUDA-optimized kernels directly in the browser via WebGPU. Enables client-side inference for models up to 7B parameters without server costs.', impact: 'medium' as const, time: '3 min' },
+    ],
+  },
+  {
+    title: 'Developer Tools',
+    icon: '⚡',
+    color: 'text-green',
+    items: [
+      { title: 'Rust 1.84 Introduces Async Drop', summary: 'The most requested Rust feature finally lands. Async destructors allow cleanup of async resources (database connections, file handles, network sockets) without blocking the runtime. This unblocks dozens of ecosystem crates.', impact: 'high' as const, time: '5 min' },
+      { title: 'Deno Acquired by Cloudflare for $420M', summary: 'Cloudflare will integrate Deno runtime into Workers, bringing native TypeScript execution, npm compatibility, and the permission model to the edge. Ryan Dahl joins as VP of Runtime Engineering.', impact: 'high' as const, time: '4 min' },
+      { title: 'TypeScript 6.0 Released with Pattern Matching', summary: 'The long-awaited pattern matching RFC ships. Also includes improved inference for higher-kinded types, 30% faster type checking, and a new --isolatedModules default.', impact: 'high' as const, time: '4 min' },
+      { title: 'GitHub Copilot Workspace Goes GA', summary: 'Developers describe changes in natural language, and Workspace generates diffs, runs tests, and opens PRs autonomously. Now generally available to all GitHub users.', impact: 'medium' as const, time: '3 min' },
+      { title: 'Bun 1.5 Achieves Full Node.js Compatibility', summary: 'Bun now passes 99.8% of the Node.js test suite. Also ships native S3 and Postgres clients built into the runtime.', impact: 'medium' as const, time: '3 min' },
+    ],
+  },
+  {
+    title: 'Infrastructure & Cloud',
+    icon: '☁️',
+    color: 'text-blue',
+    items: [
+      { title: 'Linux 6.14 Merges Real-Time Scheduling by Default', summary: 'After 20 years of development, PREEMPT_RT is fully merged into mainline Linux. Enables deterministic scheduling for robotics, audio, and financial trading without custom kernels.', impact: 'high' as const, time: '5 min' },
+      { title: 'AWS Announces Graviton5 — 2x Performance per Watt', summary: 'The fifth-generation ARM chip delivers 2x performance improvement over Graviton4. Available in preview for EC2 M8g and C8g instances.', impact: 'high' as const, time: '3 min' },
+      { title: 'Kubernetes 1.33 — In-Place Pod Resizing GA', summary: 'Pods can now be resized without restart. Also graduates VPA recommendations and introduces native GPU time-slicing.', impact: 'medium' as const, time: '3 min' },
+      { title: 'OpenTofu 1.0 Stable Released', summary: 'The community fork has feature parity with Terraform 1.7, adds native state encryption, a testing framework, and OCI artifact support. 200+ companies migrated.', impact: 'medium' as const, time: '3 min' },
+      { title: 'Vercel Edge Middleware v3 — 10ms Cold Starts', summary: 'New V8 isolate pooling reduces cold starts to under 10ms globally. Streaming middleware responses and local-first caching primitives.', impact: 'low' as const, time: '2 min' },
+    ],
+  },
+  {
+    title: 'Security',
+    icon: '🔒',
+    color: 'text-red',
+    items: [
+      { title: 'npm Supply Chain Attack Affects 15,000 Packages', summary: 'A sophisticated attack compromised a maintainer token with publish access to 47 popular packages. Malicious code exfiltrated environment variables and CI secrets. npm rotated 2M+ tokens and introduced mandatory 2FA.', impact: 'high' as const, time: '6 min' },
+      { title: 'Critical Zero-Day in OpenSSH — Patch Now', summary: 'CVE-2026-1847 allows unauthenticated RCE on OpenSSH 9.2-9.8. Fix available in 9.8p2. CISA added to Known Exploited Vulnerabilities catalog.', impact: 'high' as const, time: '3 min' },
+      { title: 'Signal Protocol Gets Post-Quantum Upgrade', summary: 'Signal rolls out PQXDH to all users. Messages now protected against future quantum attacks using ML-KEM-1024.', impact: 'medium' as const, time: '3 min' },
+      { title: 'Chrome Removes Third-Party Cookies — 100%', summary: 'Google completed the rollout. Privacy Sandbox APIs are now the only way to do cross-site measurement in Chrome.', impact: 'medium' as const, time: '3 min' },
+    ],
+  },
+  {
+    title: 'Startups & Business',
+    icon: '🚀',
+    color: 'text-orange',
+    items: [
+      { title: 'Stripe Launches Full Banking-as-a-Service', summary: 'Stripe now offers complete banking infrastructure: checking accounts, wire transfers, FDIC-insured deposits. Any platform can become a neobank.', impact: 'high' as const, time: '4 min' },
+      { title: 'Databricks IPO — $58B Valuation', summary: 'Largest enterprise software IPO of 2026. $2.8B ARR at 45% YoY growth. Stock opened 22% above IPO price.', impact: 'high' as const, time: '3 min' },
+      { title: 'Linear Raises $150M Series C', summary: 'Expands into roadmapping, customer feedback, and analytics. Now serving 30,000 teams.', impact: 'medium' as const, time: '2 min' },
+    ],
+  },
+  {
+    title: 'Hardware & Chips',
+    icon: '🔬',
+    color: 'text-pink',
+    items: [
+      { title: 'TSMC 2nm Enters Mass Production', summary: 'First 2nm chips ship in Apple M6 and NVIDIA B300 GPUs later this year. 25% power reduction and 15% perf gain over 3nm.', impact: 'high' as const, time: '3 min' },
+      { title: 'Intel Panther Lake — Back in the Game?', summary: 'Geekbench scores show Panther Lake matching Apple M4 single-core, beating by 20% multi-core. 18A process delivers.', impact: 'medium' as const, time: '3 min' },
+      { title: 'Samsung 12-Layer HBM4 Memory Unveiled', summary: '2TB/s bandwidth per stack. NVIDIA and AMD secured initial supply for 2027 datacenter GPUs.', impact: 'medium' as const, time: '2 min' },
+    ],
+  },
+]
+
+const totalStories = sections.reduce((a, s) => a + s.items.length, 0)
+---
+
+<Base title={`Issue #${meta.number} — ${meta.title} | jas`}>
+  <div class="max-w-[1080px] mx-auto px-6">
+    <!-- Breadcrumb + Nav -->
+    <div class="flex items-center justify-between py-4 border-b border-border">
+      <div class="flex items-center gap-2 text-[13px] text-text-tertiary">
+        <a href="/" class="hover:text-text transition-colors">Home</a>
+        <span>/</span>
+        <span class="text-text-secondary">Issue #{meta.number}</span>
+      </div>
+      <a href="/issue/17-2026" class="text-[13px] text-text-secondary hover:text-blue transition-colors">
+        ← Previous Issue
+      </a>
+    </div>
+
+    <!-- Header -->
+    <div class="pt-8 pb-6">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 text-[11px] font-mono font-medium text-green bg-green/10 border border-green/20 rounded">
+          LIVE
+        </span>
+        <span class="text-[13px] font-mono text-text-tertiary">{meta.date}</span>
+      </div>
+      <h1 class="text-[36px] font-bold text-text leading-tight">{meta.title}</h1>
+      <p class="mt-2 text-[16px] text-text-secondary">
+        {totalStories} stories · {sections.length} categories · ~18 min total read
+      </p>
+
+      <!-- Category nav -->
+      <div class="mt-5 flex flex-wrap gap-2">
+        {sections.map((s) => (
+          <a
+            href={`#${s.title.toLowerCase().split(' ')[0]}`}
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 text-[13px] text-text-secondary bg-bg-card border border-border rounded-lg hover:bg-bg-hover hover:border-blue/30 transition-all"
+          >
+            <span>{s.icon}</span>
+            <span>{s.title}</span>
+            <span class="text-text-tertiary font-mono ml-1">{s.items.length}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <!-- All Sections -->
+    {sections.map((section) => (
+      <NewsSection
+        title={section.title}
+        icon={section.icon}
+        color={section.color}
+        items={section.items}
+      />
+    ))}
+
+    <!-- Interactive Widgets -->
+    <div class="mt-14 mb-10">
+      <h2 class="text-[22px] font-bold text-text mb-6 flex items-center gap-2">
+        <span>🧰</span> Interactive Tools
+      </h2>
+
+      <div class="grid md:grid-cols-2 gap-4">
+        <!-- Cloud Cost Estimator -->
+        <div class="p-5 rounded-xl bg-bg-card border border-border">
+          <h3 class="text-[15px] font-bold text-text mb-1 flex items-center gap-2">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-green"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            Cloud Cost Estimator
+          </h3>
+          <p class="text-[13px] text-text-tertiary mb-4">Estimate monthly cloud spend for your AI workload.</p>
+          <div class="space-y-3">
+            <div>
+              <label class="text-[12px] font-medium text-text-secondary block mb-1">GPU Type</label>
+              <select id="gpu-type" class="w-full px-3 py-2 text-[13px] bg-bg border border-border rounded-lg text-text focus:border-blue/50 focus:outline-none">
+                <option value="3.25">NVIDIA H100 ($3.25/hr)</option>
+                <option value="6.50">NVIDIA B200 ($6.50/hr)</option>
+                <option value="1.10">NVIDIA A100 ($1.10/hr)</option>
+                <option value="0.45">NVIDIA T4 ($0.45/hr)</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-[12px] font-medium text-text-secondary block mb-1">GPUs Needed</label>
+              <input type="range" id="gpu-count" min="1" max="64" value="4" class="w-full accent-green" />
+              <div class="flex justify-between text-[12px] text-text-tertiary"><span>1</span><span id="gpu-count-val">4</span><span>64</span></div>
+            </div>
+            <div>
+              <label class="text-[12px] font-medium text-text-secondary block mb-1">Hours/Day</label>
+              <input type="range" id="gpu-hours" min="1" max="24" value="8" class="w-full accent-green" />
+              <div class="flex justify-between text-[12px] text-text-tertiary"><span>1</span><span id="gpu-hours-val">8</span><span>24</span></div>
+            </div>
+            <div class="pt-3 border-t border-border">
+              <div class="text-[13px] text-text-tertiary">Estimated Monthly Cost</div>
+              <div id="cloud-cost" class="text-[28px] font-bold text-green">$3,120</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tech Debt Calculator -->
+        <div class="p-5 rounded-xl bg-bg-card border border-border">
+          <h3 class="text-[15px] font-bold text-text mb-1 flex items-center gap-2">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-orange"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            Tech Debt Calculator
+          </h3>
+          <p class="text-[13px] text-text-tertiary mb-4">Estimate the hidden cost of your technical debt.</p>
+          <div class="space-y-3">
+            <div>
+              <label class="text-[12px] font-medium text-text-secondary block mb-1">Team Size (engineers)</label>
+              <input type="range" id="team-size" min="2" max="50" value="8" class="w-full accent-orange" />
+              <div class="flex justify-between text-[12px] text-text-tertiary"><span>2</span><span id="team-size-val">8</span><span>50</span></div>
+            </div>
+            <div>
+              <label class="text-[12px] font-medium text-text-secondary block mb-1">% Time on Debt (maintenance, workarounds)</label>
+              <input type="range" id="debt-pct" min="5" max="60" value="25" class="w-full accent-orange" />
+              <div class="flex justify-between text-[12px] text-text-tertiary"><span>5%</span><span id="debt-pct-val">25%</span><span>60%</span></div>
+            </div>
+            <div>
+              <label class="text-[12px] font-medium text-text-secondary block mb-1">Avg. Engineer Salary ($K/year)</label>
+              <input type="range" id="eng-salary" min="80" max="300" value="160" step="10" class="w-full accent-orange" />
+              <div class="flex justify-between text-[12px] text-text-tertiary"><span>$80K</span><span id="eng-salary-val">$160K</span><span>$300K</span></div>
+            </div>
+            <div class="pt-3 border-t border-border">
+              <div class="text-[13px] text-text-tertiary">Annual Cost of Tech Debt</div>
+              <div id="debt-cost" class="text-[28px] font-bold text-orange">$320,000</div>
+              <div class="text-[12px] text-text-tertiary mt-1">That's <span id="debt-days" class="font-bold text-red">730</span> engineer-days/year lost</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Build Time Impact -->
+        <div class="p-5 rounded-xl bg-bg-card border border-border">
+          <h3 class="text-[15px] font-bold text-text mb-1 flex items-center gap-2">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-blue"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            CI/CD Time Calculator
+          </h3>
+          <p class="text-[13px] text-text-tertiary mb-4">How much time your team wastes waiting for builds.</p>
+          <div class="space-y-3">
+            <div>
+              <label class="text-[12px] font-medium text-text-secondary block mb-1">Avg Build Time (minutes)</label>
+              <input type="range" id="build-time" min="1" max="30" value="8" class="w-full accent-blue" />
+              <div class="flex justify-between text-[12px] text-text-tertiary"><span>1m</span><span id="build-time-val">8m</span><span>30m</span></div>
+            </div>
+            <div>
+              <label class="text-[12px] font-medium text-text-secondary block mb-1">Builds per Dev per Day</label>
+              <input type="range" id="builds-day" min="2" max="30" value="10" class="w-full accent-blue" />
+              <div class="flex justify-between text-[12px] text-text-tertiary"><span>2</span><span id="builds-day-val">10</span><span>30</span></div>
+            </div>
+            <div>
+              <label class="text-[12px] font-medium text-text-secondary block mb-1">Team Size</label>
+              <input type="range" id="build-team" min="2" max="50" value="6" class="w-full accent-blue" />
+              <div class="flex justify-between text-[12px] text-text-tertiary"><span>2</span><span id="build-team-val">6</span><span>50</span></div>
+            </div>
+            <div class="pt-3 border-t border-border">
+              <div class="text-[13px] text-text-tertiary">Hours Lost Weekly (team-wide)</div>
+              <div id="build-lost" class="text-[28px] font-bold text-blue">40 hrs</div>
+              <div class="text-[12px] text-text-tertiary mt-1">≈ <span id="build-fte" class="font-bold text-red">1.0</span> full-time engineer just waiting</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI Model Comparison -->
+        <div class="p-5 rounded-xl bg-bg-card border border-border">
+          <h3 class="text-[15px] font-bold text-text mb-1 flex items-center gap-2">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-purple"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="7.5 4.21 12 6.81 16.5 4.21"/><polyline points="7.5 19.79 7.5 14.6 3 12"/><polyline points="21 12 16.5 14.6 16.5 19.79"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+            AI API Cost Comparison
+          </h3>
+          <p class="text-[13px] text-text-tertiary mb-4">Compare costs for 1M tokens across providers.</p>
+          <div class="space-y-2">
+            <div class="flex items-center gap-2 p-2 rounded-lg bg-bg-hover">
+              <span class="w-2 h-2 rounded-full bg-purple"></span>
+              <span class="text-[13px] text-text flex-1">GPT-5 Turbo</span>
+              <span class="text-[13px] font-mono text-text-secondary">$5.00 / $15.00</span>
+            </div>
+            <div class="flex items-center gap-2 p-2 rounded-lg bg-bg-hover">
+              <span class="w-2 h-2 rounded-full bg-orange"></span>
+              <span class="text-[13px] text-text flex-1">Claude Opus 4</span>
+              <span class="text-[13px] font-mono text-text-secondary">$15.00 / $75.00</span>
+            </div>
+            <div class="flex items-center gap-2 p-2 rounded-lg bg-bg-hover">
+              <span class="w-2 h-2 rounded-full bg-blue"></span>
+              <span class="text-[13px] text-text flex-1">Gemini Ultra 2.0</span>
+              <span class="text-[13px] font-mono text-text-secondary">$7.00 / $21.00</span>
+            </div>
+            <div class="flex items-center gap-2 p-2 rounded-lg bg-bg-hover">
+              <span class="w-2 h-2 rounded-full bg-green"></span>
+              <span class="text-[13px] text-text flex-1">Llama 4 (self-hosted)</span>
+              <span class="text-[13px] font-mono text-text-secondary">~$0.80 / ~$0.80</span>
+            </div>
+            <div class="flex items-center gap-2 p-2 rounded-lg bg-bg-hover">
+              <span class="w-2 h-2 rounded-full bg-cyan"></span>
+              <span class="text-[13px] text-text flex-1">Claude Sonnet 4</span>
+              <span class="text-[13px] font-mono text-text-secondary">$3.00 / $15.00</span>
+            </div>
+            <div class="pt-3 border-t border-border mt-3">
+              <label class="text-[12px] font-medium text-text-secondary block mb-1">Your Monthly Token Usage (Millions)</label>
+              <input type="range" id="token-usage" min="1" max="100" value="10" class="w-full accent-purple" />
+              <div class="flex justify-between text-[12px] text-text-tertiary"><span>1M</span><span id="token-usage-val">10M</span><span>100M</span></div>
+              <div class="mt-2 text-[13px] text-text-tertiary">Cheapest option: <span id="cheapest-model" class="font-bold text-green">Llama 4 (self-hosted)</span> at <span id="cheapest-cost" class="font-bold text-green">$16/mo</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Widget JavaScript -->
+    <script>
+      // Cloud Cost Estimator
+      const gpuType = document.getElementById('gpu-type') as HTMLSelectElement
+      const gpuCount = document.getElementById('gpu-count') as HTMLInputElement
+      const gpuHours = document.getElementById('gpu-hours') as HTMLInputElement
+      const gpuCountVal = document.getElementById('gpu-count-val')!
+      const gpuHoursVal = document.getElementById('gpu-hours-val')!
+      const cloudCost = document.getElementById('cloud-cost')!
+
+      function calcCloud() {
+        const rate = parseFloat(gpuType.value)
+        const count = parseInt(gpuCount.value)
+        const hours = parseInt(gpuHours.value)
+        gpuCountVal.textContent = String(count)
+        gpuHoursVal.textContent = String(hours)
+        const monthly = rate * count * hours * 30
+        cloudCost.textContent = '$' + monthly.toLocaleString(undefined, { maximumFractionDigits: 0 })
+      }
+      gpuType.addEventListener('change', calcCloud)
+      gpuCount.addEventListener('input', calcCloud)
+      gpuHours.addEventListener('input', calcCloud)
+      calcCloud()
+
+      // Tech Debt Calculator
+      const teamSize = document.getElementById('team-size') as HTMLInputElement
+      const debtPct = document.getElementById('debt-pct') as HTMLInputElement
+      const engSalary = document.getElementById('eng-salary') as HTMLInputElement
+      const teamSizeVal = document.getElementById('team-size-val')!
+      const debtPctVal = document.getElementById('debt-pct-val')!
+      const engSalaryVal = document.getElementById('eng-salary-val')!
+      const debtCost = document.getElementById('debt-cost')!
+      const debtDays = document.getElementById('debt-days')!
+
+      function calcDebt() {
+        const team = parseInt(teamSize.value)
+        const pct = parseInt(debtPct.value)
+        const salary = parseInt(engSalary.value) * 1000
+        teamSizeVal.textContent = String(team)
+        debtPctVal.textContent = pct + '%'
+        engSalaryVal.textContent = '$' + engSalary.value + 'K'
+        const annual = team * (pct / 100) * salary
+        const days = Math.round(team * (pct / 100) * 260)
+        debtCost.textContent = '$' + annual.toLocaleString(undefined, { maximumFractionDigits: 0 })
+        debtDays.textContent = days.toLocaleString()
+      }
+      teamSize.addEventListener('input', calcDebt)
+      debtPct.addEventListener('input', calcDebt)
+      engSalary.addEventListener('input', calcDebt)
+      calcDebt()
+
+      // CI/CD Time Calculator
+      const buildTime = document.getElementById('build-time') as HTMLInputElement
+      const buildsDay = document.getElementById('builds-day') as HTMLInputElement
+      const buildTeam = document.getElementById('build-team') as HTMLInputElement
+      const buildTimeVal = document.getElementById('build-time-val')!
+      const buildsDayVal = document.getElementById('builds-day-val')!
+      const buildTeamVal = document.getElementById('build-team-val')!
+      const buildLost = document.getElementById('build-lost')!
+      const buildFte = document.getElementById('build-fte')!
+
+      function calcBuild() {
+        const time = parseInt(buildTime.value)
+        const builds = parseInt(buildsDay.value)
+        const team = parseInt(buildTeam.value)
+        buildTimeVal.textContent = time + 'm'
+        buildsDayVal.textContent = String(builds)
+        buildTeamVal.textContent = String(team)
+        const weeklyHrs = (time * builds * team * 5) / 60
+        buildLost.textContent = Math.round(weeklyHrs) + ' hrs'
+        buildFte.textContent = (weeklyHrs / 40).toFixed(1)
+      }
+      buildTime.addEventListener('input', calcBuild)
+      buildsDay.addEventListener('input', calcBuild)
+      buildTeam.addEventListener('input', calcBuild)
+      calcBuild()
+
+      // AI API Cost Comparison
+      const tokenUsage = document.getElementById('token-usage') as HTMLInputElement
+      const tokenUsageVal = document.getElementById('token-usage-val')!
+      const cheapestModel = document.getElementById('cheapest-model')!
+      const cheapestCost = document.getElementById('cheapest-cost')!
+
+      const models = [
+        { name: 'GPT-5 Turbo', input: 5, output: 15 },
+        { name: 'Claude Opus 4', input: 15, output: 75 },
+        { name: 'Gemini Ultra 2.0', input: 7, output: 21 },
+        { name: 'Llama 4 (self-hosted)', input: 0.8, output: 0.8 },
+        { name: 'Claude Sonnet 4', input: 3, output: 15 },
+      ]
+
+      function calcTokens() {
+        const usage = parseInt(tokenUsage.value)
+        tokenUsageVal.textContent = usage + 'M'
+        // Assume 70% input, 30% output ratio
+        let cheapest = Infinity
+        let cheapName = ''
+        for (const m of models) {
+          const cost = (usage * 0.7 * m.input) + (usage * 0.3 * m.output)
+          if (cost < cheapest) {
+            cheapest = cost
+            cheapName = m.name
+          }
+        }
+        cheapestModel.textContent = cheapName
+        cheapestCost.textContent = '$' + Math.round(cheapest).toLocaleString() + '/mo'
+      }
+      tokenUsage.addEventListener('input', calcTokens)
+      calcTokens()
+    </script>
+
+    <!-- Bottom nav -->
+    <div class="py-8 flex items-center justify-between text-[14px]">
+      <a href="/" class="text-text-secondary hover:text-text transition-colors">← Back to Home</a>
+      <a href="/issue/17-2026" class="text-blue hover:text-blue-dark transition-colors">Previous Issue →</a>
+    </div>
+  </div>
+</Base>

@@ -1,0 +1,386 @@
+---
+import Base from '../../layouts/Base.astro'
+import NewsSection from '../../components/NewsSection.astro'
+
+const meta = {
+  number: 42,
+  date: 'Apr 21 – Apr 27, 2026',
+  title: 'Last Week in Tech',
+}
+
+const sections = [
+  {
+    title: 'AI & Machine Learning',
+    icon: '🧠',
+    color: 'text-purple',
+    items: [
+      { title: 'Google Announces Gemini Ultra 2.0', summary: 'Processes video, audio, code, and text simultaneously in a single forward pass. 50% improvement in complex reasoning. Available via Vertex AI and Gemini Advanced.', impact: 'high' as const, time: '4 min' },
+      { title: 'Microsoft Integrates Phi-4 into Windows 12', summary: 'Ships with a 14B parameter model running locally via NPU. Powers smart file search, email summarization, and coding assistant in Terminal.', impact: 'high' as const, time: '4 min' },
+      { title: 'EU AI Act Enforcement Begins', summary: 'First penalties for non-compliance now in effect. High-risk AI systems must register with national authorities. Fines up to 7% of global revenue.', impact: 'high' as const, time: '5 min' },
+      { title: 'Hugging Face Open LLM Leaderboard v3', summary: 'Revamped with harder benchmarks. Many previously top-ranked models dropped significantly in rankings.', impact: 'medium' as const, time: '2 min' },
+      { title: 'Midjourney v7 — 4K Video Generation', summary: 'Enters the video space. Produces 10-second 4K clips with consistent characters and physics. Pro subscribers only.', impact: 'medium' as const, time: '3 min' },
+    ],
+  },
+  {
+    title: 'Developer Tools',
+    icon: '⚡',
+    color: 'text-green',
+    items: [
+      { title: 'COBOL Gets Official LSP from IBM', summary: 'Full Language Server Protocol implementation bringing autocomplete, go-to-definition, and inline diagnostics to VS Code. Targets 220B lines of COBOL still in production.', impact: 'high' as const, time: '4 min' },
+      { title: 'React 20 — Server Actions v2', summary: 'New useOptimistic hook, server action pipelines, built-in form validation, streaming error boundaries, 40% smaller client bundle.', impact: 'high' as const, time: '5 min' },
+      { title: 'Prettier 4.0 Rewrites in Rust — 100x Faster', summary: 'Formats 50,000 lines in 12ms. Full backward compatibility with Prettier 3 configs.', impact: 'medium' as const, time: '3 min' },
+      { title: 'Go 1.24 — Iterators and try() Builtin', summary: 'Range-over-func goes stable. New try() simplifies error handling without abandoning explicit returns.', impact: 'medium' as const, time: '3 min' },
+      { title: 'JetBrains Fleet 2.0 Open-Sourced', summary: 'MIT license. Native AI pair programming, remote SSH dev, sub-100ms startup for polyglot projects.', impact: 'medium' as const, time: '3 min' },
+    ],
+  },
+  {
+    title: 'Infrastructure & Databases',
+    icon: '☁️',
+    color: 'text-blue',
+    items: [
+      { title: 'PostgreSQL 18 — Native Sharding', summary: 'Biggest Postgres release in a decade. Native horizontal sharding, columnar storage, pg_incremental, 3x JSON query improvement.', impact: 'high' as const, time: '6 min' },
+      { title: 'HashiCorp Vault Acquired by IBM — $6.4B', summary: 'IBM buys HashiCorp for Vault secrets management. OpenTofu fork gains momentum as community questions IBM open-source commitment.', impact: 'high' as const, time: '4 min' },
+      { title: 'Docker Desktop Goes Free for All Teams', summary: 'Reverses 2022 pricing. Revenue shifts to Hub Pro storage and Scout security scanning.', impact: 'high' as const, time: '3 min' },
+      { title: 'Cloudflare D1 Goes GA', summary: 'Exits beta with 99.99% SLA, read replicas in 50+ regions, automatic PITR. 10GB free tier.', impact: 'medium' as const, time: '3 min' },
+    ],
+  },
+  {
+    title: 'Security',
+    icon: '🔒',
+    color: 'text-red',
+    items: [
+      { title: 'Apple M5 Side-Channel Vulnerability', summary: 'MIT researchers find microarchitectural flaw leaking crypto keys via power analysis. Apple patches with ~3% perf impact. No known exploits.', impact: 'high' as const, time: '4 min' },
+      { title: 'Passkeys Reach 2 Billion Accounts', summary: 'FIDO Alliance reports 2B+ accounts using passkeys. Google, Apple, Microsoft, Amazon account for 80% of adoption.', impact: 'medium' as const, time: '2 min' },
+      { title: 'Tor Project Merges with Tails OS', summary: 'Combined entity focused on unified privacy OS and fighting censorship in 40+ countries.', impact: 'medium' as const, time: '3 min' },
+    ],
+  },
+  {
+    title: 'Hardware & Chips',
+    icon: '🔬',
+    color: 'text-pink',
+    items: [
+      { title: 'Apple M5 Benchmarks Leak — 40% Over M4', summary: 'Geekbench 6: SC 4,200 / MC 24,800. TSMC 2nm with 40-TOPS NPU for on-device AI.', impact: 'high' as const, time: '3 min' },
+      { title: 'NVIDIA B200 Ships — H100 Prices Crater', summary: 'B200 shipping to hyperscalers. Used H100 prices dropped 60% in two months on secondary markets.', impact: 'high' as const, time: '3 min' },
+      { title: 'AMD EPYC Turin — 192 Cores', summary: '192 Zen 6 cores, 384 threads, 512MB L3. Cloud providers see 35% better price-performance.', impact: 'medium' as const, time: '3 min' },
+    ],
+  },
+  {
+    title: 'Startups & Business',
+    icon: '🚀',
+    color: 'text-orange',
+    items: [
+      { title: 'Figma Acquires Replit — $1.2B', summary: 'Multiplayer IDE integrates into Figma. Designers and developers collaborate in same workspace.', impact: 'high' as const, time: '4 min' },
+      { title: 'Arc Browser Shuts Down → Google Chrome', summary: 'Browser Company sunsets Arc. 45-person team joins Google Chrome AI features.', impact: 'high' as const, time: '3 min' },
+      { title: 'Notion IPO Filing — $800M ARR', summary: '55% YoY growth, 42% net income margins. 35M MAU across 100K+ teams.', impact: 'medium' as const, time: '3 min' },
+    ],
+  },
+]
+
+const totalStories = sections.reduce((a, s) => a + s.items.length, 0)
+---
+
+<Base title={`Issue #${meta.number} — ${meta.title} | jas`}>
+  <div class="max-w-[1080px] mx-auto px-6">
+    <!-- Breadcrumb -->
+    <div class="flex items-center justify-between py-4 border-b border-border">
+      <div class="flex items-center gap-2 text-[13px] text-text-tertiary">
+        <a href="/" class="hover:text-text transition-colors">Home</a>
+        <span>/</span>
+        <span class="text-text-secondary">Issue #{meta.number}</span>
+      </div>
+      <a href="/issue/18-2026" class="text-[13px] text-text-secondary hover:text-blue transition-colors">
+        Latest Issue →
+      </a>
+    </div>
+
+    <!-- Header -->
+    <div class="pt-8 pb-6">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="inline-flex items-center px-2 py-0.5 text-[11px] font-mono font-medium text-text-tertiary bg-bg-card border border-border rounded">
+          ARCHIVED
+        </span>
+        <span class="text-[13px] font-mono text-text-tertiary">{meta.date}</span>
+      </div>
+      <h1 class="text-[36px] font-bold text-text leading-tight">{meta.title}</h1>
+      <p class="mt-2 text-[16px] text-text-secondary">
+        {totalStories} stories · {sections.length} categories · ~15 min total read
+      </p>
+
+      <!-- Category nav -->
+      <div class="mt-5 flex flex-wrap gap-2">
+        {sections.map((s) => (
+          <a
+            href={`#${s.title.toLowerCase().split(' ')[0]}`}
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 text-[13px] text-text-secondary bg-bg-card border border-border rounded-lg hover:bg-bg-hover hover:border-blue/30 transition-all"
+          >
+            <span>{s.icon}</span>
+            <span>{s.title}</span>
+            <span class="text-text-tertiary font-mono ml-1">{s.items.length}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <!-- Sections -->
+    {sections.map((section) => (
+      <NewsSection
+        title={section.title}
+        icon={section.icon}
+        color={section.color}
+        items={section.items}
+      />
+    ))}
+
+    <!-- Interactive Widgets -->
+    <div class="mt-14 mb-10">
+      <h2 class="text-[22px] font-bold text-text mb-6 flex items-center gap-2">
+        <span>🧰</span> Interactive Tools
+      </h2>
+
+      <div class="grid md:grid-cols-2 gap-4">
+        <!-- Uptime Calculator -->
+        <div class="p-5 rounded-xl bg-bg-card border border-border">
+          <h3 class="text-[15px] font-bold text-text mb-1 flex items-center gap-2">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-green"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            SLA Downtime Calculator
+          </h3>
+          <p class="text-[13px] text-text-tertiary mb-4">How much downtime your SLA actually allows.</p>
+          <div class="space-y-3">
+            <div>
+              <label class="text-[12px] font-medium text-text-secondary block mb-1">Target Uptime (%)</label>
+              <select id="sla-target" class="w-full px-3 py-2 text-[13px] bg-bg border border-border rounded-lg text-text focus:border-blue/50 focus:outline-none">
+                <option value="99">99% (two nines)</option>
+                <option value="99.9" selected>99.9% (three nines)</option>
+                <option value="99.95">99.95%</option>
+                <option value="99.99">99.99% (four nines)</option>
+                <option value="99.999">99.999% (five nines)</option>
+              </select>
+            </div>
+            <div class="pt-3 border-t border-border space-y-2">
+              <div class="flex justify-between text-[13px]">
+                <span class="text-text-tertiary">Daily downtime allowed</span>
+                <span id="sla-daily" class="font-mono font-bold text-green">1m 26s</span>
+              </div>
+              <div class="flex justify-between text-[13px]">
+                <span class="text-text-tertiary">Weekly</span>
+                <span id="sla-weekly" class="font-mono font-bold text-green">10m 5s</span>
+              </div>
+              <div class="flex justify-between text-[13px]">
+                <span class="text-text-tertiary">Monthly</span>
+                <span id="sla-monthly" class="font-mono font-bold text-green">43m 50s</span>
+              </div>
+              <div class="flex justify-between text-[13px]">
+                <span class="text-text-tertiary">Yearly</span>
+                <span id="sla-yearly" class="font-mono font-bold text-green">8h 46m</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bandwidth Cost Estimator -->
+        <div class="p-5 rounded-xl bg-bg-card border border-border">
+          <h3 class="text-[15px] font-bold text-text mb-1 flex items-center gap-2">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-cyan"><path d="M2 12h20M2 12l4-4m-4 4 4 4M22 12l-4-4m4 4-4 4"/></svg>
+            Bandwidth Cost Estimator
+          </h3>
+          <p class="text-[13px] text-text-tertiary mb-4">Calculate data transfer costs across providers.</p>
+          <div class="space-y-3">
+            <div>
+              <label class="text-[12px] font-medium text-text-secondary block mb-1">Monthly Data Out (TB)</label>
+              <input type="range" id="bw-tb" min="1" max="100" value="10" class="w-full accent-cyan" />
+              <div class="flex justify-between text-[12px] text-text-tertiary"><span>1 TB</span><span id="bw-tb-val">10 TB</span><span>100 TB</span></div>
+            </div>
+            <div class="pt-3 border-t border-border space-y-2">
+              <div class="flex justify-between text-[13px]">
+                <span class="text-text-secondary">AWS</span>
+                <span id="bw-aws" class="font-mono text-text">$870</span>
+              </div>
+              <div class="flex justify-between text-[13px]">
+                <span class="text-text-secondary">GCP</span>
+                <span id="bw-gcp" class="font-mono text-text">$850</span>
+              </div>
+              <div class="flex justify-between text-[13px]">
+                <span class="text-text-secondary">Azure</span>
+                <span id="bw-azure" class="font-mono text-text">$870</span>
+              </div>
+              <div class="flex justify-between text-[13px]">
+                <span class="text-text-secondary">Cloudflare</span>
+                <span id="bw-cf" class="font-mono font-bold text-green">$0 (free)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Meeting Cost Calculator -->
+        <div class="p-5 rounded-xl bg-bg-card border border-border">
+          <h3 class="text-[15px] font-bold text-text mb-1 flex items-center gap-2">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-red"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Meeting Cost Calculator
+          </h3>
+          <p class="text-[13px] text-text-tertiary mb-4">What that "quick sync" really costs your company.</p>
+          <div class="space-y-3">
+            <div>
+              <label class="text-[12px] font-medium text-text-secondary block mb-1">Attendees</label>
+              <input type="range" id="mtg-people" min="2" max="20" value="6" class="w-full accent-red" />
+              <div class="flex justify-between text-[12px] text-text-tertiary"><span>2</span><span id="mtg-people-val">6</span><span>20</span></div>
+            </div>
+            <div>
+              <label class="text-[12px] font-medium text-text-secondary block mb-1">Duration (minutes)</label>
+              <input type="range" id="mtg-mins" min="15" max="120" value="30" step="15" class="w-full accent-red" />
+              <div class="flex justify-between text-[12px] text-text-tertiary"><span>15m</span><span id="mtg-mins-val">30m</span><span>120m</span></div>
+            </div>
+            <div>
+              <label class="text-[12px] font-medium text-text-secondary block mb-1">Avg Hourly Cost ($)</label>
+              <input type="range" id="mtg-rate" min="50" max="250" value="95" step="5" class="w-full accent-red" />
+              <div class="flex justify-between text-[12px] text-text-tertiary"><span>$50</span><span id="mtg-rate-val">$95</span><span>$250</span></div>
+            </div>
+            <div class="pt-3 border-t border-border">
+              <div class="text-[13px] text-text-tertiary">This meeting costs</div>
+              <div id="mtg-cost" class="text-[28px] font-bold text-red">$285</div>
+              <div class="text-[12px] text-text-tertiary mt-1">Weekly recurring? <span id="mtg-yearly" class="font-bold text-red">$14,820</span>/year</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Database Query Speed -->
+        <div class="p-5 rounded-xl bg-bg-card border border-border">
+          <h3 class="text-[15px] font-bold text-text mb-1 flex items-center gap-2">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-blue"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+            DB Latency vs Rows
+          </h3>
+          <p class="text-[13px] text-text-tertiary mb-4">Rough query time by table size (no index vs indexed).</p>
+          <div class="space-y-3">
+            <div>
+              <label class="text-[12px] font-medium text-text-secondary block mb-1">Table Rows</label>
+              <select id="db-rows" class="w-full px-3 py-2 text-[13px] bg-bg border border-border rounded-lg text-text focus:border-blue/50 focus:outline-none">
+                <option value="10000">10K rows</option>
+                <option value="100000">100K rows</option>
+                <option value="1000000" selected>1M rows</option>
+                <option value="10000000">10M rows</option>
+                <option value="100000000">100M rows</option>
+                <option value="1000000000">1B rows</option>
+              </select>
+            </div>
+            <div class="pt-3 border-t border-border space-y-2">
+              <div class="flex justify-between text-[13px]">
+                <span class="text-text-secondary">Full scan (no index)</span>
+                <span id="db-scan" class="font-mono font-bold text-red">~850ms</span>
+              </div>
+              <div class="flex justify-between text-[13px]">
+                <span class="text-text-secondary">B-tree indexed</span>
+                <span id="db-btree" class="font-mono font-bold text-green">~0.3ms</span>
+              </div>
+              <div class="flex justify-between text-[13px]">
+                <span class="text-text-secondary">Hash index (exact)</span>
+                <span id="db-hash" class="font-mono font-bold text-green">~0.1ms</span>
+              </div>
+              <div class="flex justify-between text-[13px]">
+                <span class="text-text-secondary">Speedup factor</span>
+                <span id="db-speedup" class="font-mono font-bold text-purple">~2,833x</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Widget JavaScript -->
+    <script>
+      // SLA Calculator
+      const slaTarget = document.getElementById('sla-target') as HTMLSelectElement
+      const slaDaily = document.getElementById('sla-daily')!
+      const slaWeekly = document.getElementById('sla-weekly')!
+      const slaMonthly = document.getElementById('sla-monthly')!
+      const slaYearly = document.getElementById('sla-yearly')!
+
+      function formatDuration(seconds: number): string {
+        if (seconds < 60) return Math.round(seconds) + 's'
+        if (seconds < 3600) return Math.floor(seconds / 60) + 'm ' + Math.round(seconds % 60) + 's'
+        return Math.floor(seconds / 3600) + 'h ' + Math.round((seconds % 3600) / 60) + 'm'
+      }
+
+      function calcSla() {
+        const pct = parseFloat(slaTarget.value)
+        const downPct = (100 - pct) / 100
+        slaDaily.textContent = formatDuration(86400 * downPct)
+        slaWeekly.textContent = formatDuration(604800 * downPct)
+        slaMonthly.textContent = formatDuration(2592000 * downPct)
+        slaYearly.textContent = formatDuration(31536000 * downPct)
+      }
+      slaTarget.addEventListener('change', calcSla)
+      calcSla()
+
+      // Bandwidth Estimator
+      const bwTb = document.getElementById('bw-tb') as HTMLInputElement
+      const bwTbVal = document.getElementById('bw-tb-val')!
+      const bwAws = document.getElementById('bw-aws')!
+      const bwGcp = document.getElementById('bw-gcp')!
+      const bwAzure = document.getElementById('bw-azure')!
+
+      function calcBw() {
+        const tb = parseInt(bwTb.value)
+        bwTbVal.textContent = tb + ' TB'
+        bwAws.textContent = '$' + Math.round(tb * 1024 * 0.085).toLocaleString()
+        bwGcp.textContent = '$' + Math.round(tb * 1024 * 0.08).toLocaleString()
+        bwAzure.textContent = '$' + Math.round(tb * 1024 * 0.087).toLocaleString()
+      }
+      bwTb.addEventListener('input', calcBw)
+      calcBw()
+
+      // Meeting Cost Calculator
+      const mtgPeople = document.getElementById('mtg-people') as HTMLInputElement
+      const mtgMins = document.getElementById('mtg-mins') as HTMLInputElement
+      const mtgRate = document.getElementById('mtg-rate') as HTMLInputElement
+      const mtgPeopleVal = document.getElementById('mtg-people-val')!
+      const mtgMinsVal = document.getElementById('mtg-mins-val')!
+      const mtgRateVal = document.getElementById('mtg-rate-val')!
+      const mtgCost = document.getElementById('mtg-cost')!
+      const mtgYearly = document.getElementById('mtg-yearly')!
+
+      function calcMtg() {
+        const people = parseInt(mtgPeople.value)
+        const mins = parseInt(mtgMins.value)
+        const rate = parseInt(mtgRate.value)
+        mtgPeopleVal.textContent = String(people)
+        mtgMinsVal.textContent = mins + 'm'
+        mtgRateVal.textContent = '$' + rate
+        const cost = people * (mins / 60) * rate
+        mtgCost.textContent = '$' + Math.round(cost).toLocaleString()
+        mtgYearly.textContent = '$' + Math.round(cost * 52).toLocaleString()
+      }
+      mtgPeople.addEventListener('input', calcMtg)
+      mtgMins.addEventListener('input', calcMtg)
+      mtgRate.addEventListener('input', calcMtg)
+      calcMtg()
+
+      // DB Latency Calculator
+      const dbRows = document.getElementById('db-rows') as HTMLSelectElement
+      const dbScan = document.getElementById('db-scan')!
+      const dbBtree = document.getElementById('db-btree')!
+      const dbHash = document.getElementById('db-hash')!
+      const dbSpeedup = document.getElementById('db-speedup')!
+
+      function calcDb() {
+        const rows = parseInt(dbRows.value)
+        // Rough estimates: full scan ~O(n), btree ~O(log n), hash ~O(1)
+        const scanMs = rows * 0.00085 // ~850ms for 1M rows
+        const btreeMs = Math.log2(rows) * 0.015 // ~0.3ms for 1M
+        const hashMs = 0.1 // constant
+        const speedup = Math.round(scanMs / btreeMs)
+
+        dbScan.textContent = scanMs >= 1000 ? '~' + (scanMs / 1000).toFixed(1) + 's' : '~' + Math.round(scanMs) + 'ms'
+        dbBtree.textContent = '~' + btreeMs.toFixed(1) + 'ms'
+        dbHash.textContent = '~' + hashMs + 'ms'
+        dbSpeedup.textContent = '~' + speedup.toLocaleString() + 'x'
+      }
+      dbRows.addEventListener('change', calcDb)
+      calcDb()
+    </script>
+
+    <!-- Bottom nav -->
+    <div class="py-8 flex items-center justify-between text-[14px]">
+      <a href="/" class="text-text-secondary hover:text-text transition-colors">← Back to Home</a>
+      <a href="/issue/18-2026" class="text-blue hover:text-blue-dark transition-colors">Latest Issue →</a>
+    </div>
+  </div>
+</Base>
