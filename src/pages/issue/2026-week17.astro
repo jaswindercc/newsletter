@@ -1,0 +1,452 @@
+---
+import Base from '../../layouts/Base.astro'
+import NewsSection from '../../components/NewsSection.astro'
+
+const meta = {
+  number: 42,
+  date: 'Apr 21 – Apr 27, 2026',
+  title: 'Week 17, 2026',
+}
+
+// ⚠️ ALL DATA BELOW MUST BE VERIFIED WITH EXACT SOURCE URLS BEFORE PUBLISHING
+// Replace placeholder entries with real, verified news only.
+// If a story cannot be sourced to a specific article URL, DELETE IT.
+
+const generalNews: { title: string; summary: string; source: string; sourceUrl: string }[] = [
+  // ADD VERIFIED general news stories here with EXACT article URLs
+]
+
+const majorTechNews: { title: string; summary: string; impact: 'high' | 'medium' | 'low'; source: string; sourceUrl: string }[] = [
+  // ADD VERIFIED tech news stories here with EXACT article URLs
+]
+
+const majorAcquisitions: { buyer: string; target: string; amount: string; why: string; source: string; sourceUrl: string }[] = [
+  // ADD VERIFIED acquisitions here. Verify deal amount against 2+ sources.
+]
+
+const catalysts: { date: string; event: string; detail: string; source: string; sourceUrl: string }[] = [
+  // ADD VERIFIED upcoming events with EXACT dates
+]
+
+const marketData = {
+  indices: [] as { name: string; value: string; change: string; direction: 'up' | 'down'; ytd: string; ytdDir: 'up' | 'down' }[],
+  stocks: [] as { ticker: string; name: string; price: string; change: string; ytd: string; reason: string; source: string; sourceUrl: string }[],
+}
+
+const sections = [
+  {
+    title: 'AI & Machine Learning',
+    icon: '🧠',
+    color: 'text-purple',
+    items: [] as { title: string; summary: string; impact: 'high' | 'medium' | 'low'; time: string; source: string; sourceUrl: string }[],
+  },
+  {
+    title: 'Developer Tools & Languages',
+    icon: '⚡',
+    color: 'text-green',
+    items: [] as { title: string; summary: string; impact: 'high' | 'medium' | 'low'; time: string; source: string; sourceUrl: string }[],
+  },
+  {
+    title: 'Infrastructure & Cloud',
+    icon: '☁️',
+    color: 'text-blue',
+    items: [] as { title: string; summary: string; impact: 'high' | 'medium' | 'low'; time: string; source: string; sourceUrl: string }[],
+  },
+  {
+    title: 'Security & Privacy',
+    icon: '🔒',
+    color: 'text-red',
+    items: [] as { title: string; summary: string; impact: 'high' | 'medium' | 'low'; time: string; source: string; sourceUrl: string }[],
+  },
+  {
+    title: 'Startups & Business',
+    icon: '🚀',
+    color: 'text-orange',
+    items: [] as { title: string; summary: string; impact: 'high' | 'medium' | 'low'; time: string; source: string; sourceUrl: string }[],
+  },
+  {
+    title: 'Hardware & Silicon',
+    icon: '🔬',
+    color: 'text-pink',
+    items: [] as { title: string; summary: string; impact: 'high' | 'medium' | 'low'; time: string; source: string; sourceUrl: string }[],
+  },
+  {
+    title: 'Legacy Tech Spotlight',
+    icon: '🏛️',
+    color: 'text-cyan',
+    items: [] as { title: string; summary: string; impact: 'high' | 'medium' | 'low'; time: string; source: string; sourceUrl: string }[],
+  },
+]
+
+const totalStories = generalNews.length + majorTechNews.length + majorAcquisitions.length + sections.reduce((a, s) => a + s.items.length, 0)
+const hasContent = totalStories > 0
+---
+
+<Base title={`Issue #${meta.number} — ${meta.title} | jas`}>
+  <div class="max-w-[1080px] mx-auto px-6">
+    <!-- Breadcrumb -->
+    <div class="flex items-center justify-between py-4 border-b border-border">
+      <div class="flex items-center gap-2 text-[13px] text-text-tertiary">
+        <a href="/" class="hover:text-text transition-colors">Home</a>
+        <span>/</span>
+        <span class="text-text-secondary">Issue #{meta.number}</span>
+      </div>
+      <a href="/issue/2026-week18" class="text-[13px] text-text-secondary hover:text-blue transition-colors">
+        Latest Issue →
+      </a>
+    </div>
+
+    <!-- Header -->
+    <div class="pt-8 pb-6">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="inline-flex items-center px-2 py-0.5 text-[11px] font-mono font-medium text-text-tertiary bg-bg-card border border-border rounded">
+          ARCHIVED
+        </span>
+        <span class="text-[13px] font-mono text-text-tertiary">{meta.date}</span>
+      </div>
+      <h1 class="text-[36px] font-bold text-text leading-tight">{meta.title}</h1>
+      {hasContent ? (
+        <p class="mt-2 text-[16px] text-text-secondary">
+          {totalStories} stories · {sections.filter(s => s.items.length > 0).length + (generalNews.length > 0 ? 1 : 0) + (majorTechNews.length > 0 ? 1 : 0) + (majorAcquisitions.length > 0 ? 1 : 0) + (catalysts.length > 0 ? 1 : 0)} sections
+        </p>
+      ) : (
+        <div class="mt-4 p-4 rounded-xl border border-orange/30 bg-orange/5">
+          <p class="text-[14px] text-orange font-medium">⚠️ This issue is awaiting verified content. Data must be sourced from real articles with exact URLs before publishing.</p>
+        </div>
+      )}
+    </div>
+
+    <!-- === GENERAL NEWS === -->
+    {generalNews.length > 0 && (
+    <div class="mt-4 mb-8">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[22px]">🌍</span>
+        <h2 class="text-[20px] font-bold text-text">Major General News</h2>
+        <span class="ml-auto px-2.5 py-0.5 text-[13px] font-mono font-medium text-text-tertiary bg-bg-card border border-border rounded-md">
+          {generalNews.length} stories
+        </span>
+      </div>
+      <div class="space-y-2">
+        {generalNews.map((item) => (
+          <details class="group rounded-xl border border-border hover:border-blue/30 bg-bg-card/50 hover:bg-bg-card transition-all duration-150">
+            <summary class="flex items-start gap-4 px-5 py-4 cursor-pointer select-none list-none">
+              <div class="flex-1 min-w-0">
+                <h3 class="text-[15px] font-semibold text-text leading-snug group-hover:text-blue transition-colors">{item.title}</h3>
+              </div>
+              <svg class="w-5 h-5 text-text-tertiary mt-0.5 shrink-0 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M19 9l-7 7-7-7"/></svg>
+            </summary>
+            <div class="px-5 pb-5 pt-0">
+              <p class="text-[14px] text-text-secondary leading-[1.7]">{item.summary}</p>
+              <div class="mt-3 flex items-center gap-4 text-[13px]">
+                <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-blue hover:underline">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                  {item.source}
+                </a>
+              </div>
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+    )}
+
+    <!-- === MAJOR TECH NEWS === -->
+    {majorTechNews.length > 0 && (
+    <div class="mb-8">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[22px]">👔</span>
+        <h2 class="text-[20px] font-bold text-text">Major Tech News</h2>
+        <span class="ml-auto px-2.5 py-0.5 text-[13px] font-mono font-medium text-text-tertiary bg-bg-card border border-border rounded-md">
+          {majorTechNews.length} stories
+        </span>
+      </div>
+      <div class="space-y-2">
+        {majorTechNews.map((item) => (
+          <details class="group rounded-xl border border-border hover:border-blue/30 bg-bg-card/50 hover:bg-bg-card transition-all duration-150">
+            <summary class="flex items-start gap-4 px-5 py-4 cursor-pointer select-none list-none">
+              <span class={`mt-0.5 inline-flex items-center px-2 py-0.5 text-[11px] font-bold rounded border shrink-0 ${item.impact === 'high' ? 'bg-red/15 border-red/30 text-red' : 'bg-orange/15 border-orange/30 text-orange'}`}>
+                {item.impact === 'high' ? 'HIGH' : 'MED'}
+              </span>
+              <div class="flex-1 min-w-0">
+                <h3 class="text-[15px] font-semibold text-text leading-snug group-hover:text-blue transition-colors">{item.title}</h3>
+              </div>
+              <svg class="w-5 h-5 text-text-tertiary mt-0.5 shrink-0 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M19 9l-7 7-7-7"/></svg>
+            </summary>
+            <div class="px-5 pb-5 pt-0 ml-[52px]">
+              <p class="text-[14px] text-text-secondary leading-[1.7]">{item.summary}</p>
+              <div class="mt-3 flex items-center gap-4 text-[13px]">
+                <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-blue hover:underline">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                  {item.source}
+                </a>
+              </div>
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+    )}
+
+    <!-- === MAJOR ACQUISITIONS === -->
+    {majorAcquisitions.length > 0 && (
+    <div class="mb-8">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[22px]">🤝</span>
+        <h2 class="text-[20px] font-bold text-text">Major Acquisitions</h2>
+      </div>
+      <div class="space-y-2">
+        {majorAcquisitions.map((deal) => (
+          <details class="group rounded-xl border border-border hover:border-blue/30 bg-bg-card/50 hover:bg-bg-card transition-all duration-150">
+            <summary class="flex items-start gap-4 px-5 py-4 cursor-pointer select-none list-none">
+              <div class="flex-1 min-w-0 flex items-center gap-2">
+                <span class="text-[14px] font-bold text-blue">{deal.buyer}</span>
+                <span class="text-text-tertiary">→</span>
+                <span class="text-[14px] font-bold text-text">{deal.target}</span>
+                <span class="ml-auto px-2.5 py-0.5 text-[13px] font-mono font-bold text-green bg-green/10 border border-green/20 rounded-md">{deal.amount}</span>
+              </div>
+              <svg class="w-5 h-5 text-text-tertiary mt-0.5 shrink-0 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M19 9l-7 7-7-7"/></svg>
+            </summary>
+            <div class="px-5 pb-5 pt-0">
+              <p class="text-[14px] text-text-secondary leading-[1.7]">{deal.why}</p>
+              <div class="mt-2">
+                <a href={deal.sourceUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-[13px] text-blue hover:underline">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                  {deal.source}
+                </a>
+              </div>
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+    )}
+
+    <!-- === CATALYSTS TO WATCH === -->
+    {catalysts.length > 0 && (
+    <div class="mb-8">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[22px]">🔮</span>
+        <h2 class="text-[20px] font-bold text-text">Next Major Catalysts to Watch</h2>
+      </div>
+      <div class="space-y-2">
+        {catalysts.map((c) => (
+          <details class="group rounded-xl border border-border hover:border-blue/30 bg-bg-card/50 hover:bg-bg-card transition-all duration-150">
+            <summary class="flex items-start gap-4 px-5 py-4 cursor-pointer select-none list-none">
+              <div class="shrink-0 w-16 text-center">
+                <div class="text-[14px] font-bold text-blue font-mono">{c.date}</div>
+              </div>
+              <div class="flex-1 min-w-0">
+                <h3 class="text-[15px] font-semibold text-text leading-snug group-hover:text-blue transition-colors">{c.event}</h3>
+              </div>
+              <svg class="w-5 h-5 text-text-tertiary mt-0.5 shrink-0 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M19 9l-7 7-7-7"/></svg>
+            </summary>
+            <div class="px-5 pb-5 pt-0 ml-20">
+              <p class="text-[13px] text-text-secondary leading-[1.6]">{c.detail}</p>
+              <a href={c.sourceUrl} target="_blank" rel="noopener noreferrer" class="mt-1 inline-flex items-center gap-1 text-[12px] text-blue hover:underline">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                {c.source}
+              </a>
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+    )}
+
+    <!-- === MARKETS === -->
+    {marketData.indices.length > 0 && (
+    <div class="mb-8 p-6 rounded-xl bg-bg-card border border-border">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[22px]">📈</span>
+        <h2 class="text-[20px] font-bold text-text">Markets & Tech Stocks</h2>
+        <span class="text-[13px] text-text-tertiary font-mono ml-auto">Week ending Apr 27, 2026</span>
+      </div>
+
+      <!-- Indices -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+        {marketData.indices.map((idx) => (
+          <div class="p-3 rounded-lg bg-bg border border-border">
+            <div class="text-[12px] font-medium text-text-tertiary">{idx.name}</div>
+            <div class="text-[16px] font-bold text-text font-mono mt-0.5">{idx.value}</div>
+            <div class="flex items-center gap-3 mt-1">
+              <div class={`text-[12px] font-mono font-bold ${idx.direction === 'up' ? 'text-green' : 'text-red'}`}>
+                {idx.direction === 'up' ? '▲' : '▼'} {idx.change} <span class="text-text-tertiary font-normal">wk</span>
+              </div>
+              <div class={`text-[12px] font-mono font-bold ${idx.ytdDir === 'up' ? 'text-green' : 'text-red'}`}>
+                {idx.ytdDir === 'up' ? '▲' : '▼'} {idx.ytd} <span class="text-text-tertiary font-normal">ytd</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Stock Movers -->
+      <h3 class="text-[15px] font-bold text-text mb-3">Notable Tech Stock Moves</h3>
+      <div class="overflow-x-auto">
+        <table class="w-full text-[13px]">
+          <thead>
+            <tr class="border-b border-border text-text-tertiary">
+              <th class="text-left py-2 pr-3 font-medium">Ticker</th>
+              <th class="text-left py-2 pr-3 font-medium">Company</th>
+              <th class="text-right py-2 pr-3 font-medium">Price</th>
+              <th class="text-right py-2 pr-3 font-medium">Week</th>
+              <th class="text-right py-2 pr-3 font-medium">YTD</th>
+              <th class="text-left py-2 pr-3 font-medium">Reason</th>
+              <th class="text-left py-2 font-medium">Source</th>
+            </tr>
+          </thead>
+          <tbody>
+            {marketData.stocks.map((stock) => (
+              <tr class="border-b border-border/50 hover:bg-bg-hover transition-colors">
+                <td class="py-2.5 pr-3 font-mono font-bold text-blue">{stock.ticker}</td>
+                <td class="py-2.5 pr-3 text-text">{stock.name}</td>
+                <td class="py-2.5 pr-3 text-right font-mono text-text">{stock.price}</td>
+                <td class={`py-2.5 pr-3 text-right font-mono font-bold ${stock.change.startsWith('+') ? 'text-green' : 'text-red'}`}>{stock.change}</td>
+                <td class={`py-2.5 pr-3 text-right font-mono font-bold ${stock.ytd.startsWith('+') ? 'text-green' : stock.ytd.startsWith('-') ? 'text-red' : 'text-blue'}`}>{stock.ytd}</td>
+                <td class="py-2.5 pr-3 text-text-secondary max-w-[300px]">{stock.reason}</td>
+                <td class="py-2.5 text-text-tertiary italic">{stock.source}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    )}
+
+    <!-- Category nav -->
+    {sections.some(s => s.items.length > 0) && (
+    <div class="mb-6">
+      <h2 class="text-[18px] font-bold text-text mb-3">Deep Dives by Category</h2>
+      <div class="flex flex-wrap gap-2">
+        {sections.filter(s => s.items.length > 0).map((s) => (
+          <a href={`#${s.title.toLowerCase().split(' ')[0]}`} class="inline-flex items-center gap-1.5 px-3 py-1.5 text-[13px] text-text-secondary bg-bg-card border border-border rounded-lg hover:bg-bg-hover hover:border-blue/30 transition-all">
+            <span>{s.icon}</span>
+            <span>{s.title}</span>
+            <span class="text-text-tertiary font-mono ml-1">{s.items.length}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+    )}
+
+    <!-- All Category Sections -->
+    {sections.filter(s => s.items.length > 0).map((section) => (
+      <NewsSection
+        title={section.title}
+        icon={section.icon}
+        color={section.color}
+        items={section.items}
+      />
+    ))}
+
+    <!-- Interactive Widgets -->
+    <div class="mt-14 mb-10">
+      <h2 class="text-[22px] font-bold text-text mb-6 flex items-center gap-2">
+        <span>🧰</span> Interactive Tools
+      </h2>
+      <div class="grid md:grid-cols-2 gap-4">
+        <!-- SLA Downtime Calculator -->
+        <div class="p-5 rounded-xl bg-bg-card border border-border">
+          <h3 class="text-[15px] font-bold text-text mb-1 flex items-center gap-2">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-green"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            SLA Downtime Calculator
+          </h3>
+          <p class="text-[13px] text-text-tertiary mb-4">How much downtime your SLA really allows.</p>
+          <div class="space-y-3">
+            <div>
+              <label class="text-[12px] font-medium text-text-secondary block mb-1">Target Uptime (%)</label>
+              <select id="sla-target" class="w-full px-3 py-2 text-[13px] bg-bg border border-border rounded-lg text-text focus:border-blue/50 focus:outline-none">
+                <option value="99">99% (two nines)</option>
+                <option value="99.9" selected>99.9% (three nines)</option>
+                <option value="99.95">99.95%</option>
+                <option value="99.99">99.99% (four nines)</option>
+                <option value="99.999">99.999% (five nines)</option>
+              </select>
+            </div>
+            <div class="pt-3 border-t border-border space-y-2">
+              <div class="flex justify-between text-[13px]"><span class="text-text-tertiary">Daily</span><span id="sla-daily" class="font-mono font-bold text-green">1m 26s</span></div>
+              <div class="flex justify-between text-[13px]"><span class="text-text-tertiary">Weekly</span><span id="sla-weekly" class="font-mono font-bold text-green">10m 5s</span></div>
+              <div class="flex justify-between text-[13px]"><span class="text-text-tertiary">Monthly</span><span id="sla-monthly" class="font-mono font-bold text-green">43m 50s</span></div>
+              <div class="flex justify-between text-[13px]"><span class="text-text-tertiary">Yearly</span><span id="sla-yearly" class="font-mono font-bold text-green">8h 46m</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Meeting Cost Calculator -->
+        <div class="p-5 rounded-xl bg-bg-card border border-border">
+          <h3 class="text-[15px] font-bold text-text mb-1 flex items-center gap-2">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-red"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Meeting Cost Calculator
+          </h3>
+          <p class="text-[13px] text-text-tertiary mb-4">What that "quick sync" actually costs.</p>
+          <div class="space-y-3">
+            <div>
+              <label class="text-[12px] font-medium text-text-secondary block mb-1">Attendees</label>
+              <input type="range" id="mtg-people" min="2" max="20" value="6" class="w-full accent-red" />
+              <div class="flex justify-between text-[12px] text-text-tertiary"><span>2</span><span id="mtg-people-val">6</span><span>20</span></div>
+            </div>
+            <div>
+              <label class="text-[12px] font-medium text-text-secondary block mb-1">Duration (minutes)</label>
+              <input type="range" id="mtg-mins" min="15" max="120" value="30" step="15" class="w-full accent-red" />
+              <div class="flex justify-between text-[12px] text-text-tertiary"><span>15m</span><span id="mtg-mins-val">30m</span><span>120m</span></div>
+            </div>
+            <div>
+              <label class="text-[12px] font-medium text-text-secondary block mb-1">Avg Hourly Cost ($)</label>
+              <input type="range" id="mtg-rate" min="50" max="250" value="95" step="5" class="w-full accent-red" />
+              <div class="flex justify-between text-[12px] text-text-tertiary"><span>$50</span><span id="mtg-rate-val">$95</span><span>$250</span></div>
+            </div>
+            <div class="pt-3 border-t border-border">
+              <div class="text-[13px] text-text-tertiary">This meeting costs</div>
+              <div id="mtg-cost" class="text-[28px] font-bold text-red">$285</div>
+              <div class="text-[12px] text-text-tertiary mt-1">Weekly recurring? <span id="mtg-yearly" class="font-bold text-red">$14,820</span>/year</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // SLA Calculator
+      const slaTarget = document.getElementById('sla-target') as HTMLSelectElement
+      function formatDur(s: number): string {
+        if (s < 60) return Math.round(s) + 's'
+        if (s < 3600) return Math.floor(s / 60) + 'm ' + Math.round(s % 60) + 's'
+        return Math.floor(s / 3600) + 'h ' + Math.round((s % 3600) / 60) + 'm'
+      }
+      function calcSla() {
+        const pct = parseFloat(slaTarget.value)
+        const d = (100 - pct) / 100
+        document.getElementById('sla-daily')!.textContent = formatDur(86400 * d)
+        document.getElementById('sla-weekly')!.textContent = formatDur(604800 * d)
+        document.getElementById('sla-monthly')!.textContent = formatDur(2592000 * d)
+        document.getElementById('sla-yearly')!.textContent = formatDur(31536000 * d)
+      }
+      slaTarget.addEventListener('change', calcSla)
+      calcSla()
+
+      // Meeting Cost
+      const mtgP = document.getElementById('mtg-people') as HTMLInputElement
+      const mtgM = document.getElementById('mtg-mins') as HTMLInputElement
+      const mtgR = document.getElementById('mtg-rate') as HTMLInputElement
+      function calcMtg() {
+        const p = parseInt(mtgP.value), m = parseInt(mtgM.value), r = parseInt(mtgR.value)
+        document.getElementById('mtg-people-val')!.textContent = String(p)
+        document.getElementById('mtg-mins-val')!.textContent = m + 'm'
+        document.getElementById('mtg-rate-val')!.textContent = '$' + r
+        const cost = p * (m / 60) * r
+        document.getElementById('mtg-cost')!.textContent = '$' + Math.round(cost).toLocaleString()
+        document.getElementById('mtg-yearly')!.textContent = '$' + Math.round(cost * 52).toLocaleString()
+      }
+      mtgP.addEventListener('input', calcMtg)
+      mtgM.addEventListener('input', calcMtg)
+      mtgR.addEventListener('input', calcMtg)
+      calcMtg()
+    </script>
+
+    <!-- Bottom nav -->
+    <div class="py-8 flex items-center justify-between text-[14px]">
+      <a href="/" class="text-text-secondary hover:text-text transition-colors">← Back to Home</a>
+      <a href="/issue/2026-week18" class="text-blue hover:text-blue-dark transition-colors">Latest Issue →</a>
+    </div>
+  </div>
+</Base>
