@@ -1,8 +1,9 @@
 {
   "name": "jas",
   "version": "1.0.0",
-  "private": true,
+  "description": "Weekly tech intelligence newsletter for senior engineers, architects, and tech leaders",
   "type": "module",
+  "license": "MIT",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
