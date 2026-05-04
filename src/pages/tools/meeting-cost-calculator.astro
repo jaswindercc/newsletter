@@ -1,0 +1,80 @@
+---
+import Base from '../../layouts/Base.astro'
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Meeting Cost Calculator',
+  description: 'Find out the true dollar cost of meetings based on attendees, duration, and hourly rates. See what recurring meetings cost annually.',
+  url: 'https://jas.dev/tools/meeting-cost-calculator',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web Browser',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+}
+---
+<Base title="Meeting Cost Calculator — What Do Your Meetings Really Cost? | jas Tools" description="Calculate the true dollar cost of meetings based on attendees, duration, and hourly rates. See annual cost of recurring meetings. Free browser tool." jsonLd={jsonLd}>
+  <div class="max-w-[720px] mx-auto px-6 py-12">
+    <div class="flex items-center gap-2 text-[13px] text-text-tertiary pb-4 border-b border-border mb-8">
+      <a href="/" class="hover:text-text transition-colors">Home</a><span>/</span>
+      <a href="/tools" class="hover:text-text transition-colors">Tools</a><span>/</span>
+      <span class="text-text-secondary">Meeting Cost Calculator</span>
+    </div>
+    <h1 class="text-[28px] font-bold text-text mb-2">Meeting Cost Calculator</h1>
+    <p class="text-[15px] text-text-secondary mb-8">Find out the true dollar cost of meetings based on attendees, duration, and hourly rates. See what recurring meetings cost annually.</p>
+
+    <div class="p-6 rounded-xl bg-bg-card border border-border">
+      <div class="space-y-4">
+        <div>
+          <label class="text-[13px] font-medium text-text-secondary block mb-1.5">Attendees</label>
+          <input type="range" id="mtg-people" min="2" max="20" value="6" class="w-full accent-red" />
+          <div class="flex justify-between text-[12px] text-text-tertiary"><span>2</span><span id="mtg-people-val">6</span><span>20</span></div>
+        </div>
+        <div>
+          <label class="text-[13px] font-medium text-text-secondary block mb-1.5">Duration (minutes)</label>
+          <input type="range" id="mtg-mins" min="15" max="120" value="30" step="15" class="w-full accent-red" />
+          <div class="flex justify-between text-[12px] text-text-tertiary"><span>15m</span><span id="mtg-mins-val">30m</span><span>120m</span></div>
+        </div>
+        <div>
+          <label class="text-[13px] font-medium text-text-secondary block mb-1.5">Avg Hourly Cost ($)</label>
+          <input type="range" id="mtg-rate" min="50" max="250" value="95" step="5" class="w-full accent-red" />
+          <div class="flex justify-between text-[12px] text-text-tertiary"><span>$50</span><span id="mtg-rate-val">$95</span><span>$250</span></div>
+        </div>
+        <div class="pt-4 border-t border-border">
+          <div class="text-[14px] text-text-tertiary">This meeting costs</div>
+          <div id="mtg-cost" class="text-[32px] font-bold text-red">$285</div>
+          <div class="text-[13px] text-text-tertiary mt-1">Weekly recurring? <span id="mtg-yearly" class="font-bold text-red">$14,820</span>/year</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-8 p-5 rounded-xl bg-bg-card/50 border border-border">
+      <h2 class="text-[16px] font-bold text-text mb-3">How it works</h2>
+      <p class="text-[14px] text-text-secondary leading-[1.7]">Every meeting has an opportunity cost: attendees times duration times their loaded hourly rate. A "quick 30-minute sync" with 6 people at $95/hr costs $285. Recurring weekly, that's $14,820/year — enough to fund a junior developer for months. Use this to decide which meetings need to exist and which can be an async message.</p>
+    </div>
+
+    <div class="mt-6 text-center">
+      <a href="/tools" class="text-[14px] text-text-secondary hover:text-blue transition-colors inline-flex items-center gap-1">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        All Tools
+      </a>
+    </div>
+  </div>
+
+  <script>
+    const mtgP = document.getElementById('mtg-people') as HTMLInputElement
+    const mtgM = document.getElementById('mtg-mins') as HTMLInputElement
+    const mtgR = document.getElementById('mtg-rate') as HTMLInputElement
+    function calcMtg() {
+      const p = parseInt(mtgP.value), m = parseInt(mtgM.value), r = parseInt(mtgR.value)
+      document.getElementById('mtg-people-val')!.textContent = String(p)
+      document.getElementById('mtg-mins-val')!.textContent = m + 'm'
+      document.getElementById('mtg-rate-val')!.textContent = '$' + r
+      const cost = p * (m / 60) * r
+      document.getElementById('mtg-cost')!.textContent = '$' + Math.round(cost).toLocaleString()
+      document.getElementById('mtg-yearly')!.textContent = '$' + Math.round(cost * 52).toLocaleString()
+    }
+    mtgP.addEventListener('input', calcMtg)
+    mtgM.addEventListener('input', calcMtg)
+    mtgR.addEventListener('input', calcMtg)
+    calcMtg()
+  </script>
+</Base>

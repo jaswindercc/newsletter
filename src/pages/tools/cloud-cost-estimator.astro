@@ -1,0 +1,87 @@
+---
+import Base from '../../layouts/Base.astro'
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Cloud Cost Estimator',
+  description: 'Estimate monthly cloud spend for GPU and AI workloads. Select your GPU type, count, and daily usage hours to get a cost projection.',
+  url: 'https://jas.dev/tools/cloud-cost-estimator',
+  applicationCategory: 'DeveloperApplication',
+  operatingSystem: 'Web Browser',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+}
+---
+<Base title="Cloud GPU Cost Estimator — H100, B200, A100, T4 Pricing Calculator | jas Tools" description="Estimate monthly cloud spend for GPU and AI workloads. Compare H100, B200, A100, and T4 pricing. Free browser-based cost projection tool." jsonLd={jsonLd}>
+  <div class="max-w-[720px] mx-auto px-6 py-12">
+    <div class="flex items-center gap-2 text-[13px] text-text-tertiary pb-4 border-b border-border mb-8">
+      <a href="/" class="hover:text-text transition-colors">Home</a><span>/</span>
+      <a href="/tools" class="hover:text-text transition-colors">Tools</a><span>/</span>
+      <span class="text-text-secondary">Cloud Cost Estimator</span>
+    </div>
+    <h1 class="text-[28px] font-bold text-text mb-2">Cloud Cost Estimator</h1>
+    <p class="text-[15px] text-text-secondary mb-8">Estimate monthly cloud spend for GPU and AI workloads. Select your GPU type, count, and daily usage hours to get a cost projection.</p>
+
+    <div class="p-6 rounded-xl bg-bg-card border border-border">
+      <div class="space-y-4">
+        <div>
+          <label class="text-[13px] font-medium text-text-secondary block mb-1.5">GPU Type</label>
+          <select id="gpu-type" class="w-full px-3 py-2.5 text-[14px] bg-bg border border-border rounded-lg text-text focus:border-blue/50 focus:outline-none">
+            <option value="3.25">NVIDIA H100 ($3.25/hr)</option>
+            <option value="6.50">NVIDIA B200 ($6.50/hr)</option>
+            <option value="1.10">NVIDIA A100 ($1.10/hr)</option>
+            <option value="0.45">NVIDIA T4 ($0.45/hr)</option>
+          </select>
+        </div>
+        <div>
+          <label class="text-[13px] font-medium text-text-secondary block mb-1.5">GPUs Needed</label>
+          <input type="range" id="gpu-count" min="1" max="64" value="4" class="w-full accent-green" />
+          <div class="flex justify-between text-[12px] text-text-tertiary"><span>1</span><span id="gpu-count-val">4</span><span>64</span></div>
+        </div>
+        <div>
+          <label class="text-[13px] font-medium text-text-secondary block mb-1.5">Hours/Day</label>
+          <input type="range" id="gpu-hours" min="1" max="24" value="8" class="w-full accent-green" />
+          <div class="flex justify-between text-[12px] text-text-tertiary"><span>1</span><span id="gpu-hours-val">8</span><span>24</span></div>
+        </div>
+        <div class="pt-4 border-t border-border">
+          <div class="text-[14px] text-text-tertiary">Estimated Monthly Cost</div>
+          <div id="cloud-cost" class="text-[32px] font-bold text-green">$3,120</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-8 p-5 rounded-xl bg-bg-card/50 border border-border">
+      <h2 class="text-[16px] font-bold text-text mb-3">How it works</h2>
+      <p class="text-[14px] text-text-secondary leading-[1.7]">Cloud GPU pricing is based on per-hour rates. The monthly cost is simply: hourly rate x GPU count x hours per day x 30 days. The difference between running 8 H100s for 8 hours vs 24 hours is $23,400 vs $70,200/month — scheduling matters. Consider spot instances for non-critical training runs to reduce costs by 60-70%.</p>
+    </div>
+
+    <div class="mt-6 text-center">
+      <a href="/tools" class="text-[14px] text-text-secondary hover:text-blue transition-colors inline-flex items-center gap-1">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        All Tools
+      </a>
+    </div>
+  </div>
+
+  <script>
+    const gpuType = document.getElementById('gpu-type') as HTMLSelectElement
+    const gpuCount = document.getElementById('gpu-count') as HTMLInputElement
+    const gpuHours = document.getElementById('gpu-hours') as HTMLInputElement
+    const gpuCountVal = document.getElementById('gpu-count-val')!
+    const gpuHoursVal = document.getElementById('gpu-hours-val')!
+    const cloudCost = document.getElementById('cloud-cost')!
+
+    function calcCloud() {
+      const rate = parseFloat(gpuType.value)
+      const count = parseInt(gpuCount.value)
+      const hours = parseInt(gpuHours.value)
+      gpuCountVal.textContent = String(count)
+      gpuHoursVal.textContent = String(hours)
+      const monthly = rate * count * hours * 30
+      cloudCost.textContent = '$' + monthly.toLocaleString(undefined, { maximumFractionDigits: 0 })
+    }
+    gpuType.addEventListener('change', calcCloud)
+    gpuCount.addEventListener('input', calcCloud)
+    gpuHours.addEventListener('input', calcCloud)
+    calcCloud()
+  </script>
+</Base>

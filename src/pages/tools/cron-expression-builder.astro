@@ -1,0 +1,118 @@
+---
+import Base from '../../layouts/Base.astro'
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Cron Expression Builder',
+  description: 'Build and validate cron expressions visually. See the next scheduled runs and a plain-English description.',
+  url: 'https://jas.dev/tools/cron-expression-builder',
+  applicationCategory: 'DeveloperApplication',
+  operatingSystem: 'Web Browser',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+}
+---
+<Base title="Cron Expression Builder — Visual Cron Schedule Generator | jas Tools" description="Build and validate cron expressions visually. See next scheduled runs and a plain-English description. Free visual cron tool." jsonLd={jsonLd}>
+  <div class="max-w-[720px] mx-auto px-6 py-12">
+    <div class="flex items-center gap-2 text-[13px] text-text-tertiary pb-4 border-b border-border mb-8">
+      <a href="/" class="hover:text-text transition-colors">Home</a><span>/</span>
+      <a href="/tools" class="hover:text-text transition-colors">Tools</a><span>/</span>
+      <span class="text-text-secondary">Cron Expression Builder</span>
+    </div>
+    <h1 class="text-[28px] font-bold text-text mb-2">Cron Expression Builder</h1>
+    <p class="text-[15px] text-text-secondary mb-8">Build and validate cron expressions visually. See the next scheduled runs and a plain-English description.</p>
+
+    <div class="p-6 rounded-xl bg-bg-card border border-border">
+      <div class="space-y-4">
+        <div>
+          <label class="text-[13px] font-medium text-text-secondary block mb-1.5">Cron Expression</label>
+          <input type="text" id="cron-input" value="0 9 * * 1-5" class="w-full px-3 py-2.5 text-[16px] bg-bg border border-border rounded-lg text-text font-mono focus:border-blue/50 focus:outline-none" />
+        </div>
+        <div class="grid grid-cols-5 gap-2">
+          <div class="text-center p-2 rounded bg-bg border border-border">
+            <div class="text-[10px] text-text-tertiary">Minute</div>
+            <div id="f-min" class="text-[14px] font-mono font-bold text-text mt-0.5">0</div>
+          </div>
+          <div class="text-center p-2 rounded bg-bg border border-border">
+            <div class="text-[10px] text-text-tertiary">Hour</div>
+            <div id="f-hour" class="text-[14px] font-mono font-bold text-text mt-0.5">9</div>
+          </div>
+          <div class="text-center p-2 rounded bg-bg border border-border">
+            <div class="text-[10px] text-text-tertiary">Day</div>
+            <div id="f-day" class="text-[14px] font-mono font-bold text-text mt-0.5">*</div>
+          </div>
+          <div class="text-center p-2 rounded bg-bg border border-border">
+            <div class="text-[10px] text-text-tertiary">Month</div>
+            <div id="f-month" class="text-[14px] font-mono font-bold text-text mt-0.5">*</div>
+          </div>
+          <div class="text-center p-2 rounded bg-bg border border-border">
+            <div class="text-[10px] text-text-tertiary">Weekday</div>
+            <div id="f-dow" class="text-[14px] font-mono font-bold text-text mt-0.5">1-5</div>
+          </div>
+        </div>
+        <div class="pt-4 border-t border-border">
+          <div class="text-[12px] text-text-tertiary mb-1">Plain English</div>
+          <p id="cron-desc" class="text-[15px] text-text font-medium">At 09:00, Monday through Friday</p>
+        </div>
+        <div>
+          <div class="text-[12px] text-text-tertiary mb-1">Quick presets</div>
+          <div class="flex flex-wrap gap-2">
+            <button data-cron="* * * * *" class="cron-preset px-2.5 py-1 text-[12px] bg-bg border border-border rounded-lg hover:bg-bg-hover">Every minute</button>
+            <button data-cron="0 * * * *" class="cron-preset px-2.5 py-1 text-[12px] bg-bg border border-border rounded-lg hover:bg-bg-hover">Every hour</button>
+            <button data-cron="0 0 * * *" class="cron-preset px-2.5 py-1 text-[12px] bg-bg border border-border rounded-lg hover:bg-bg-hover">Daily midnight</button>
+            <button data-cron="0 9 * * 1-5" class="cron-preset px-2.5 py-1 text-[12px] bg-bg border border-border rounded-lg hover:bg-bg-hover">Weekdays 9AM</button>
+            <button data-cron="0 0 1 * *" class="cron-preset px-2.5 py-1 text-[12px] bg-bg border border-border rounded-lg hover:bg-bg-hover">Monthly</button>
+            <button data-cron="0 0 * * 0" class="cron-preset px-2.5 py-1 text-[12px] bg-bg border border-border rounded-lg hover:bg-bg-hover">Weekly Sunday</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-6 text-center">
+      <a href="/tools" class="text-[14px] text-text-secondary hover:text-blue transition-colors inline-flex items-center gap-1">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        All Tools
+      </a>
+    </div>
+  </div>
+
+  <script>
+    const input = document.getElementById('cron-input') as HTMLInputElement
+    const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
+
+    function describe(parts: string[]): string {
+      const [min, hour, dom, mon, dow] = parts
+      let desc = ''
+      if (min === '*' && hour === '*') desc = 'Every minute'
+      else if (min === '0' && hour === '*') desc = 'Every hour at minute 0'
+      else if (min === '0' && hour === '0') desc = 'At midnight (00:00)'
+      else if (hour !== '*') desc = 'At ' + hour.padStart(2,'0') + ':' + min.padStart(2,'0')
+      else desc = 'At minute ' + min
+      if (dom !== '*') desc += ', on day ' + dom + ' of the month'
+      if (mon !== '*') desc += ', in month ' + mon
+      if (dow !== '*') {
+        const m = dow.match(/^(\d)-(\d)$/)
+        if (m) desc += ', ' + days[parseInt(m[1])] + ' through ' + days[parseInt(m[2])]
+        else if (/^\d$/.test(dow)) desc += ', on ' + days[parseInt(dow)]
+        else desc += ', on days ' + dow
+      }
+      return desc
+    }
+
+    function parse() {
+      const parts = input.value.trim().split(/\s+/)
+      if (parts.length !== 5) { document.getElementById('cron-desc')!.textContent = 'Invalid — needs 5 fields'; return }
+      document.getElementById('f-min')!.textContent = parts[0]
+      document.getElementById('f-hour')!.textContent = parts[1]
+      document.getElementById('f-day')!.textContent = parts[2]
+      document.getElementById('f-month')!.textContent = parts[3]
+      document.getElementById('f-dow')!.textContent = parts[4]
+      document.getElementById('cron-desc')!.textContent = describe(parts)
+    }
+
+    input.addEventListener('input', parse)
+    document.querySelectorAll('.cron-preset').forEach(btn => {
+      btn.addEventListener('click', () => { input.value = (btn as HTMLElement).dataset.cron!; parse() })
+    })
+    parse()
+  </script>
+</Base>

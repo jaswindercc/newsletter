@@ -1,0 +1,93 @@
+---
+import Base from '../../layouts/Base.astro'
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'AI API Cost Comparison',
+  description: 'Compare per-token pricing for major LLM APIs. Adjust monthly token volume to find the cheapest option for your workload.',
+  url: 'https://jas.dev/tools/ai-api-cost-comparison',
+  applicationCategory: 'DeveloperApplication',
+  operatingSystem: 'Web Browser',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+}
+---
+<Base title="AI API Cost Comparison — GPT-4, Claude, Gemini Token Pricing Calculator | jas Tools" description="Compare per-token pricing for GPT-4, Claude, Gemini and other LLM APIs. Adjust monthly volume to find the cheapest option. Free calculator." jsonLd={jsonLd}>
+  <div class="max-w-[720px] mx-auto px-6 py-12">
+    <div class="flex items-center gap-2 text-[13px] text-text-tertiary pb-4 border-b border-border mb-8">
+      <a href="/" class="hover:text-text transition-colors">Home</a><span>/</span>
+      <a href="/tools" class="hover:text-text transition-colors">Tools</a><span>/</span>
+      <span class="text-text-secondary">AI API Cost Comparison</span>
+    </div>
+    <h1 class="text-[28px] font-bold text-text mb-2">AI API Cost Comparison</h1>
+    <p class="text-[15px] text-text-secondary mb-8">Compare per-token pricing for major LLM APIs. Adjust monthly token volume to find the cheapest option for your workload.</p>
+
+    <div class="p-6 rounded-xl bg-bg-card border border-border">
+      <div class="space-y-3">
+        <div class="flex items-center gap-2 p-3 rounded-lg bg-bg-hover">
+          <span class="w-3 h-3 rounded-full bg-purple shrink-0"></span>
+          <span class="text-[14px] text-text flex-1">GPT-5 Turbo</span>
+          <span class="text-[14px] font-mono text-text-secondary">$5 / $15 per 1M tokens</span>
+        </div>
+        <div class="flex items-center gap-2 p-3 rounded-lg bg-bg-hover">
+          <span class="w-3 h-3 rounded-full bg-orange shrink-0"></span>
+          <span class="text-[14px] text-text flex-1">Claude 4.5</span>
+          <span class="text-[14px] font-mono text-text-secondary">$15 / $75 per 1M tokens</span>
+        </div>
+        <div class="flex items-center gap-2 p-3 rounded-lg bg-bg-hover">
+          <span class="w-3 h-3 rounded-full bg-blue shrink-0"></span>
+          <span class="text-[14px] text-text flex-1">Gemini Ultra 2.0</span>
+          <span class="text-[14px] font-mono text-text-secondary">$7 / $21 per 1M tokens</span>
+        </div>
+        <div class="flex items-center gap-2 p-3 rounded-lg bg-bg-hover">
+          <span class="w-3 h-3 rounded-full bg-green shrink-0"></span>
+          <span class="text-[14px] text-text flex-1">Llama 4 (self-hosted)</span>
+          <span class="text-[14px] font-mono text-text-secondary">~$0.80 / ~$0.80 per 1M tokens</span>
+        </div>
+        <div class="pt-4 border-t border-border mt-4">
+          <label class="text-[13px] font-medium text-text-secondary block mb-1.5">Monthly Tokens (Millions)</label>
+          <input type="range" id="token-usage" min="1" max="100" value="10" class="w-full accent-purple" />
+          <div class="flex justify-between text-[12px] text-text-tertiary"><span>1M</span><span id="token-usage-val">10M</span><span>100M</span></div>
+          <div class="mt-3 text-[14px] text-text-tertiary">Cheapest: <span id="cheapest-model" class="font-bold text-green">Llama 4</span> at <span id="cheapest-cost" class="font-bold text-green">$16/mo</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-8 p-5 rounded-xl bg-bg-card/50 border border-border">
+      <h2 class="text-[16px] font-bold text-text mb-3">How it works</h2>
+      <p class="text-[14px] text-text-secondary leading-[1.7]">API pricing uses a 70/30 input/output ratio (typical for chat applications). Self-hosted models like Llama 4 have the lowest marginal cost but require GPU infrastructure. For low-volume use (&lt;5M tokens/month), the API approach is usually cheaper than self-hosting. At 50M+ tokens/month, self-hosting pays for itself within weeks.</p>
+    </div>
+
+    <div class="mt-6 text-center">
+      <a href="/tools" class="text-[14px] text-text-secondary hover:text-blue transition-colors inline-flex items-center gap-1">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        All Tools
+      </a>
+    </div>
+  </div>
+
+  <script>
+    const tokenUsage = document.getElementById('token-usage') as HTMLInputElement
+    const tokenUsageVal = document.getElementById('token-usage-val')!
+    const cheapestModel = document.getElementById('cheapest-model')!
+    const cheapestCost = document.getElementById('cheapest-cost')!
+    const models = [
+      { name: 'GPT-5 Turbo', input: 5, output: 15 },
+      { name: 'Claude 4.5', input: 15, output: 75 },
+      { name: 'Gemini Ultra 2.0', input: 7, output: 21 },
+      { name: 'Llama 4', input: 0.8, output: 0.8 },
+    ]
+    function calcTokens() {
+      const usage = parseInt(tokenUsage.value)
+      tokenUsageVal.textContent = usage + 'M'
+      let cheapest = Infinity, cheapName = ''
+      for (const m of models) {
+        const cost = (usage * 0.7 * m.input) + (usage * 0.3 * m.output)
+        if (cost < cheapest) { cheapest = cost; cheapName = m.name }
+      }
+      cheapestModel.textContent = cheapName
+      cheapestCost.textContent = '$' + Math.round(cheapest).toLocaleString() + '/mo'
+    }
+    tokenUsage.addEventListener('input', calcTokens)
+    calcTokens()
+  </script>
+</Base>

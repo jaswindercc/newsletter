@@ -3,40 +3,33 @@ import Base from '../layouts/Base.astro'
 
 const issues = [
   {
-    slug: '2026-week18',
-    number: 43,
-    date: 'Apr 28 – May 1, 2026',
-    week: 18,
+    slug: '2026-week17',
+    number: '2026-17',
+    date: 'Apr 27 – May 3, 2026',
+    week: 17,
     year: 2026,
     status: 'live',
-    title: 'GPT-5 Turbo Drops, Rust Gets Async Drop, npm Gets Wrecked',
-    stats: { stories: 27, categories: 6, readTime: '18 min' },
+    title: 'Apple CEO Succession, GCP 63% Surge, Linux Root Exploit',
+    stats: { stories: 29, categories: 7, readTime: '20 min' },
     highlights: [
-      { category: 'AI', color: 'bg-purple', text: 'OpenAI ships GPT-5 Turbo — 1M context' },
-      { category: 'Dev', color: 'bg-green', text: 'Rust 1.84 finally adds async drop' },
-      { category: 'Sec', color: 'bg-red', text: 'npm attack hits 15K packages' },
-      { category: 'Infra', color: 'bg-blue', text: 'Linux 6.14 real-time scheduling' },
-      { category: 'Biz', color: 'bg-orange', text: 'Cloudflare acquires Deno $420M' },
-      { category: 'HW', color: 'bg-pink', text: 'TSMC 2nm enters mass production' },
+      { category: 'Macro', color: 'bg-blue', text: 'U.S. Q1 GDP accelerates to 2.0%' },
+      { category: 'Tech', color: 'bg-purple', text: 'John Ternus named Apple CEO successor' },
+      { category: 'Cloud', color: 'bg-green', text: 'Google Cloud reports 63% revenue surge' },
+      { category: 'AI', color: 'bg-orange', text: 'Microsoft AI run rate hits $37B' },
+      { category: 'Sec', color: 'bg-red', text: 'CVE-2026-31431 Linux root privilege escalation' },
+      { category: 'Geo', color: 'bg-pink', text: 'China blocks Meta acquisition of Manus' },
     ],
   },
   {
-    slug: '2026-week17',
-    number: 42,
-    date: 'Apr 21 – Apr 27, 2026',
-    week: 17,
+    slug: '2026-week18',
+    number: '2026-18',
+    date: 'May 4 – May 10, 2026',
+    week: 18,
     year: 2026,
-    status: 'archived',
-    title: 'Gemini Ultra 2.0, Postgres 18, COBOL Gets Modern',
-    stats: { stories: 23, categories: 6, readTime: '15 min' },
-    highlights: [
-      { category: 'AI', color: 'bg-purple', text: 'Google drops Gemini Ultra 2.0' },
-      { category: 'Dev', color: 'bg-green', text: 'IBM ships COBOL LSP for VS Code' },
-      { category: 'Infra', color: 'bg-blue', text: 'PostgreSQL 18 native sharding' },
-      { category: 'Biz', color: 'bg-orange', text: 'Figma acquires Replit $1.2B' },
-      { category: 'Sec', color: 'bg-red', text: 'Apple M5 side-channel vuln' },
-      { category: 'HW', color: 'bg-pink', text: 'NVIDIA B200 ships, H100 craters' },
-    ],
+    status: 'draft',
+    title: 'Coming Soon',
+    stats: { stories: 0, categories: 0, readTime: '—' },
+    highlights: [],
   },
 ]
 
@@ -65,7 +58,7 @@ const categoryBreakdown = [
       <div class="flex items-center gap-3 mb-4">
         <span class="inline-flex items-center gap-2 px-3 py-1 text-[13px] font-medium text-green bg-green/10 border border-green/20 rounded-full">
           <span class="w-2 h-2 rounded-full bg-green animate-pulse"></span>
-          Issue #43 is live
+          Issue 2026-17 is live
         </span>
       </div>
       <h1 class="text-[44px] font-extrabold leading-[1.1] tracking-tight">
@@ -104,11 +97,15 @@ const categoryBreakdown = [
           <article class="border border-border rounded-xl p-6 hover:bg-bg-card hover:border-blue/40 transition-all duration-200">
             <div class="flex items-center justify-between mb-3">
               <div class="flex items-center gap-3">
-                <span class="font-mono text-[13px] text-text-tertiary font-medium">#{issue.number}</span>
+                <span class="font-mono text-[13px] text-text-tertiary font-medium">{issue.number}</span>
                 {issue.status === 'live' ? (
                   <span class="inline-flex items-center gap-1.5 px-2 py-0.5 text-[12px] font-semibold text-green bg-green/10 border border-green/20 rounded-md">
                     <span class="w-1.5 h-1.5 rounded-full bg-green animate-pulse"></span>
                     LIVE
+                  </span>
+                ) : issue.status === 'draft' ? (
+                  <span class="px-2 py-0.5 text-[12px] font-medium text-orange bg-orange/10 border border-orange/20 rounded-md">
+                    DRAFT
                   </span>
                 ) : (
                   <span class="px-2 py-0.5 text-[12px] font-medium text-text-tertiary bg-bg-accent/50 border border-border rounded-md">

@@ -1,0 +1,170 @@
+---
+import Base from '../../layouts/Base.astro'
+
+const tools = [
+  {
+    slug: 'sla-downtime-calculator',
+    name: 'SLA Downtime Calculator',
+    description: 'Calculate exactly how much downtime your SLA allows per day, week, month, and year.',
+    category: 'Infrastructure',
+    color: 'text-green',
+    bgColor: 'bg-green',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`,
+  },
+  {
+    slug: 'meeting-cost-calculator',
+    name: 'Meeting Cost Calculator',
+    description: 'Find out the true dollar cost of meetings based on attendees, duration, and hourly rates.',
+    category: 'Productivity',
+    color: 'text-red',
+    bgColor: 'bg-red',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+  },
+  {
+    slug: 'cloud-cost-estimator',
+    name: 'Cloud Cost Estimator',
+    description: 'Estimate monthly cloud spend for GPU and AI workloads across major providers.',
+    category: 'Cloud',
+    color: 'text-green',
+    bgColor: 'bg-green',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>`,
+  },
+  {
+    slug: 'ai-api-cost-comparison',
+    name: 'AI API Cost Comparison',
+    description: 'Compare per-token pricing for GPT-5, Claude 4.5, Gemini Ultra, and Llama 4 across usage volumes.',
+    category: 'AI',
+    color: 'text-purple',
+    bgColor: 'bg-purple',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>`,
+  },
+  {
+    slug: 'bandwidth-cost-calculator',
+    name: 'Bandwidth Cost Calculator',
+    description: 'Calculate monthly egress costs across AWS, Azure, and GCP at different traffic volumes.',
+    category: 'Cloud',
+    color: 'text-blue',
+    bgColor: 'bg-blue',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>`,
+  },
+  {
+    slug: 'incident-response-timer',
+    name: 'Incident Response Timer',
+    description: 'Track how long until your SLA breach during an active incident, with severity-based thresholds.',
+    category: 'Security',
+    color: 'text-red',
+    bgColor: 'bg-red',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>`,
+  },
+  {
+    slug: 'container-sizing-calculator',
+    name: 'Container Sizing Calculator',
+    description: 'Right-size Kubernetes pod requests and limits based on workload profiles and traffic patterns.',
+    category: 'Infrastructure',
+    color: 'text-cyan',
+    bgColor: 'bg-cyan',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 3h-8l-2 4h12z"/></svg>`,
+  },
+  {
+    slug: 'tech-debt-roi-calculator',
+    name: 'Tech Debt ROI Calculator',
+    description: 'Quantify the cost of technical debt and project ROI of paying it down over time.',
+    category: 'Engineering',
+    color: 'text-orange',
+    bgColor: 'bg-orange',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>`,
+  },
+  {
+    slug: 'password-strength-analyzer',
+    name: 'Password Strength Analyzer',
+    description: 'Test password entropy and estimated crack time against modern hardware benchmarks.',
+    category: 'Security',
+    color: 'text-red',
+    bgColor: 'bg-red',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`,
+  },
+  {
+    slug: 'cron-expression-builder',
+    name: 'Cron Expression Builder',
+    description: 'Build and validate cron expressions with a visual schedule preview and plain-English translation.',
+    category: 'Dev Tools',
+    color: 'text-green',
+    bgColor: 'bg-green',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`,
+  },
+]
+
+const categories = [...new Set(tools.map(t => t.category))]
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Interactive Engineering Tools',
+  description: 'Free browser-based calculators and utilities for engineers, architects, and tech leaders. SLA calculator, cloud cost estimator, meeting cost, container sizing, and more.',
+  url: 'https://jas.dev/tools',
+  mainEntity: {
+    '@type': 'ItemList',
+    itemListElement: tools.map((t, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: t.name,
+      url: `https://jas.dev/tools/${t.slug}`,
+    })),
+  },
+}
+---
+
+<Base title="Interactive Engineering Tools — Free Calculators for DevOps, Cloud & Security | jas" description="Free browser-based calculators: SLA downtime, cloud cost estimator, meeting cost, AI API pricing, container sizing, cron builder, password strength, and more." jsonLd={jsonLd}>
+  <div class="max-w-[1080px] mx-auto px-6 py-12">
+    <!-- Breadcrumb -->
+    <div class="flex items-center gap-2 text-[13px] text-text-tertiary pb-4 border-b border-border mb-8">
+      <a href="/" class="hover:text-text transition-colors">Home</a>
+      <span>/</span>
+      <span class="text-text-secondary">Tools</span>
+    </div>
+
+    <!-- Header -->
+    <div class="mb-10">
+      <h1 class="text-[36px] font-bold text-text leading-tight">Interactive Tools</h1>
+      <p class="mt-2 text-[16px] text-text-secondary max-w-[600px]">
+        {tools.length} calculators and utilities for engineers, architects, and tech leaders. All run client-side — no data leaves your browser.
+      </p>
+    </div>
+
+    <!-- Category filter -->
+    <div class="flex flex-wrap gap-2 mb-8">
+      {categories.map((cat) => (
+        <span class="px-3 py-1.5 text-[13px] text-text-secondary bg-bg-card border border-border rounded-lg">
+          {cat}
+          <span class="text-text-tertiary font-mono ml-1">{tools.filter(t => t.category === cat).length}</span>
+        </span>
+      ))}
+    </div>
+
+    <!-- Tools Grid -->
+    <div class="grid md:grid-cols-2 gap-4">
+      {tools.map((tool, i) => (
+        <a href={`/tools/${tool.slug}`} class="group block p-5 rounded-xl bg-bg-card border border-border hover:border-blue/30 hover:bg-bg-hover transition-all">
+          <div class="flex items-start gap-4">
+            <div class={`shrink-0 w-10 h-10 rounded-lg ${tool.bgColor}/10 flex items-center justify-center ${tool.color}`}>
+              <Fragment set:html={tool.icon} />
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 mb-1">
+                <h2 class="text-[15px] font-semibold text-text group-hover:text-blue transition-colors">{tool.name}</h2>
+              </div>
+              <p class="text-[13px] text-text-secondary leading-relaxed">{tool.description}</p>
+              <div class="mt-3 flex items-center justify-between">
+                <span class="text-[12px] text-text-tertiary font-mono">{tool.category}</span>
+                <span class="text-[13px] text-blue opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
+                  Open tool
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </span>
+              </div>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</Base>

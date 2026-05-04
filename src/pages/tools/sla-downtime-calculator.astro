@@ -1,0 +1,77 @@
+---
+import Base from '../../layouts/Base.astro'
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'SLA Downtime Calculator',
+  description: 'Calculate exactly how much downtime your SLA allows per day, week, month, and year. Enter a target uptime percentage and see the maximum permitted outage windows.',
+  url: 'https://jas.dev/tools/sla-downtime-calculator',
+  applicationCategory: 'DeveloperApplication',
+  operatingSystem: 'Web Browser',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+}
+---
+<Base title="SLA Downtime Calculator — How Much Downtime Does Your SLA Allow? | jas Tools" description="Calculate exactly how much downtime your SLA allows per day, week, month, and year. Free browser-based uptime calculator for 99.9% to 99.999% SLAs." jsonLd={jsonLd}>
+  <div class="max-w-[720px] mx-auto px-6 py-12">
+    <div class="flex items-center gap-2 text-[13px] text-text-tertiary pb-4 border-b border-border mb-8">
+      <a href="/" class="hover:text-text transition-colors">Home</a><span>/</span>
+      <a href="/tools" class="hover:text-text transition-colors">Tools</a><span>/</span>
+      <span class="text-text-secondary">SLA Downtime Calculator</span>
+    </div>
+    <h1 class="text-[28px] font-bold text-text mb-2">SLA Downtime Calculator</h1>
+    <p class="text-[15px] text-text-secondary mb-8">Calculate exactly how much downtime your SLA allows per day, week, month, and year. Enter a target uptime percentage and see the maximum permitted outage windows.</p>
+
+    <div class="p-6 rounded-xl bg-bg-card border border-border">
+      <div class="space-y-4">
+        <div>
+          <label class="text-[13px] font-medium text-text-secondary block mb-1.5">Target Uptime (%)</label>
+          <select id="sla-target" class="w-full px-3 py-2.5 text-[14px] bg-bg border border-border rounded-lg text-text focus:border-blue/50 focus:outline-none">
+            <option value="99">99% (two nines)</option>
+            <option value="99.5">99.5%</option>
+            <option value="99.9" selected>99.9% (three nines)</option>
+            <option value="99.95">99.95%</option>
+            <option value="99.99">99.99% (four nines)</option>
+            <option value="99.999">99.999% (five nines)</option>
+          </select>
+        </div>
+        <div class="pt-4 border-t border-border space-y-3">
+          <div class="flex justify-between text-[14px]"><span class="text-text-tertiary">Daily downtime</span><span id="sla-daily" class="font-mono font-bold text-green">1m 26s</span></div>
+          <div class="flex justify-between text-[14px]"><span class="text-text-tertiary">Weekly downtime</span><span id="sla-weekly" class="font-mono font-bold text-green">10m 5s</span></div>
+          <div class="flex justify-between text-[14px]"><span class="text-text-tertiary">Monthly downtime</span><span id="sla-monthly" class="font-mono font-bold text-green">43m 50s</span></div>
+          <div class="flex justify-between text-[14px]"><span class="text-text-tertiary">Yearly downtime</span><span id="sla-yearly" class="font-mono font-bold text-green">8h 46m</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-8 p-5 rounded-xl bg-bg-card/50 border border-border">
+      <h2 class="text-[16px] font-bold text-text mb-3">How it works</h2>
+      <p class="text-[14px] text-text-secondary leading-[1.7]">SLA uptime percentages translate to concrete time budgets. A 99.9% SLA means you can be down for at most 8 hours and 46 minutes per year. Going from three nines (99.9%) to four nines (99.99%) reduces your yearly budget from ~8.7 hours to ~52 minutes — a 10x reduction that typically requires redundant architecture, automated failover, and multi-region deployments.</p>
+    </div>
+
+    <div class="mt-6 text-center">
+      <a href="/tools" class="text-[14px] text-text-secondary hover:text-blue transition-colors inline-flex items-center gap-1">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        All Tools
+      </a>
+    </div>
+  </div>
+
+  <script>
+    const slaTarget = document.getElementById('sla-target') as HTMLSelectElement
+    function formatDur(s: number): string {
+      if (s < 60) return Math.round(s) + 's'
+      if (s < 3600) return Math.floor(s / 60) + 'm ' + Math.round(s % 60) + 's'
+      return Math.floor(s / 3600) + 'h ' + Math.round((s % 3600) / 60) + 'm'
+    }
+    function calcSla() {
+      const pct = parseFloat(slaTarget.value)
+      const d = (100 - pct) / 100
+      document.getElementById('sla-daily')!.textContent = formatDur(86400 * d)
+      document.getElementById('sla-weekly')!.textContent = formatDur(604800 * d)
+      document.getElementById('sla-monthly')!.textContent = formatDur(2592000 * d)
+      document.getElementById('sla-yearly')!.textContent = formatDur(31536000 * d)
+    }
+    slaTarget.addEventListener('change', calcSla)
+    calcSla()
+  </script>
+</Base>

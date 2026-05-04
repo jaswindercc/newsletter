@@ -4,6 +4,7 @@ interface Props {
   icon: string
   color: string
   items: Array<{
+    date?: string
     title: string
     summary: string
     impact: 'high' | 'medium' | 'low'
@@ -24,7 +25,7 @@ const impactConfig = {
 
 <section class="py-10 border-b border-border last:border-b-0" id={title.toLowerCase().split(' ')[0]}>
   <div class="flex items-center gap-3 mb-6">
-    <span class="text-[22px]">{icon}</span>
+    <span class="w-6 h-6 rounded bg-current opacity-15 flex items-center justify-center shrink-0" style={`color: var(--section-color, #888)`}></span>
     <h2 class="text-[20px] font-bold text-text">{title}</h2>
     <span class="ml-auto px-2.5 py-0.5 text-[13px] font-mono font-medium text-text-tertiary bg-bg-card border border-border rounded-md">
       {items.length} stories
@@ -42,6 +43,9 @@ const impactConfig = {
             <h3 class="text-[15px] font-semibold text-text leading-snug group-hover:text-blue transition-colors">
               {item.title}
             </h3>
+            {item.date && (
+              <span class="text-[12px] font-mono text-text-tertiary mt-0.5 block">{item.date}</span>
+            )}
           </div>
           <span class="text-[13px] text-text-tertiary font-mono whitespace-nowrap mt-0.5">{item.time}</span>
           <svg class="w-5 h-5 text-text-tertiary mt-0.5 shrink-0 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

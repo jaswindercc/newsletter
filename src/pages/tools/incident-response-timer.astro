@@ -1,0 +1,100 @@
+---
+import Base from '../../layouts/Base.astro'
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Incident Response Timer',
+  description: 'Track how long until your SLA breach during an active incident, with severity-based thresholds.',
+  url: 'https://jas.dev/tools/incident-response-timer',
+  applicationCategory: 'DeveloperApplication',
+  operatingSystem: 'Web Browser',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+}
+---
+<Base title="Incident Response Timer — SLA Breach Countdown by Severity | jas Tools" description="Track time until SLA breach during an active incident. Severity-based thresholds for P1-P4. Free browser-based incident timer." jsonLd={jsonLd}>
+  <div class="max-w-[720px] mx-auto px-6 py-12">
+    <div class="flex items-center gap-2 text-[13px] text-text-tertiary pb-4 border-b border-border mb-8">
+      <a href="/" class="hover:text-text transition-colors">Home</a><span>/</span>
+      <a href="/tools" class="hover:text-text transition-colors">Tools</a><span>/</span>
+      <span class="text-text-secondary">Incident Response Timer</span>
+    </div>
+    <h1 class="text-[28px] font-bold text-text mb-2">Incident Response Timer</h1>
+    <p class="text-[15px] text-text-secondary mb-8">Track how long until your SLA breach during an active incident, with severity-based thresholds.</p>
+
+    <div class="p-6 rounded-xl bg-bg-card border border-border">
+      <div class="space-y-4">
+        <div>
+          <label class="text-[13px] font-medium text-text-secondary block mb-1.5">Severity Level</label>
+          <select id="severity" class="w-full px-3 py-2.5 text-[14px] bg-bg border border-border rounded-lg text-text focus:border-blue/50 focus:outline-none">
+            <option value="15">SEV-1 Critical (15 min response)</option>
+            <option value="30">SEV-2 High (30 min response)</option>
+            <option value="60" selected>SEV-3 Medium (1 hr response)</option>
+            <option value="240">SEV-4 Low (4 hr response)</option>
+          </select>
+        </div>
+        <div class="pt-4 border-t border-border text-center">
+          <div class="text-[13px] text-text-tertiary mb-2">Time remaining to respond</div>
+          <div id="timer" class="text-[48px] font-mono font-bold text-green tabular-nums">60:00</div>
+          <div class="mt-4 flex justify-center gap-3">
+            <button id="btn-start" class="px-5 py-2 text-[14px] font-semibold bg-green text-bg rounded-lg hover:bg-green/80 transition-colors">Start</button>
+            <button id="btn-pause" class="px-5 py-2 text-[14px] font-semibold bg-bg-accent text-text rounded-lg hover:bg-bg-hover transition-colors" disabled>Pause</button>
+            <button id="btn-reset" class="px-5 py-2 text-[14px] font-semibold bg-bg-accent text-text rounded-lg hover:bg-bg-hover transition-colors">Reset</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-6 text-center">
+      <a href="/tools" class="text-[14px] text-text-secondary hover:text-blue transition-colors inline-flex items-center gap-1">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        All Tools
+      </a>
+    </div>
+  </div>
+
+  <script>
+    const severity = document.getElementById('severity') as HTMLSelectElement
+    const timer = document.getElementById('timer')!
+    const btnStart = document.getElementById('btn-start') as HTMLButtonElement
+    const btnPause = document.getElementById('btn-pause') as HTMLButtonElement
+    const btnReset = document.getElementById('btn-reset') as HTMLButtonElement
+    let remaining = 3600, interval: number | null = null
+
+    function render() {
+      const m = Math.floor(remaining / 60), s = remaining % 60
+      timer.textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0')
+      if (remaining <= 60) { timer.className = 'text-[48px] font-mono font-bold text-red tabular-nums animate-pulse' }
+      else if (remaining <= 300) { timer.className = 'text-[48px] font-mono font-bold text-orange tabular-nums' }
+      else { timer.className = 'text-[48px] font-mono font-bold text-green tabular-nums' }
+    }
+
+    function reset() {
+      if (interval) { clearInterval(interval); interval = null }
+      remaining = parseInt(severity.value) * 60
+      render()
+      btnStart.disabled = false
+      btnPause.disabled = true
+    }
+
+    btnStart.addEventListener('click', () => {
+      if (interval) return
+      btnStart.disabled = true
+      btnPause.disabled = false
+      interval = window.setInterval(() => {
+        remaining = Math.max(0, remaining - 1)
+        render()
+        if (remaining === 0 && interval) { clearInterval(interval); interval = null }
+      }, 1000)
+    })
+
+    btnPause.addEventListener('click', () => {
+      if (interval) { clearInterval(interval); interval = null }
+      btnStart.disabled = false
+      btnPause.disabled = true
+    })
+
+    btnReset.addEventListener('click', reset)
+    severity.addEventListener('change', reset)
+    reset()
+  </script>
+</Base>
