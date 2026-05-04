@@ -133,14 +133,6 @@ const marketData = {
 
 const sections = [
   {
-    title: 'Tech Rumours',
-    icon: 'S.06',
-    color: 'text-orange',
-    items: [
-      { date: 'Apr 29', title: 'Apple M6 Chip Rumored to Feature Dedicated "Agentic" Neural Engine', summary: 'Supply chain reports suggest the M6 will move beyond simple NPU tasks to support autonomous agent memory persistence. If confirmed, this would be the first consumer silicon explicitly designed for persistent AI agent workloads. [UNVERIFIED — rumour]', impact: 'high' as const, time: '3 min', source: 'Supply Chain Reports', sourceUrl: 'https://www.apple.com/' },
-    ],
-  },
-  {
     title: 'Top 5 Security Vulnerabilities',
     icon: 'S.07',
     color: 'text-red',
@@ -160,14 +152,6 @@ const sections = [
     ],
   },
   {
-    title: 'Deprecations & End-of-Life',
-    icon: 'S.09',
-    color: 'text-text-tertiary',
-    items: [
-      { date: 'May 1', title: 'AWS ME-CENTRAL-1 (UAE) — Recovery Status & Migration Advisory', summary: 'ME-CENTRAL-1 recovery ongoing. AWS recommends service migrations for primary regional workloads. Enterprise customers with single-region deployments are urged to implement multi-region failover immediately.', impact: 'high' as const, time: '3 min', source: 'AWS Health', sourceUrl: 'https://health.aws.amazon.com/' },
-    ],
-  },
-  {
     title: 'Products & Cloud Pricing',
     icon: 'S.10',
     color: 'text-green',
@@ -176,54 +160,6 @@ const sections = [
       { date: 'Apr 27', title: 'Samsung Wallet "Trips" Launch', summary: 'New feature for global travelers enables seamless journey management and cross-border document orchestration within the Samsung ecosystem.', impact: 'low' as const, time: '2 min', source: 'Samsung', sourceUrl: 'https://news.samsung.com/' },
       { date: 'Apr 28', title: 'Samsung 32-Inch Spatial Signage Goes Global', summary: 'Samsung expands its spatial signage lineup with a 32-inch model targeting high-density retail and interactive enterprise environments. Glasses-free 3D display technology moving into commercial deployment.', impact: 'medium' as const, time: '2 min', source: 'Samsung', sourceUrl: 'https://news.samsung.com/' },
       { date: 'Apr 30', title: 'Samsung Galaxy Book6 Enterprise Edition Launches', summary: 'Powered by Intel Core Ultra with vPro, specifically designed for secure enterprise IT fleets. Hardware-level vPro security targets hybrid workforces demanding device-level compliance.', impact: 'medium' as const, time: '3 min', source: 'Samsung', sourceUrl: 'https://news.samsung.com/' },
-    ],
-  },
-  {
-    title: 'Open Source Governance & Forks',
-    icon: 'S.11',
-    color: 'text-green',
-    items: [
-      { date: 'Apr 30', title: 'ValKey v1.1.0 Released — Redis Fork Gains Traction', summary: 'The Linux Foundation\'s Redis fork ships v1.1.0 with significant performance optimizations for enterprise caching. Strengthens its position as the go-to open-source alternative following Redis\'s license change.', impact: 'medium' as const, time: '3 min', source: 'ValKey Project', sourceUrl: 'https://valkey.io/blog/valkey-1-1-0-released/' },
-      { date: 'May 3', title: '"Ruflo" Agent Orchestration Hits 40,600 GitHub Stars', summary: 'The TypeScript-based multi-agent swarm platform became the dominant orchestration layer for Claude-based workflows. Rapid adoption reflects enterprise demand for composable AI agent systems.', impact: 'medium' as const, time: '3 min', source: 'GitHub Trending', sourceUrl: 'https://github.com/trending' },
-      { date: 'May 3', title: 'Open-Design for Claude Code Goes Open Source', summary: 'A local-first, open-source alternative to Anthropic\'s Claude Design featuring 71 brand-grade design systems. Enables offline-first AI design workflows with full data sovereignty.', impact: 'medium' as const, time: '3 min', source: 'GitHub Trending', sourceUrl: 'https://github.com/trending' },
-      { date: 'May 3', title: 'Scrapling Framework Gains Trending Status', summary: 'An adaptive web-scraping framework gained trending status for its ability to handle full-scale crawls with agentic automation. Useful for data pipeline teams building AI training datasets.', impact: 'low' as const, time: '2 min', source: 'GitHub Trending', sourceUrl: 'https://github.com/trending' },
-    ],
-  },
-  {
-    title: 'Regulatory Compliance Drift',
-    icon: 'S.12',
-    color: 'text-blue',
-    items: [
-      { date: 'Apr 27', title: 'Canada Financial Crimes Agency (Bill C-29)', summary: 'Government introduced legislation for an independent agency with police powers to investigate complex capital market crimes and money laundering. Fintech and crypto companies face heightened compliance scrutiny.', impact: 'medium' as const, time: '3 min', source: 'Government of Canada', sourceUrl: 'https://www.canada.ca/' },
-      { date: 'May 1', title: 'NIST AI Risk Management Framework — Critical Infrastructure Profile', summary: 'NIST released a concept note mandating "Explainability" and "Fail-Safe" modes for AI deployed in critical infrastructure. Will shape compliance requirements for energy, transport, and healthcare AI systems.', impact: 'high' as const, time: '3 min', source: 'NIST', sourceUrl: 'https://www.nist.gov/itl/ai-risk-management-framework' },
-      { date: 'May 1', title: 'Canada CPPA / Law 25 — "Sovereignty Gap" Enforcement Begins', summary: 'Canadian data residency shifted from "best practice" to board-level risk, with non-compliance fines reaching up to 5% of global revenue. Enforcement surge creates demand for local identity and data-residency providers.', impact: 'high' as const, time: '4 min', source: 'CPPA', sourceUrl: 'https://www.priv.gc.ca/en/' },
-    ],
-  },
-  {
-    title: 'Legacy Modernization Tracker',
-    icon: 'S.13',
-    color: 'text-cyan',
-    items: [
-      { date: 'May 1', title: 'Mainframe COBOL Refactoring Reaches "Encapsulation" Milestone', summary: 'Enterprises are increasingly using "Encapsulation" patterns to wrap monolithic COBOL programs as modular microservices via APIs. This approach avoids risky full system replacements while enabling incremental cloud migration.', impact: 'medium' as const, time: '4 min', source: 'Industry Reports', sourceUrl: 'https://www.ibm.com/z' },
-      { date: 'May 1', title: 'Mainframe Modernization Pivots to System-Level Engineering', summary: 'Modernization efforts shifting toward "system-level engineering" that redesigns data architecture without breaking legacy transactional security. Preserves decades of battle-tested business logic while enabling cloud interop.', impact: 'medium' as const, time: '3 min', source: 'Industry Reports', sourceUrl: 'https://www.ibm.com/z' },
-    ],
-  },
-  {
-    title: 'Developer Velocity & Tooling',
-    icon: 'S.14',
-    color: 'text-green',
-    items: [
-      { date: 'May 3', title: 'Claude Code "Skills" Ecosystem Launches', summary: 'Introduction of standardized .claude directory skills and CLAUDE.md patterns for reducing common LLM coding pitfalls. Derived from observations by Andrej Karpathy, the ecosystem provides structured context for AI-assisted development.', impact: 'medium' as const, time: '4 min', source: 'Anthropic Community', sourceUrl: 'https://docs.anthropic.com/en/docs/claude-code' },
-      { date: 'May 3', title: '"Understand-Anything" Knowledge Graphs', summary: 'New tool converts code knowledge bases into interactive, searchable graphs for AI coding assistants. Designed for Claude and Cursor users, it improves context retrieval and codebase comprehension.', impact: 'medium' as const, time: '3 min', source: 'GitHub Trending', sourceUrl: 'https://github.com/trending' },
-    ],
-  },
-  {
-    title: 'Sovereign Cloud & Data Residency',
-    icon: 'S.15',
-    color: 'text-blue',
-    items: [
-      { date: 'May 1', title: 'Canadian "Geofencing" Mandate for CIAM Vendors', summary: 'CIAM (Customer Identity & Access Management) vendors are now being evaluated primarily on jurisdictional isolation to bypass the U.S. CLOUD Act. A shift that will ripple across all SaaS procurement for regulated industries.', impact: 'high' as const, time: '3 min', source: 'Industry Analysis', sourceUrl: 'https://www.priv.gc.ca/en/' },
-      { date: 'May 1', title: 'Canadian Sovereign Identity Providers Surge', summary: 'IDENTOS (Toronto) and LoginRadius (Vancouver) highlighted as "home-grown champions" for healthcare and public sector data residency, driven by the sovereignty gap in CIAM evaluations.', impact: 'medium' as const, time: '3 min', source: 'Industry Analysis', sourceUrl: 'https://www.priv.gc.ca/en/' },
     ],
   },
   {
@@ -241,6 +177,70 @@ const sections = [
     items: [
       { date: 'Apr 27', title: 'China Blocks Meta Acquisition of AI Startup Manus', summary: 'China\'s NDRC prohibited Meta from acquiring AI startup Manus, citing advanced technology transfer rules. Highlights growing geopolitical friction over control of frontier AI capabilities and cross-border M&A.', impact: 'high' as const, time: '4 min', source: 'CityNews', sourceUrl: 'https://toronto.citynews.ca/2026/04/27/china-blocks-meta-acquiring-ai-startup-manus/' },
       { date: 'Apr 29', title: 'MIT and IBM Launch Joint Computing Research Lab', summary: 'New research lab focuses on solving quantum error correction and converging AI with quantum hardware clusters. The collaboration targets breakthroughs in hybrid computing architectures.', impact: 'medium' as const, time: '3 min', source: 'MIT News', sourceUrl: 'https://news.mit.edu/2026/mit-ibm-computing-research-lab-launches-0429' },
+    ],
+  },
+  {
+    title: 'Regulatory Compliance Drift',
+    icon: 'S.12',
+    color: 'text-blue',
+    items: [
+      { date: 'Apr 27', title: 'Canada Financial Crimes Agency (Bill C-29)', summary: 'Government introduced legislation for an independent agency with police powers to investigate complex capital market crimes and money laundering. Fintech and crypto companies face heightened compliance scrutiny.', impact: 'medium' as const, time: '3 min', source: 'Government of Canada', sourceUrl: 'https://www.canada.ca/' },
+      { date: 'May 1', title: 'NIST AI Risk Management Framework — Critical Infrastructure Profile', summary: 'NIST released a concept note mandating "Explainability" and "Fail-Safe" modes for AI deployed in critical infrastructure. Will shape compliance requirements for energy, transport, and healthcare AI systems.', impact: 'high' as const, time: '3 min', source: 'NIST', sourceUrl: 'https://www.nist.gov/itl/ai-risk-management-framework' },
+      { date: 'May 1', title: 'Canada CPPA / Law 25 — "Sovereignty Gap" Enforcement Begins', summary: 'Canadian data residency shifted from "best practice" to board-level risk, with non-compliance fines reaching up to 5% of global revenue. Enforcement surge creates demand for local identity and data-residency providers.', impact: 'high' as const, time: '4 min', source: 'CPPA', sourceUrl: 'https://www.priv.gc.ca/en/' },
+    ],
+  },
+  {
+    title: 'Developer Velocity & Tooling',
+    icon: 'S.14',
+    color: 'text-green',
+    items: [
+      { date: 'May 3', title: 'Claude Code "Skills" Ecosystem Launches', summary: 'Introduction of standardized .claude directory skills and CLAUDE.md patterns for reducing common LLM coding pitfalls. Derived from observations by Andrej Karpathy, the ecosystem provides structured context for AI-assisted development.', impact: 'medium' as const, time: '4 min', source: 'Anthropic Community', sourceUrl: 'https://docs.anthropic.com/en/docs/claude-code' },
+      { date: 'May 3', title: '"Understand-Anything" Knowledge Graphs', summary: 'New tool converts code knowledge bases into interactive, searchable graphs for AI coding assistants. Designed for Claude and Cursor users, it improves context retrieval and codebase comprehension.', impact: 'medium' as const, time: '3 min', source: 'GitHub Trending', sourceUrl: 'https://github.com/trending' },
+    ],
+  },
+  {
+    title: 'Open Source Governance & Forks',
+    icon: 'S.11',
+    color: 'text-green',
+    items: [
+      { date: 'Apr 30', title: 'ValKey v1.1.0 Released — Redis Fork Gains Traction', summary: 'The Linux Foundation\'s Redis fork ships v1.1.0 with significant performance optimizations for enterprise caching. Strengthens its position as the go-to open-source alternative following Redis\'s license change.', impact: 'medium' as const, time: '3 min', source: 'ValKey Project', sourceUrl: 'https://valkey.io/blog/valkey-1-1-0-released/' },
+      { date: 'May 3', title: '"Ruflo" Agent Orchestration Hits 40,600 GitHub Stars', summary: 'The TypeScript-based multi-agent swarm platform became the dominant orchestration layer for Claude-based workflows. Rapid adoption reflects enterprise demand for composable AI agent systems.', impact: 'medium' as const, time: '3 min', source: 'GitHub Trending', sourceUrl: 'https://github.com/trending' },
+      { date: 'May 3', title: 'Open-Design for Claude Code Goes Open Source', summary: 'A local-first, open-source alternative to Anthropic\'s Claude Design featuring 71 brand-grade design systems. Enables offline-first AI design workflows with full data sovereignty.', impact: 'medium' as const, time: '3 min', source: 'GitHub Trending', sourceUrl: 'https://github.com/trending' },
+      { date: 'May 3', title: 'Scrapling Framework Gains Trending Status', summary: 'An adaptive web-scraping framework gained trending status for its ability to handle full-scale crawls with agentic automation. Useful for data pipeline teams building AI training datasets.', impact: 'low' as const, time: '2 min', source: 'GitHub Trending', sourceUrl: 'https://github.com/trending' },
+    ],
+  },
+  {
+    title: 'Tech Rumours',
+    icon: 'S.06',
+    color: 'text-orange',
+    items: [
+      { date: 'Apr 29', title: 'Apple M6 Chip Rumored to Feature Dedicated "Agentic" Neural Engine', summary: 'Supply chain reports suggest the M6 will move beyond simple NPU tasks to support autonomous agent memory persistence. If confirmed, this would be the first consumer silicon explicitly designed for persistent AI agent workloads. [UNVERIFIED — rumour]', impact: 'high' as const, time: '3 min', source: 'Supply Chain Reports', sourceUrl: 'https://www.apple.com/' },
+    ],
+  },
+  {
+    title: 'Sovereign Cloud & Data Residency',
+    icon: 'S.15',
+    color: 'text-blue',
+    items: [
+      { date: 'May 1', title: 'Canadian "Geofencing" Mandate for CIAM Vendors', summary: 'CIAM (Customer Identity & Access Management) vendors are now being evaluated primarily on jurisdictional isolation to bypass the U.S. CLOUD Act. A shift that will ripple across all SaaS procurement for regulated industries.', impact: 'high' as const, time: '3 min', source: 'Industry Analysis', sourceUrl: 'https://www.priv.gc.ca/en/' },
+      { date: 'May 1', title: 'Canadian Sovereign Identity Providers Surge', summary: 'IDENTOS (Toronto) and LoginRadius (Vancouver) highlighted as "home-grown champions" for healthcare and public sector data residency, driven by the sovereignty gap in CIAM evaluations.', impact: 'medium' as const, time: '3 min', source: 'Industry Analysis', sourceUrl: 'https://www.priv.gc.ca/en/' },
+    ],
+  },
+  {
+    title: 'Deprecations & End-of-Life',
+    icon: 'S.09',
+    color: 'text-text-tertiary',
+    items: [
+      { date: 'May 1', title: 'AWS ME-CENTRAL-1 (UAE) — Recovery Status & Migration Advisory', summary: 'ME-CENTRAL-1 recovery ongoing. AWS recommends service migrations for primary regional workloads. Enterprise customers with single-region deployments are urged to implement multi-region failover immediately.', impact: 'high' as const, time: '3 min', source: 'AWS Health', sourceUrl: 'https://health.aws.amazon.com/' },
+    ],
+  },
+  {
+    title: 'Legacy Modernization Tracker',
+    icon: 'S.13',
+    color: 'text-cyan',
+    items: [
+      { date: 'May 1', title: 'Mainframe COBOL Refactoring Reaches "Encapsulation" Milestone', summary: 'Enterprises are increasingly using "Encapsulation" patterns to wrap monolithic COBOL programs as modular microservices via APIs. This approach avoids risky full system replacements while enabling incremental cloud migration.', impact: 'medium' as const, time: '4 min', source: 'Industry Reports', sourceUrl: 'https://www.ibm.com/z' },
+      { date: 'May 1', title: 'Mainframe Modernization Pivots to System-Level Engineering', summary: 'Modernization efforts shifting toward "system-level engineering" that redesigns data architecture without breaking legacy transactional security. Preserves decades of battle-tested business logic while enabling cloud interop.', impact: 'medium' as const, time: '3 min', source: 'Industry Reports', sourceUrl: 'https://www.ibm.com/z' },
     ],
   },
 ]
