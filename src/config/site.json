@@ -1,0 +1,24 @@
+{
+  "name": "/dev/newsletter/jaswinder",
+  "shortName": "/dev/newsletter",
+  "tagline": "What changed in tech this week. Verified. Nothing more.",
+  "url": "https://jas.dev",
+  "ogImage": "/og-default.png",
+  "description": "We read everything so you don't have to — then we verify it. Security, cloud, AI, regulation, acquisitions. Every story sourced. No opinions. No hype. Just what happened.",
+  "metaDescription": "Verified tech intelligence, weekly — for founders, CTOs and senior engineers who need signal, not noise.",
+  "homepage": {
+    "heroHeadline": "What changed in tech\nthis week.",
+    "heroHighlight": "Verified. Nothing more.",
+    "heroParagraph": "We read everything so you don't have to — then we verify it. Security, cloud, AI, regulation, acquisitions. Every story sourced. No opinions. No hype. Just what happened.",
+    "valueProposition": "Verified tech intelligence, weekly — for founders, CTOs and senior engineers who need signal, not noise."
+  },
+  "subscribe": {
+    "heading": "Stay in the loop",
+    "description": "One weekly technology brief. Every critical development. Every claim sourced with a direct link.",
+    "placeholder": "you@company.com",
+    "buttonText": "Subscribe"
+  },
+  "footer": {
+    "copyright": "2026 /dev/newsletter/jaswinder"
+  }
+}

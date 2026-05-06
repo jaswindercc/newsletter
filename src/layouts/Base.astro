@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css'
+import site from '../config/site.json'
 
 interface Props {
   title: string
@@ -11,13 +12,13 @@ interface Props {
 
 const {
   title,
-  description = 'Interactive weekly tech newsletter — emerging tech, legacy systems, AI, security, and infrastructure.',
+  description = site.metaDescription,
   canonical,
-  ogImage = '/og-default.png',
+  ogImage = site.ogImage,
   jsonLd,
 } = Astro.props
 
-const siteUrl = 'https://jas.dev'
+const siteUrl = site.url
 const canonicalUrl = canonical ? new URL(canonical, siteUrl).href : new URL(Astro.url.pathname, siteUrl).href
 ---
 
@@ -37,7 +38,7 @@ const canonicalUrl = canonical ? new URL(canonical, siteUrl).href : new URL(Astr
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content={new URL(ogImage, siteUrl).href} />
-    <meta property="og:site_name" content="jas" />
+    <meta property="og:site_name" content={site.name} />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -63,7 +64,7 @@ const canonicalUrl = canonical ? new URL(canonical, siteUrl).href : new URL(Astr
               <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
             </svg>
           </div>
-          <span class="text-[20px] font-bold tracking-tight">jas</span>
+          <span class="text-[20px] font-bold tracking-tight">{site.shortName}</span>
         </a>
         <nav class="flex items-center gap-1">
           <a href="/issue/2026-week17" class="px-3 py-1.5 text-[14px] font-medium text-text-secondary hover:text-text hover:bg-bg-hover rounded-lg transition-all">Latest Issue</a>
@@ -76,11 +77,11 @@ const canonicalUrl = canonical ? new URL(canonical, siteUrl).href : new URL(Astr
     </main>
     <footer class="border-t border-border mt-20">
       <div class="max-w-[1080px] mx-auto px-6 py-8 flex items-center justify-between text-[14px] text-text-tertiary">
-        <span>&copy; 2026 jas</span>
+        <span>&copy; {site.footer.copyright}</span>
         <div class="flex gap-5">
           <a href="/tools" class="hover:text-text transition-colors">Tools</a>
-          <a href="#" class="hover:text-text transition-colors">Twitter</a>
-          <a href="#" class="hover:text-text transition-colors">RSS</a>
+          <a href="https://x.com/jaswinder_cc" class="hover:text-text transition-colors" rel="noopener noreferrer" target="_blank">X</a>
+          <a href="/sitemap-index.xml" class="hover:text-text transition-colors">Sitemap</a>
           <a href="#" class="hover:text-text transition-colors">GitHub</a>
         </div>
       </div>
