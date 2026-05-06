@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css'
 import site from '../config/site.json'
+import ThemeToggle from '../components/ThemeToggle.astro'
 
 interface Props {
   title: string
@@ -46,6 +47,12 @@ const canonicalUrl = canonical ? new URL(canonical, siteUrl).href : new URL(Astr
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={new URL(ogImage, siteUrl).href} />
 
+    <script is:inline>
+      (function() {
+        const theme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -69,6 +76,7 @@ const canonicalUrl = canonical ? new URL(canonical, siteUrl).href : new URL(Astr
         <nav class="flex items-center gap-1">
           <a href="/issue/2026-week17" class="px-3 py-1.5 text-[14px] font-medium text-text-secondary hover:text-text hover:bg-bg-hover rounded-lg transition-all">Latest Issue</a>
           <a href="/tools" class="px-3 py-1.5 text-[14px] font-medium text-text-secondary hover:text-text hover:bg-bg-hover rounded-lg transition-all">Tools</a>
+          <ThemeToggle />
         </nav>
       </div>
     </header>

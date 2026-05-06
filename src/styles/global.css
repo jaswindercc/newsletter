@@ -20,24 +20,22 @@
   --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    --color-bg: #ffffff;
-    --color-bg-card: #f4f4f5;
-    --color-bg-hover: #e4e4e7;
-    --color-bg-accent: #d4d4d8;
-    --color-text: #09090b;
-    --color-text-secondary: #3f3f46;
-    --color-text-tertiary: #71717a;
-    --color-border: #e4e4e7;
-    --color-blue: #2563eb;
-    --color-green: #16a34a;
-    --color-red: #dc2626;
-    --color-orange: #ea580c;
-    --color-purple: #9333ea;
-    --color-pink: #db2777;
-    --color-cyan: #0891b2;
-  }
+[data-theme="light"] {
+  --color-bg: #ffffff;
+  --color-bg-card: #f4f4f5;
+  --color-bg-hover: #e4e4e7;
+  --color-bg-accent: #d4d4d8;
+  --color-text: #09090b;
+  --color-text-secondary: #3f3f46;
+  --color-text-tertiary: #71717a;
+  --color-border: #e4e4e7;
+  --color-blue: #2563eb;
+  --color-green: #16a34a;
+  --color-red: #dc2626;
+  --color-orange: #ea580c;
+  --color-purple: #9333ea;
+  --color-pink: #db2777;
+  --color-cyan: #0891b2;
 }
 
 * {
