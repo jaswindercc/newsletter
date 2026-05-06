@@ -67,9 +67,46 @@ const statusConfig = {
 /* SVG icon fragments — inline, no emojis */
 const chevron = `<svg class="w-5 h-5 text-text-tertiary mt-0.5 shrink-0 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M19 9l-7 7-7-7"/></svg>`
 const linkIcon = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>`
+
+// Extract entities for AEO: tickers, CVEs, organizations
+const tickers = marketData.stocks.map(s => s.ticker)
+const cveIds = sections
+  .flatMap(s => s.items)
+  .map(i => i.title.match(/CVE-\d{4}-\d+/))
+  .filter(Boolean)
+  .map(m => m![0])
+const allSources = [
+  ...generalNews.map(n => n.source),
+  ...majorTechNews.map(n => n.source),
+  ...sections.flatMap(s => s.items).map(i => i.source).filter(Boolean),
+]
+const uniqueSources = [...new Set(allSources)]
+
+// Parse date range for datePublished
+const dateMatch = meta.date.match(/(\w+ \d+)\s*[–—-]\s*(\w+ \d+),?\s*(\d{4})/)
+const publishYear = dateMatch ? dateMatch[3] : '2026'
+const publishDateStr = dateMatch ? `${dateMatch[2]}, ${publishYear}` : meta.date
+
+const issueJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'NewsArticle',
+  headline: `Issue ${meta.number} — ${meta.title}`,
+  datePublished: publishDateStr,
+  dateModified: publishDateStr,
+  url: `https://jas.dev/issue/2026-week${meta.number.split('-')[1]}`,
+  mainEntityOfPage: `https://jas.dev/issue/2026-week${meta.number.split('-')[1]}`,
+  author: { '@type': 'Organization', name: "Jaswinder's Tech Brief" },
+  publisher: { '@type': 'Organization', name: "Jaswinder's Tech Brief", logo: { '@type': 'ImageObject', url: 'https://jas.dev/favicon.svg' } },
+  description: `${totalStories} verified tech stories across ${sectionCount} sections: security, cloud, AI, regulation, acquisitions.`,
+  articleSection: sections.filter(s => s.items.length > 0).map(s => s.title),
+  keywords: [...tickers.map(t => `$${t}`), ...cveIds, 'tech news', 'security', 'cloud', 'AI'].join(', '),
+  ...(tickers.length > 0 && { about: tickers.map(t => ({ '@type': 'Corporation', tickerSymbol: t })) }),
+  ...(cveIds.length > 0 && { mentions: cveIds.map(id => ({ '@type': 'Thing', name: id, identifier: id, url: `https://nvd.nist.gov/vuln/detail/${id}` })) }),
+  citation: uniqueSources.slice(0, 10).map(s => ({ '@type': 'CreativeWork', name: s })),
+}
 ---
 
-<Base title={`Issue ${meta.number} — ${meta.title} | jas`}>
+<Base title={`Issue ${meta.number} — ${meta.title} | jas`} description={`${totalStories} verified stories: ${sections.filter(s => s.items.length > 0).map(s => s.title).slice(0, 4).join(', ')}. Week ${meta.number}.`} jsonLd={issueJsonLd} ogType="article">
   <div class="max-w-[1080px] mx-auto px-6">
     <!-- Breadcrumb + Nav -->
     <div class="flex items-center justify-between py-4 border-b border-border">

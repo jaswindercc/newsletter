@@ -8,6 +8,7 @@ interface Props {
   description?: string
   canonical?: string
   ogImage?: string
+  ogType?: string
   jsonLd?: Record<string, unknown>
 }
 
@@ -16,11 +17,27 @@ const {
   description = site.metaDescription,
   canonical,
   ogImage = site.ogImage,
+  ogType = 'website',
   jsonLd,
 } = Astro.props
 
 const siteUrl = site.url
 const canonicalUrl = canonical ? new URL(canonical, siteUrl).href : new URL(Astro.url.pathname, siteUrl).href
+
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: site.name,
+  url: siteUrl,
+  logo: new URL('/favicon.svg', siteUrl).href,
+  sameAs: ['https://x.com/jaswinder_cc'],
+  description: site.description,
+  foundingDate: '2026',
+  publisher: {
+    '@type': 'Organization',
+    name: site.name,
+  },
+}
 ---
 
 <!DOCTYPE html>
@@ -34,7 +51,7 @@ const canonicalUrl = canonical ? new URL(canonical, siteUrl).href : new URL(Astr
     <title>{title}</title>
 
     <!-- Open Graph -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
@@ -61,6 +78,7 @@ const canonicalUrl = canonical ? new URL(canonical, siteUrl).href : new URL(Astr
     {jsonLd && (
       <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     )}
+    <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
   </head>
   <body class="bg-bg text-text min-h-screen">
     <header class="sticky top-0 z-50 bg-bg/80 backdrop-blur-xl border-b border-border">

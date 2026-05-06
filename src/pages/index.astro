@@ -2,6 +2,19 @@
 import Base from '../layouts/Base.astro'
 import site from '../config/site.json'
 
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: site.name,
+  url: site.url,
+  description: site.description,
+  publisher: { '@type': 'Organization', name: site.name },
+  potentialAction: {
+    '@type': 'ReadAction',
+    target: `${site.url}/issue/2026-week17`,
+  },
+}
+
 const issues = [
   {
     slug: '2026-week17',
@@ -37,7 +50,7 @@ const issues = [
 
 ---
 
-<Base title={`${site.shortName} — ${site.tagline}`} description={site.metaDescription}>
+<Base title={`${site.shortName} — ${site.tagline}`} description={site.metaDescription} jsonLd={jsonLd}>
   <div class="max-w-[1080px] mx-auto px-6 py-12">
     <!-- Hero -->
     <div class="mb-14">
