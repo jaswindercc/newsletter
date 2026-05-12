@@ -15,8 +15,8 @@
   "subscribe": {
     "heading": "Stay in the loop",
     "description": "One weekly technology brief. Every critical development. Every claim sourced with a direct link.",
-    "placeholder": "you@company.com",
-    "buttonText": "Subscribe"
+    "url": "https://jaswindercc.substack.com/subscribe",
+    "buttonText": "Subscribe for free on Substack →"
   },
   "footer": {
     "copyright": "2026 Jaswinder`s Tech Brief. All rights reserved.",
