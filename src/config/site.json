@@ -1,14 +1,14 @@
 {
   "name": "Jaswinder`s Tech Brief",
   "shortName": "Jaswinder`s Tech Brief",
-  "tagline": "What changed in tech this week. Verified. Nothing more.",
-  "url": "https://jas.dev",
+  "tagline": "What changed in tech this week. Verified — by humans, not machines.",
+  "url": "https://techbrief.jaswinder.cc",
   "ogImage": "/og-default.png",
   "description": "We read everything so you don't have to — then we verify it. Security, cloud, AI, regulation, acquisitions. Every story sourced. No opinions. No hype. Just what happened.",
   "metaDescription": "Verified tech intelligence, weekly — for founders, CTOs and senior engineers who need signal, not noise.",
   "homepage": {
     "heroHeadline": "What changed in tech\nthis week.",
-    "heroHighlight": "Verified. Nothing more.",
+    "heroHighlight": "Verified — by humans, not machines.",
     "heroParagraph": "We read everything so you don't have to — then we verify it. Security, cloud, AI, regulation, acquisitions. Every story sourced. No opinions. No hype. Just what happened.",
     "valueProposition": "Verified tech intelligence, weekly — for founders, CTOs and senior engineers who need signal, not noise."
   },
@@ -19,6 +19,7 @@
     "buttonText": "Subscribe"
   },
   "footer": {
-    "copyright": "2026 Jaswinder`s Tech Brief. All rights reserved."
+    "copyright": "2026 Jaswinder`s Tech Brief. All rights reserved.",
+    "credit": "Created by jaswinder.cc"
   }
 }

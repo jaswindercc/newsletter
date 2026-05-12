@@ -30,7 +30,7 @@ const orgSchema = {
   name: site.name,
   url: siteUrl,
   logo: new URL('/favicon.svg', siteUrl).href,
-  sameAs: ['https://x.com/jaswinder_cc'],
+  sameAs: ['https://x.com/jaswinder_cc', 'https://jaswinder.cc'],
   description: site.description,
   foundingDate: '2026',
   publisher: {
@@ -103,12 +103,16 @@ const orgSchema = {
     </main>
     <footer class="border-t border-border mt-20">
       <div class="max-w-[1080px] mx-auto px-6 py-8 flex items-center justify-between text-[14px] text-text-tertiary">
-        <span>&copy; {site.footer.copyright}</span>
+        <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-0">
+          <span>&copy; {site.footer.copyright}</span>
+          <span class="hidden sm:inline mx-2">·</span>
+          <a href="https://jaswinder.cc" class="hover:text-text transition-colors" rel="noopener noreferrer" target="_blank">Created by jaswinder.cc</a>
+        </div>
         <div class="flex gap-5">
           <a href="/tools" class="hover:text-text transition-colors">Tools</a>
           <a href="https://x.com/jaswinder_cc" class="hover:text-text transition-colors" rel="noopener noreferrer" target="_blank">X</a>
           <a href="/sitemap-index.xml" class="hover:text-text transition-colors">Sitemap</a>
-          <a href="#" class="hover:text-text transition-colors">GitHub</a>
+          <a href="https://github.com/jaswindercc/jas" class="hover:text-text transition-colors" rel="noopener noreferrer" target="_blank">GitHub</a>
         </div>
       </div>
     </footer>

@@ -101,14 +101,14 @@ const jsonLd = {
   '@type': 'CollectionPage',
   name: 'Interactive Engineering Tools',
   description: 'Free browser-based calculators and utilities for engineers, architects, and tech leaders. SLA calculator, cloud cost estimator, meeting cost, container sizing, and more.',
-  url: 'https://jas.dev/tools',
+  url: 'https://techbrief.jaswinder.cc/tools',
   mainEntity: {
     '@type': 'ItemList',
     itemListElement: tools.map((t, i) => ({
       '@type': 'ListItem',
       position: i + 1,
       name: t.name,
-      url: `https://jas.dev/tools/${t.slug}`,
+      url: `https://techbrief.jaswinder.cc/tools/${t.slug}`,
     })),
   },
 }

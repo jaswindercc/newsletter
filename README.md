@@ -1,8 +1,8 @@
-# jas — Weekly Tech Intelligence Newsletter
+# Jaswinder's Tech Brief — Open-Source Weekly Tech Intelligence
 
 A curated weekly newsletter for senior engineers, architects, and tech leaders. Covers macro trends, cloud infrastructure, security vulnerabilities, AI developments, regulatory changes, and developer tooling — all verified and sourced.
 
-**Live at:** [jas.dev](https://jas.dev)
+**Live at:** [techbrief.jaswinder.cc](https://techbrief.jaswinder.cc)
 
 ---
 
@@ -133,4 +133,4 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Acknowledgments
 
-Built with [Astro](https://astro.build) and [Tailwind CSS](https://tailwindcss.com). News research uses publicly available sources cited in each issue.
+Created by [jaswinder.cc](https://jaswinder.cc). Built with [Astro](https://astro.build) and [Tailwind CSS](https://tailwindcss.com). News research uses publicly available sources cited in each issue.
