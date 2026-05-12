@@ -46,7 +46,7 @@ Plus **10 free interactive engineering tools** — SLA calculator, cloud cost es
 ### Install & Run
 
 ```bash
-git clone https://github.com/jaswindercc/jas.git
+git clone https://github.com/jaswindercc/newsletter.git
 cd jas
 npm install
 npm run dev
