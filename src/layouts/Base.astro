@@ -10,6 +10,7 @@ interface Props {
   ogImage?: string
   ogType?: string
   jsonLd?: Record<string, unknown>
+  breadcrumbs?: Array<{ name: string; url: string }>
 }
 
 const {
@@ -19,6 +20,7 @@ const {
   ogImage = site.ogImage,
   ogType = 'website',
   jsonLd,
+  breadcrumbs,
 } = Astro.props
 
 const siteUrl = site.url
@@ -38,6 +40,17 @@ const orgSchema = {
     name: site.name,
   },
 }
+
+const breadcrumbSchema = breadcrumbs && breadcrumbs.length > 0 ? {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: breadcrumbs.map((crumb, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: crumb.name,
+    item: new URL(crumb.url, siteUrl).href,
+  })),
+} : null
 ---
 
 <!DOCTYPE html>
@@ -46,7 +59,8 @@ const orgSchema = {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+    <meta name="author" content="Jaswinder's Tech Brief" />
     <link rel="canonical" href={canonicalUrl} />
     <title>{title}</title>
 
@@ -78,6 +92,9 @@ const orgSchema = {
     {jsonLd && (
       <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     )}
+    {breadcrumbSchema && (
+      <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    )}
     <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
   </head>
   <body class="bg-bg text-text min-h-screen">
@@ -92,7 +109,7 @@ const orgSchema = {
           <span class="text-[20px] font-bold tracking-tight">{site.shortName}</span>
         </a>
         <nav class="flex items-center gap-1">
-          <a href="/issue/2026-week17" class="px-3 py-1.5 text-[14px] font-medium text-text-secondary hover:text-text hover:bg-bg-hover rounded-lg transition-all">Latest Issue</a>
+          <a href="/issue/2026-week18" class="px-3 py-1.5 text-[14px] font-medium text-text-secondary hover:text-text hover:bg-bg-hover rounded-lg transition-all">Latest Issue</a>
           <a href="/tools" class="px-3 py-1.5 text-[14px] font-medium text-text-secondary hover:text-text hover:bg-bg-hover rounded-lg transition-all">Tools</a>
           <ThemeToggle />
         </nav>

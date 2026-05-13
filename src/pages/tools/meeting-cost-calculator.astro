@@ -2,16 +2,35 @@
 import Base from '../../layouts/Base.astro'
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'WebApplication',
-  name: 'Meeting Cost Calculator',
-  description: 'Find out the true dollar cost of meetings based on attendees, duration, and hourly rates. See what recurring meetings cost annually.',
-  url: 'https://techbrief.jaswinder.cc/tools/meeting-cost-calculator',
-  applicationCategory: 'BusinessApplication',
-  operatingSystem: 'Web Browser',
-  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  '@graph': [
+    {
+      '@type': 'WebApplication',
+      name: 'Meeting Cost Calculator',
+      description: 'Find out the true dollar cost of meetings based on attendees, duration, and hourly rates. See what recurring meetings cost annually.',
+      url: 'https://techbrief.jaswinder.cc/tools/meeting-cost-calculator',
+      applicationCategory: 'BusinessApplication',
+      operatingSystem: 'Web Browser',
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'How much does a 30-minute meeting with 6 people cost?',
+          acceptedAnswer: { '@type': 'Answer', text: 'A 30-minute meeting with 6 people at an average loaded rate of $95/hr costs approximately $285. If this meeting recurs weekly, the annual cost is $14,820 — enough to fund a junior developer for months.' },
+        },
+        {
+          '@type': 'Question',
+          name: 'How do you calculate the true cost of a meeting?',
+          acceptedAnswer: { '@type': 'Answer', text: 'Multiply the number of attendees by the meeting duration (in hours) by their loaded hourly rate (salary + benefits + overhead). This gives the direct opportunity cost, excluding context-switching time before and after.' },
+        },
+      ],
+    },
+  ],
 }
 ---
-<Base title="Meeting Cost Calculator — What Do Your Meetings Really Cost? | jas Tools" description="Calculate the true dollar cost of meetings based on attendees, duration, and hourly rates. See annual cost of recurring meetings. Free browser tool." jsonLd={jsonLd}>
+<Base title="Meeting Cost Calculator — What Do Your Meetings Really Cost? | jas Tools" description="Calculate the true dollar cost of meetings based on attendees, duration, and hourly rates. See annual cost of recurring meetings. Free browser tool." jsonLd={jsonLd} breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'Tools', url: '/tools' }, { name: 'Meeting Cost Calculator', url: '/tools/meeting-cost-calculator' }]}>
   <div class="max-w-[720px] mx-auto px-6 py-12">
     <div class="flex items-center gap-2 text-[13px] text-text-tertiary pb-4 border-b border-border mb-8">
       <a href="/" class="hover:text-text transition-colors">Home</a><span>/</span>

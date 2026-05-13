@@ -2,16 +2,35 @@
 import Base from '../../layouts/Base.astro'
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'WebApplication',
-  name: 'Cloud Cost Estimator',
-  description: 'Estimate monthly cloud spend for GPU and AI workloads. Select your GPU type, count, and daily usage hours to get a cost projection.',
-  url: 'https://techbrief.jaswinder.cc/tools/cloud-cost-estimator',
-  applicationCategory: 'DeveloperApplication',
-  operatingSystem: 'Web Browser',
-  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  '@graph': [
+    {
+      '@type': 'WebApplication',
+      name: 'Cloud Cost Estimator',
+      description: 'Estimate monthly cloud spend for GPU and AI workloads. Select your GPU type, count, and daily usage hours to get a cost projection.',
+      url: 'https://techbrief.jaswinder.cc/tools/cloud-cost-estimator',
+      applicationCategory: 'DeveloperApplication',
+      operatingSystem: 'Web Browser',
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'How much does it cost to run H100 GPUs in the cloud per month?',
+          acceptedAnswer: { '@type': 'Answer', text: 'Running 8 H100 GPUs for 8 hours per day costs approximately $23,400/month. Running them 24 hours per day costs approximately $70,200/month. Consider spot instances for non-critical training runs to reduce costs by 60-70%.' },
+        },
+        {
+          '@type': 'Question',
+          name: 'How do you calculate monthly cloud GPU costs?',
+          acceptedAnswer: { '@type': 'Answer', text: 'Monthly cost = hourly rate × GPU count × hours per day × 30 days. The biggest cost lever is daily usage hours — scheduling workloads to run only when needed can cut costs by two-thirds.' },
+        },
+      ],
+    },
+  ],
 }
 ---
-<Base title="Cloud GPU Cost Estimator — H100, B200, A100, T4 Pricing Calculator | jas Tools" description="Estimate monthly cloud spend for GPU and AI workloads. Compare H100, B200, A100, and T4 pricing. Free browser-based cost projection tool." jsonLd={jsonLd}>
+<Base title="Cloud GPU Cost Estimator — H100, B200, A100, T4 Pricing Calculator | jas Tools" description="Estimate monthly cloud spend for GPU and AI workloads. Compare H100, B200, A100, and T4 pricing. Free browser-based cost projection tool." jsonLd={jsonLd} breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'Tools', url: '/tools' }, { name: 'Cloud Cost Estimator', url: '/tools/cloud-cost-estimator' }]}>
   <div class="max-w-[720px] mx-auto px-6 py-12">
     <div class="flex items-center gap-2 text-[13px] text-text-tertiary pb-4 border-b border-border mb-8">
       <a href="/" class="hover:text-text transition-colors">Home</a><span>/</span>

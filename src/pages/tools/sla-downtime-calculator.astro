@@ -2,16 +2,35 @@
 import Base from '../../layouts/Base.astro'
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'WebApplication',
-  name: 'SLA Downtime Calculator',
-  description: 'Calculate exactly how much downtime your SLA allows per day, week, month, and year. Enter a target uptime percentage and see the maximum permitted outage windows.',
-  url: 'https://techbrief.jaswinder.cc/tools/sla-downtime-calculator',
-  applicationCategory: 'DeveloperApplication',
-  operatingSystem: 'Web Browser',
-  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  '@graph': [
+    {
+      '@type': 'WebApplication',
+      name: 'SLA Downtime Calculator',
+      description: 'Calculate exactly how much downtime your SLA allows per day, week, month, and year. Enter a target uptime percentage and see the maximum permitted outage windows.',
+      url: 'https://techbrief.jaswinder.cc/tools/sla-downtime-calculator',
+      applicationCategory: 'DeveloperApplication',
+      operatingSystem: 'Web Browser',
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'How much downtime does a 99.9% SLA allow per year?',
+          acceptedAnswer: { '@type': 'Answer', text: 'A 99.9% SLA (three nines) allows a maximum of 8 hours and 46 minutes of downtime per year, which translates to about 43 minutes and 50 seconds per month.' },
+        },
+        {
+          '@type': 'Question',
+          name: 'What is the difference between three nines and four nines uptime?',
+          acceptedAnswer: { '@type': 'Answer', text: 'Going from three nines (99.9%) to four nines (99.99%) reduces your yearly downtime budget from approximately 8.7 hours to about 52 minutes — a 10x reduction that typically requires redundant architecture, automated failover, and multi-region deployments.' },
+        },
+      ],
+    },
+  ],
 }
 ---
-<Base title="SLA Downtime Calculator — How Much Downtime Does Your SLA Allow? | jas Tools" description="Calculate exactly how much downtime your SLA allows per day, week, month, and year. Free browser-based uptime calculator for 99.9% to 99.999% SLAs." jsonLd={jsonLd}>
+<Base title="SLA Downtime Calculator — How Much Downtime Does Your SLA Allow? | jas Tools" description="Calculate exactly how much downtime your SLA allows per day, week, month, and year. Free browser-based uptime calculator for 99.9% to 99.999% SLAs." jsonLd={jsonLd} breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'Tools', url: '/tools' }, { name: 'SLA Downtime Calculator', url: '/tools/sla-downtime-calculator' }]}>
   <div class="max-w-[720px] mx-auto px-6 py-12">
     <div class="flex items-center gap-2 text-[13px] text-text-tertiary pb-4 border-b border-border mb-8">
       <a href="/" class="hover:text-text transition-colors">Home</a><span>/</span>

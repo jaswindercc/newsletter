@@ -2,16 +2,35 @@
 import Base from '../../layouts/Base.astro'
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'WebApplication',
-  name: 'AI API Cost Comparison',
-  description: 'Compare per-token pricing for major LLM APIs. Adjust monthly token volume to find the cheapest option for your workload.',
-  url: 'https://techbrief.jaswinder.cc/tools/ai-api-cost-comparison',
-  applicationCategory: 'DeveloperApplication',
-  operatingSystem: 'Web Browser',
-  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  '@graph': [
+    {
+      '@type': 'WebApplication',
+      name: 'AI API Cost Comparison',
+      description: 'Compare per-token pricing for major LLM APIs. Adjust monthly token volume to find the cheapest option for your workload.',
+      url: 'https://techbrief.jaswinder.cc/tools/ai-api-cost-comparison',
+      applicationCategory: 'DeveloperApplication',
+      operatingSystem: 'Web Browser',
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'Which LLM API is cheapest for high-volume usage?',
+          acceptedAnswer: { '@type': 'Answer', text: 'For high-volume usage (50M+ tokens/month), self-hosted models like Llama 4 are the cheapest at approximately $0.80 per million tokens for both input and output. At this volume, self-hosting pays for itself within weeks.' },
+        },
+        {
+          '@type': 'Question',
+          name: 'When is it cheaper to use an API vs self-hosting an LLM?',
+          acceptedAnswer: { '@type': 'Answer', text: 'For low-volume use under 5M tokens/month, API-based models (GPT-5, Claude 4.5, Gemini Ultra) are usually cheaper than self-hosting because you avoid GPU infrastructure costs. Above 50M tokens/month, self-hosting becomes significantly cheaper.' },
+        },
+      ],
+    },
+  ],
 }
 ---
-<Base title="AI API Cost Comparison — GPT-4, Claude, Gemini Token Pricing Calculator | jas Tools" description="Compare per-token pricing for GPT-4, Claude, Gemini and other LLM APIs. Adjust monthly volume to find the cheapest option. Free calculator." jsonLd={jsonLd}>
+<Base title="AI API Cost Comparison — GPT-4, Claude, Gemini Token Pricing Calculator | jas Tools" description="Compare per-token pricing for GPT-4, Claude, Gemini and other LLM APIs. Adjust monthly volume to find the cheapest option. Free calculator." jsonLd={jsonLd} breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'Tools', url: '/tools' }, { name: 'AI API Cost Comparison', url: '/tools/ai-api-cost-comparison' }]}>
   <div class="max-w-[720px] mx-auto px-6 py-12">
     <div class="flex items-center gap-2 text-[13px] text-text-tertiary pb-4 border-b border-border mb-8">
       <a href="/" class="hover:text-text transition-colors">Home</a><span>/</span>

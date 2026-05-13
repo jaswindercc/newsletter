@@ -106,7 +106,7 @@ const issueJsonLd = {
 }
 ---
 
-<Base title={`Issue ${meta.number} — ${meta.title} | jas`} description={`${totalStories} verified stories: ${sections.filter(s => s.items.length > 0).map(s => s.title).slice(0, 4).join(', ')}. Week ${meta.number}.`} jsonLd={issueJsonLd} ogType="article">
+<Base title={`Issue ${meta.number} — ${meta.title} | jas`} description={`${totalStories} verified stories: ${sections.filter(s => s.items.length > 0).map(s => s.title).slice(0, 4).join(', ')}. Week ${meta.number}.`} jsonLd={issueJsonLd} ogType="article" breadcrumbs={[{ name: 'Home', url: '/' }, { name: `Issue ${meta.number}`, url: Astro.url.pathname }]}>
   <div class="max-w-[1080px] mx-auto px-6">
     <!-- Breadcrumb + Nav -->
     <div class="flex items-center justify-between py-4 border-b border-border">
