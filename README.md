@@ -105,6 +105,28 @@ See existing issues for the data schema.
 
 ---
 
+## Analytics
+
+The site uses [Cloudflare Web Analytics](https://www.cloudflare.com/web-analytics/) — free, privacy-first, no cookies, ~6 KB.
+
+Configured in `src/config/site.json`:
+
+```json
+"analytics": {
+  "cloudflareBeaconToken": "your-token-here"
+}
+```
+
+**Setup:**
+1. Log in to [Cloudflare Dashboard](https://dash.cloudflare.com) → **Web Analytics** → **Add a site**
+2. Enter your hostname and choose **JS Snippet** setup (works on any domain/subdomain)
+3. Copy the beacon token and paste it into `src/config/site.json` under `analytics.cloudflareBeaconToken`
+4. Build and deploy — analytics will appear on all pages automatically
+
+**To disable:** Remove the `analytics` key from `site.json` or set the token to an empty string. The script is conditionally rendered and won't load without a token.
+
+---
+
 ## Data Accuracy Policy
 
 All news content follows strict verification rules:

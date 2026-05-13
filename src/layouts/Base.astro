@@ -133,5 +133,8 @@ const breadcrumbSchema = breadcrumbs && breadcrumbs.length > 0 ? {
         </div>
       </div>
     </footer>
+    {site.analytics?.cloudflareBeaconToken && (
+      <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={`{"token": "${site.analytics.cloudflareBeaconToken}"}`}></script>
+    )}
   </body>
 </html>

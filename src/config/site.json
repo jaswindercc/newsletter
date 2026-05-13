@@ -21,5 +21,8 @@
   "footer": {
     "copyright": "2026 Jaswinder`s Tech Brief. All rights reserved.",
     "credit": "Created by jaswinder.cc"
+  },
+  "analytics": {
+    "cloudflareBeaconToken": "0af48bed85344f27b0c2344bffb463ac"
   }
 }
