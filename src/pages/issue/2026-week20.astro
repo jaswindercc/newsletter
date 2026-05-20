@@ -1,0 +1,526 @@
+---
+import IssueLayout from '../../layouts/IssueLayout.astro'
+
+const meta = {
+  number: '2026-20',
+  date: 'May 11 – May 17, 2026',
+  title: 'Week 20, 2026',
+  status: 'live' as const,
+  prevIssue: '2026-week19',
+  marketDateLabel: 'Week ending May 15, 2026',
+}
+
+const generalNews = [
+  {
+    date: 'May 15',
+    title: 'Blackstone and CD&R Explore Acquisition of Magnum Ice Cream',
+    summary: 'Private equity giants Blackstone and Clayton, Dubilier & Rice are in early-stage talks to potentially acquire Magnum Ice Cream Company, which was spun out from Unilever at a €7.8 billion valuation less than six months ago. Buyout firms are tracking shares amid declining consumer volumes linked to GLP-1 weight-loss drug trends.',
+    source: 'BNN Bloomberg',
+    sourceUrl: 'https://www.bnnbloomberg.ca/business/2026/05/15/blackstone-cdr-explore-bids-for-ben-jerrys-owner-magnum-sources-say-reuters-exclusive/',
+  },
+  {
+    date: 'May 15',
+    title: 'Canada Outlines Framework for Alberta Oil Pipeline by Fall 2027',
+    summary: 'The Canadian federal government announced concrete timeline targets to authorize construction on an Alberta oil pipeline expansion by autumn 2027. While a definitive private proponent has not yet signed on, the framework serves as a strategic macroeconomic indicator supporting infrastructure corridors.',
+    source: 'BNN Bloomberg',
+    sourceUrl: 'https://www.bnnbloomberg.ca/business/2026/05/15/blackstone-cdr-explore-bids-for-ben-jerrys-owner-magnum-sources-say-reuters-exclusive/',
+  },
+]
+
+const majorTechNews = [
+  {
+    date: 'May 15',
+    title: 'Multiverse Raises $70M to Become Europe\'s Primary AI Adoption Platform',
+    summary: 'London-based Multiverse, led by CEO Euan Blair, raised $70 million from Schroders Capital, pushing its valuation to $2.1 billion. The company is pivoting from educational technology into an AI workplace enablement platform — positioned between enterprises purchasing LLM tooling and their internal workforces needing upskilling.',
+    impact: 'high' as const,
+    source: 'The Next Web',
+    sourceUrl: 'https://thenextweb.com/news/ultiverse-70-million-schroders-ai-adoption-europe',
+  },
+]
+
+const majorAcquisitions = [
+  {
+    buyer: 'SAP',
+    target: 'Prior Labs',
+    amount: '$1.16B',
+    why: 'SAP is establishing a frontier AI lab in Europe specializing in foundational tabular models. The acquisition integrates specialized structural data parsing directly into SAP\'s enterprise application stack — a move away from consumer-facing text models toward domain-specific enterprise AI.',
+    source: 'StartupHub AI',
+    sourceUrl: 'https://www.startuphub.ai/ai-news/ai-news/2026/seed-drought-17b-ai-week-may-2026',
+  },
+]
+
+const catalysts = [
+  {
+    date: 'May 19',
+    event: 'Google I/O 2026 Developer Conference',
+    detail: 'Google kicks off its annual multi-day developer showcase in Mountain View. Expect deep dives on Gemini updates, agentic coding assistance workflows, Firebase changes, and the open-source Gemma model family.',
+    source: 'Engadget',
+    sourceUrl: 'https://www.engadget.com/ai/what-to-expect-from-google-io-2026-200252914.html',
+  },
+]
+
+const marketData = {
+  indices: [
+    { name: 'S&P 500', value: '7,408.50', change: 'N/A', direction: 'up' as const, ytd: '+2.70%', ytdDir: 'up' as const },
+    { name: 'NASDAQ Composite', value: '26,225.14', change: 'N/A', direction: 'up' as const, ytd: 'N/A', ytdDir: 'up' as const },
+    { name: 'Dow Jones', value: '49,526.11', change: '-1.07%', direction: 'down' as const, ytd: 'N/A', ytdDir: 'up' as const },
+    { name: 'Russell 2000', value: '2,793.30', change: '-2.44%', direction: 'down' as const, ytd: '+12.00%', ytdDir: 'up' as const },
+  ],
+  stocks: [
+    {
+      ticker: 'MICC',
+      name: 'Magnum Ice Cream Co.',
+      price: '€15.34',
+      change: '+18.0%',
+      ytd: 'N/A',
+      reason: 'Shares surged after leaked reports that Blackstone and CD&R are exploring a take-private deal',
+      source: 'TradingView',
+      sourceUrl: 'https://www.tradingview.com/news/invezz:d19736dd1094b:0-magnum-ice-cream-jumps-18-on-report-of-private-equity-interest/',
+    },
+  ],
+}
+
+const sections = [
+  {
+    title: 'Tech Rumours',
+    icon: 'S.06',
+    color: 'text-orange',
+    items: [
+      {
+        date: 'May 17',
+        title: 'OpenAI Confidentially Planning Early Autumn IPO',
+        summary: 'Insiders report that Goldman Sachs and Morgan Stanley are finalizing a prospectus for OpenAI to submit confidential paperwork within days. The company, privately valued near $852 billion following early-year cash injections, is reportedly targeting a public debut for Fall 2026.',
+        impact: 'high' as const,
+        time: '3 min',
+        source: 'Economic Times',
+        sourceUrl: 'https://m.economictimes.com/news/international/us/openai-ipo-filing-could-come-before-spacex-goes-public-will-sam-altman-beat-elon-musk-and-anthropic-in-the-biggest-ai-and-space-market-race-of-2026-complete-details-on-wall-streets-largest-ipo-wave/articleshow/131232574.cms',
+      },
+    ],
+  },
+  {
+    title: 'Top 5 Security Vulnerabilities',
+    icon: 'S.07',
+    color: 'text-red',
+    items: [
+      {
+        date: 'May 14',
+        title: 'CVE-2026-20182 — Cisco Catalyst SD-WAN Authentication Bypass (CVSS 10.0)',
+        summary: 'An unauthenticated remote attacker can send crafted control handshake requests to bypass authentication and acquire high-level administrative credentials, enabling full manipulation of the target network fabric. Added to the CISA KEV catalog with evidence of active exploitation.',
+        impact: 'high' as const,
+        time: '5 min',
+        source: 'NIST NVD',
+        sourceUrl: 'https://nvd.nist.gov/vuln/detail/CVE-2026-20182',
+      },
+      {
+        date: 'May 12',
+        title: 'CVE-2026-40364 — Microsoft Word Remote Code Execution',
+        summary: 'A type confusion flaw in Microsoft Word allows an unauthenticated network attacker to execute arbitrary code remotely. Patched during May Patch Tuesday.',
+        impact: 'high' as const,
+        time: '3 min',
+        source: 'Qualys ThreatPROTECT',
+        sourceUrl: 'https://threatprotect.qualys.com/2026/05/12/microsoft-patch-tuesday-may-2026-security-update-review/',
+      },
+      {
+        date: 'May 12',
+        title: 'CVE-2026-40402 — Windows Hyper-V Elevation of Privilege',
+        summary: 'A use-after-free weakness within the hypervisor architecture allows unauthenticated actors to escalate local host machine privileges. Patched during May Patch Tuesday.',
+        impact: 'high' as const,
+        time: '3 min',
+        source: 'Qualys ThreatPROTECT',
+        sourceUrl: 'https://threatprotect.qualys.com/2026/05/12/microsoft-patch-tuesday-may-2026-security-update-review/',
+      },
+      {
+        date: 'May 12',
+        title: 'CVE-2026-32207 — Azure Machine Learning Notebook Spoofing (CVSS 8.8)',
+        summary: 'A Cross-Site Scripting vulnerability allowing unauthenticated remote agents to conduct network spoofing over ML environments. Remediated internally by Microsoft.',
+        impact: 'high' as const,
+        time: '2 min',
+        source: 'CrowdStrike',
+        sourceUrl: 'https://www.crowdstrike.com/en-us/blog/patch-tuesday-analysis-may-2026/',
+      },
+      {
+        date: 'May 12',
+        title: 'CVE-2026-26129 — Microsoft 365 Copilot Business Chat Info Disclosure (CVSS 7.5)',
+        summary: 'An input neutralization flaw allows unauthorized remote attackers to retrieve sensitive underlying context tokens over corporate network configurations. Remediated internally by Microsoft.',
+        impact: 'medium' as const,
+        time: '2 min',
+        source: 'CrowdStrike',
+        sourceUrl: 'https://www.crowdstrike.com/en-us/blog/patch-tuesday-analysis-may-2026/',
+      },
+    ],
+  },
+  {
+    title: 'Security News',
+    icon: 'S.08',
+    color: 'text-red',
+    items: [
+      {
+        date: 'May 14',
+        title: 'CISA Adds Cisco SD-WAN Vulnerability to Known Exploited Vulnerabilities Catalog',
+        summary: 'CISA added CVE-2026-20182 based on evidence of active exploitation by an advanced group tracked as UAT-8616. Federal civilian agencies were ordered to immediately execute hunt and hardening guidelines.',
+        impact: 'high' as const,
+        time: '4 min',
+        source: 'CISA Alerts',
+        sourceUrl: 'https://www.cisa.gov/news-events/alerts/2026/05/14/cisa-adds-one-known-exploited-vulnerability-catalog',
+      },
+      {
+        date: 'May 12',
+        title: 'Microsoft May Patch Tuesday Resolves 121+ Vulnerabilities',
+        summary: 'Microsoft\'s May security updates addressed a broad surface area including 30 critical vulnerabilities spanning Hyper-V, M365 Copilot, and Azure infrastructure. Attackers are increasingly pivoting from basic remote entry exploits to chained identity and privilege escalation vectors.',
+        impact: 'high' as const,
+        time: '5 min',
+        source: 'Absolute Security',
+        sourceUrl: 'https://www.absolute.com/blog/microsoft-may-patch-tuesday-critical-fixes-and-urgent-updates',
+      },
+    ],
+  },
+  {
+    title: 'Deprecations & End-of-Life',
+    icon: 'S.09',
+    color: 'text-text-tertiary',
+    items: [
+      {
+        date: 'May 14',
+        title: 'Cisco SD-WAN Controller Software Branches (v20.11, v20.13, v20.14, v20.16) EOL',
+        summary: 'Multiple Cisco SD-WAN branches have reached end-of-life. Upgrade immediately to active mainline releases (e.g., 20.15.506 for cloud-managed environments) to avoid exposure to the CVSS 10 authentication bypass — point-fixes are unavailable for these deprecated paths.',
+        impact: 'high' as const,
+        time: '3 min',
+        source: 'Halo Security',
+        sourceUrl: 'https://blog.halosecurity.com/cve-2026-20182-cisco-catalyst-sd-wan-authentication-bypass/',
+      },
+    ],
+  },
+  {
+    title: 'Products & Cloud Pricing',
+    icon: 'S.10',
+    color: 'text-green',
+    items: [] as { date?: string; title: string; summary: string; impact: 'high' | 'medium' | 'low'; time: string; source?: string; sourceUrl?: string }[],
+  },
+  {
+    title: 'Open Source Governance & Forks',
+    icon: 'S.11',
+    color: 'text-green',
+    items: [] as { date?: string; title: string; summary: string; impact: 'high' | 'medium' | 'low'; time: string; source?: string; sourceUrl?: string }[],
+  },
+  {
+    title: 'Regulatory Compliance Drift',
+    icon: 'S.12',
+    color: 'text-blue',
+    items: [
+      {
+        date: 'May 17',
+        title: 'CISA Emergency Directive 26-03 — SD-WAN Forensic Capture Mandate',
+        summary: 'U.S. federal agencies were mandated to immediately deploy the `request admin-tech` command across all internet-exposed SD-WAN systems to capture forensic states before enforcing core operating upgrades.',
+        impact: 'high' as const,
+        time: '3 min',
+        source: 'Halo Security',
+        sourceUrl: 'https://blog.halosecurity.com/cve-2026-20182-cisco-catalyst-sd-wan-authentication-bypass/',
+      },
+    ],
+  },
+  {
+    title: 'Legacy Modernization Tracker',
+    icon: 'S.13',
+    color: 'text-cyan',
+    items: [
+      {
+        date: 'May 15',
+        title: 'SAP Bets on Tabular AI to Modernize ERP Backend Operations',
+        summary: 'SAP\'s acquisition of Prior Labs signals an industry-wide pivot: rather than ripping and replacing legacy core systems, enterprises are deploying tabular AI models to parse, extract, and cleanly modernize deep backend operations safely and incrementally.',
+        impact: 'medium' as const,
+        time: '4 min',
+        source: 'StartupHub AI',
+        sourceUrl: 'https://www.startuphub.ai/ai-news/ai-news/2026/seed-drought-17b-ai-week-may-2026',
+      },
+    ],
+  },
+  {
+    title: 'Developer Velocity & Tooling',
+    icon: 'S.14',
+    color: 'text-green',
+    items: [
+      {
+        date: 'May 12',
+        title: 'Windows 11 Update KB5089549 Causes Installation Errors',
+        summary: 'Microsoft confirmed that May\'s cumulative update triggers a 0x800f0922 installation error on setups with restricted EFI System Partition (ESP) volume ceilings, requiring manual system storage alterations before the update can complete.',
+        impact: 'medium' as const,
+        time: '2 min',
+        source: 'SC Media',
+        sourceUrl: 'https://www.scworld.com/brief/windows-11-update-kb5089549-causes-installation-errors-due-to-low-efi-partition-space',
+      },
+    ],
+  },
+  {
+    title: 'Sovereign Cloud & Data Residency',
+    icon: 'S.15',
+    color: 'text-blue',
+    items: [
+      {
+        date: 'May 15',
+        title: 'Multiverse Expansion Targets European Digital Sovereignty Compliance',
+        summary: 'Multiverse\'s Schroders Capital-backed expansion is geared toward establishing localized workforce AI onboarding structures that fulfill complex data processing protections dictated by European digital sovereignty rules.',
+        impact: 'medium' as const,
+        time: '3 min',
+        source: 'EU-Startups',
+        sourceUrl: 'https://www.eu-startups.com/2026/05/uk-edtech-multiverse-lands-e60-million-funding-round-at-e1-8-billion-valuation/',
+      },
+    ],
+  },
+  {
+    title: 'AI Model Benchmarks',
+    icon: 'S.16',
+    color: 'text-purple',
+    items: [
+      {
+        date: 'May 15',
+        title: 'Kimi K2.6 (Moonshot AI) Rises to Second-Most Queried Open Model',
+        summary: 'Kimi K2.6, released under a modified MIT license, is now the second-most actively queried model on OpenRouter behind only DeepSeek — signaling significant market consolidation around non-US open infrastructure endpoints.',
+        impact: 'medium' as const,
+        time: '3 min',
+        source: 'StartupHub AI',
+        sourceUrl: 'https://www.startuphub.ai/ai-news/ai-news/2026/seed-drought-17b-ai-week-may-2026',
+      },
+    ],
+  },
+  {
+    title: 'Category Deep Dives',
+    icon: 'S.17',
+    color: 'text-pink',
+    items: [
+      {
+        date: 'May 15',
+        title: 'AI & ML: Generative AI Market Concentration Intensifies',
+        summary: 'Market data through mid-May 2026 confirms foundation model APIs captured 98.1% of all active capital injections — demonstrating an extreme squeeze on early-stage seed-round funding for AI startups.',
+        impact: 'high' as const,
+        time: '4 min',
+        source: 'New Market Pitch',
+        sourceUrl: 'https://newmarketpitch.com/blogs/news/generative-ai-funding-trends',
+      },
+      {
+        date: 'May 14',
+        title: 'Security: Cisco Urges Immediate Audits Over Critical SD-WAN Advisory',
+        summary: 'Network maintainers are scrambling to address a flaw in the control connection handshaking logic that grants systemic admin access with zero user interaction. The CVSS 10.0 score makes this one of the most severe network vulnerabilities of 2026.',
+        impact: 'high' as const,
+        time: '5 min',
+        source: 'Halo Security',
+        sourceUrl: 'https://blog.halosecurity.com/cve-2026-20182-cisco-catalyst-sd-wan-authentication-bypass/',
+      },
+      {
+        date: 'May 12',
+        title: 'Infrastructure: Windows 11 Update Breaks Installations on Low-Space Systems',
+        summary: 'Microsoft\'s May cumulative package KB5089549 fails during execution on endpoints with tightly budgeted EFI system partitions, requiring manual storage intervention.',
+        impact: 'medium' as const,
+        time: '2 min',
+        source: 'SC Media',
+        sourceUrl: 'https://www.scworld.com/brief/windows-11-update-kb5089549-causes-installation-errors-due-to-low-efi-partition-space',
+      },
+      {
+        date: 'May 15',
+        title: 'Startups: Multiverse Reaches Cash-Positive Quarter',
+        summary: 'Multiverse reported its first cash-positive quarter (Jan–Mar), demonstrating sustained enterprise demand for human capital training solutions alongside automation tool deployments.',
+        impact: 'medium' as const,
+        time: '3 min',
+        source: 'EU-Startups',
+        sourceUrl: 'https://www.eu-startups.com/2026/05/uk-edtech-multiverse-lands-e60-million-funding-round-at-e1-8-billion-valuation/',
+      },
+      {
+        date: 'May 15',
+        title: 'Legacy Tech: "Physical AI" Reshapes Robotics Data Taxonomies',
+        summary: 'Robotics startups are ditching traditional kinematic vocabularies in favor of "Robot Foundation Models" and "Vision-Language-Action Models," realigning their fundraising directly with frontier LLM infrastructure narratives.',
+        impact: 'medium' as const,
+        time: '6 min',
+        source: 'StartupHub AI',
+        sourceUrl: 'https://www.startuphub.ai/ai-news/ai-news/2026/seed-drought-17b-ai-week-may-2026',
+      },
+    ],
+  },
+]
+
+const executiveInsights = {
+  verdict: 'This week was dominated by the "Security-First Infrastructure Reality Check." A CVSS 10.0 Cisco SD-WAN vulnerability with confirmed active exploitation forced federal emergency directives, while Microsoft patched 121+ flaws including Hyper-V escapes and Copilot information disclosure. Meanwhile, the AI capital landscape continues to bifurcate: SAP bet $1.16B on tabular AI for enterprise modernization, and generative AI funding concentration reached 98.1% at the foundation model layer — crushing seed-stage innovation. For architects, the message is clear: patch aggressively, plan for network fabric zero-trust overhauls, and accept that AI infrastructure investment is consolidating around a handful of dominant players.',
+  roiSpotlight: 'SAP\'s $1.16B acquisition of Prior Labs for tabular AI models signals a structural shift in enterprise modernization strategy. Instead of costly rip-and-replace migrations, enterprises can now deploy specialized AI to parse, extract, and incrementally modernize legacy ERP backends. Architects should evaluate tabular model pipelines as a safer, ROI-positive alternative to full system rewrites.',
+  regulationWatch: 'CISA Emergency Directive 26-03 mandates immediate forensic capture across all federal SD-WAN systems. This represents a new enforcement pattern: agencies must now prove forensic readiness before applying patches. Architects managing federal workloads should implement automated forensic state capture as a standard pre-patch procedure.',
+}
+
+const technicalDeepDives = {
+  signalVsNoise: [
+    { hype: 'Open-source AI models are a niche alternative.', reality: 'Kimi K2.6 becoming the second-most queried model on OpenRouter behind DeepSeek proves that non-US open-weight models are capturing serious production traffic. The market is consolidating around open infrastructure endpoints, not just proprietary APIs.' },
+    { hype: 'AI funding is distributed evenly across the stack.', reality: 'Foundation model APIs captured 98.1% of all active AI capital injections in mid-May 2026. If your startup isn\'t building at the model layer or deeply integrated with one, raising seed funding has become extraordinarily difficult.' },
+  ],
+  infraHealthCheck: 'CVE-2026-20182 is a CVSS 10.0 authentication bypass in Cisco Catalyst SD-WAN controllers with confirmed active exploitation by threat group UAT-8616. The vulnerability requires zero authentication and grants full administrative network access. If you run any SD-WAN controller on branches v20.11, v20.13, v20.14, or v20.16 — those are end-of-life and have NO patches available. Upgrade to 20.15.506 immediately.',
+  legacySpotlight: 'SAP acquiring Prior Labs for $1.16B signals that the ERP giant sees tabular AI as the safe path to modernizing legacy enterprise backends. Rather than forcing risky lift-and-shift migrations, tabular foundation models can read, interpret, and restructure deeply nested legacy data without service disruption. This approach is now validated at the billion-dollar acquisition level.',
+}
+
+const builderUtility = {
+  toolOfTheWeek: {
+    name: 'Cisco SD-WAN Admin-Tech Forensic Capture',
+    description: 'With CVE-2026-20182 under active exploitation and CISA mandating forensic capture, the `request admin-tech` command is this week\'s essential utility. It captures full system state snapshots of your SD-WAN controllers before you apply emergency patches — critical for incident response and compliance proof.',
+    source: 'Halo Security',
+    sourceUrl: 'https://blog.halosecurity.com/cve-2026-20182-cisco-catalyst-sd-wan-authentication-bypass/',
+  },
+  codeSnippet: {
+    title: 'Cisco SD-WAN Emergency Forensic & Mitigation Steps',
+    language: 'bash',
+    code: '# Step 1: Capture forensic state (per CISA ED 26-03)\n# Run on all internet-exposed SD-WAN controllers\nrequest admin-tech\n\n# Step 2: Check current software version\nshow software version\n\n# Step 3: Verify if running EOL branches (v20.11/13/14/16)\n# If yes — no patch exists. Must upgrade immediately.\n\n# Step 4: Upgrade to patched mainline release\n# For cloud-managed environments:\nrequest software install path/to/vmanage-20.15.506.tar.gz\n\n# Step 5: Verify control connections post-upgrade\nshow control connections\nshow control local-properties\n\n# Step 6: Hunt for indicators of compromise\nshow omp peers | grep \"unknown\"\nshow control connections-history | grep \"handshake\"',
+  },
+  securityAlert: 'CVE-2026-20182 — Cisco Catalyst SD-WAN Controller Authentication Bypass (CVSS 10.0). Actively exploited by UAT-8616. Zero-authentication required for full admin access. Deprecated branches have NO fix — upgrade to 20.15.506 immediately. Run `request admin-tech` for forensic capture before patching.',
+}
+
+const strategicView = {
+  catalystsTimeline: [
+    { date: 'May 19', event: 'Google I/O 2026', detail: 'Gemini updates, agentic coding workflows, Firebase changes, and Gemma model family announcements' },
+    { date: 'May 17', event: 'CISA ED 26-03 Enforcement Deadline', detail: 'Federal agencies must complete SD-WAN forensic capture and hardening' },
+  ],
+  maImpact: 'SAP\'s $1.16B acquisition of Prior Labs establishes a new category: "Tabular AI for Enterprise Modernization." This validates the thesis that enterprises will pay premium prices for AI that can safely parse and restructure legacy data without requiring full system migrations. Expect competitors (Oracle, Salesforce) to make similar acquisitions within 6 months.',
+  talentShifts: 'Multiverse\'s pivot from edtech to AI workplace enablement — backed by $70M at a $2.1B valuation — confirms that "AI upskilling" is now a funded enterprise category. Demand for professionals who can bridge the gap between LLM tooling procurement and actual workforce adoption will spike through H2 2026.',
+}
+---
+
+<IssueLayout
+  meta={meta}
+  generalNews={generalNews}
+  majorTechNews={majorTechNews}
+  majorAcquisitions={majorAcquisitions}
+  catalysts={catalysts}
+  marketData={marketData}
+  sections={sections}
+  executiveInsights={executiveInsights}
+  technicalDeepDives={technicalDeepDives}
+  builderUtility={builderUtility}
+  strategicView={strategicView}
+>
+  <!-- Interactive Widgets (per-issue) -->
+  <div class="mt-14 mb-10">
+    <h2 class="text-[22px] font-bold text-text mb-6 flex items-center gap-3">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-cyan shrink-0"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 3h-8l-2 4h12z"/></svg>
+      Interactive Tools
+    </h2>
+    <div class="grid md:grid-cols-2 gap-4">
+      <!-- Cloud Cost Estimator -->
+      <div class="p-5 rounded-xl bg-bg-card border border-border">
+        <h3 class="text-[15px] font-bold text-text mb-1 flex items-center gap-2">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-green"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          Cloud Cost Estimator
+        </h3>
+        <p class="text-[13px] text-text-tertiary mb-4">Estimate monthly cloud spend for AI workloads.</p>
+        <div class="space-y-3">
+          <div>
+            <label class="text-[12px] font-medium text-text-secondary block mb-1">GPU Type</label>
+            <select id="gpu-type" class="w-full px-3 py-2 text-[13px] bg-bg border border-border rounded-lg text-text focus:border-blue/50 focus:outline-none">
+              <option value="3.25">NVIDIA H100 ($3.25/hr)</option>
+              <option value="6.50">NVIDIA B200 ($6.50/hr)</option>
+              <option value="1.10">NVIDIA A100 ($1.10/hr)</option>
+              <option value="0.45">NVIDIA T4 ($0.45/hr)</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-[12px] font-medium text-text-secondary block mb-1">GPUs Needed</label>
+            <input type="range" id="gpu-count" min="1" max="64" value="4" class="w-full accent-green" />
+            <div class="flex justify-between text-[12px] text-text-tertiary"><span>1</span><span id="gpu-count-val">4</span><span>64</span></div>
+          </div>
+          <div>
+            <label class="text-[12px] font-medium text-text-secondary block mb-1">Hours/Day</label>
+            <input type="range" id="gpu-hours" min="1" max="24" value="8" class="w-full accent-green" />
+            <div class="flex justify-between text-[12px] text-text-tertiary"><span>1</span><span id="gpu-hours-val">8</span><span>24</span></div>
+          </div>
+          <div class="pt-3 border-t border-border">
+            <div class="text-[13px] text-text-tertiary">Estimated Monthly Cost</div>
+            <div id="cloud-cost" class="text-[28px] font-bold text-green">$3,120</div>
+          </div>
+        </div>
+        <div class="mt-3 flex justify-end">
+          <a href="/tools/cloud-cost-estimator" class="text-[12px] text-text-tertiary hover:text-blue transition-colors inline-flex items-center gap-1">Open full tool <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+
+      <!-- AI API Cost Comparison -->
+      <div class="p-5 rounded-xl bg-bg-card border border-border">
+        <h3 class="text-[15px] font-bold text-text mb-1 flex items-center gap-2">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-purple"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          AI API Cost Comparison
+        </h3>
+        <p class="text-[13px] text-text-tertiary mb-4">Compare costs per 1M tokens (input / output).</p>
+        <div class="space-y-2">
+          <div class="flex items-center gap-2 p-2 rounded-lg bg-bg-hover">
+            <span class="w-2 h-2 rounded-full bg-purple"></span>
+            <span class="text-[13px] text-text flex-1">GPT-5 Turbo</span>
+            <span class="text-[13px] font-mono text-text-secondary">$5 / $15</span>
+          </div>
+          <div class="flex items-center gap-2 p-2 rounded-lg bg-bg-hover">
+            <span class="w-2 h-2 rounded-full bg-orange"></span>
+            <span class="text-[13px] text-text flex-1">Claude 4.5</span>
+            <span class="text-[13px] font-mono text-text-secondary">$15 / $75</span>
+          </div>
+          <div class="flex items-center gap-2 p-2 rounded-lg bg-bg-hover">
+            <span class="w-2 h-2 rounded-full bg-blue"></span>
+            <span class="text-[13px] text-text flex-1">Gemini Ultra 2.0</span>
+            <span class="text-[13px] font-mono text-text-secondary">$7 / $21</span>
+          </div>
+          <div class="flex items-center gap-2 p-2 rounded-lg bg-bg-hover">
+            <span class="w-2 h-2 rounded-full bg-green"></span>
+            <span class="text-[13px] text-text flex-1">Llama 4 (self-hosted)</span>
+            <span class="text-[13px] font-mono text-text-secondary">~$0.80 / ~$0.80</span>
+          </div>
+          <div class="pt-3 border-t border-border mt-3">
+            <label class="text-[12px] font-medium text-text-secondary block mb-1">Monthly Tokens (Millions)</label>
+            <input type="range" id="token-usage" min="1" max="100" value="10" class="w-full accent-purple" />
+            <div class="flex justify-between text-[12px] text-text-tertiary"><span>1M</span><span id="token-usage-val">10M</span><span>100M</span></div>
+            <div class="mt-2 text-[13px] text-text-tertiary">Cheapest: <span id="cheapest-model" class="font-bold text-green">Llama 4</span> at <span id="cheapest-cost" class="font-bold text-green">$16/mo</span></div>
+          </div>
+        </div>
+        <div class="mt-3 flex justify-end">
+          <a href="/tools/ai-api-cost-comparison" class="text-[12px] text-text-tertiary hover:text-blue transition-colors inline-flex items-center gap-1">Open full tool <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Cloud Cost Estimator
+    const gpuType = document.getElementById('gpu-type') as HTMLSelectElement
+    const gpuCount = document.getElementById('gpu-count') as HTMLInputElement
+    const gpuHours = document.getElementById('gpu-hours') as HTMLInputElement
+    const gpuCountVal = document.getElementById('gpu-count-val')!
+    const gpuHoursVal = document.getElementById('gpu-hours-val')!
+    const cloudCost = document.getElementById('cloud-cost')!
+
+    function calcCloud() {
+      const rate = parseFloat(gpuType.value)
+      const count = parseInt(gpuCount.value)
+      const hours = parseInt(gpuHours.value)
+      gpuCountVal.textContent = String(count)
+      gpuHoursVal.textContent = String(hours)
+      const monthly = rate * count * hours * 30
+      cloudCost.textContent = '$' + monthly.toLocaleString(undefined, { maximumFractionDigits: 0 })
+    }
+    gpuType.addEventListener('change', calcCloud)
+    gpuCount.addEventListener('input', calcCloud)
+    gpuHours.addEventListener('input', calcCloud)
+    calcCloud()
+
+    // AI API Cost Comparison
+    const tokenUsage = document.getElementById('token-usage') as HTMLInputElement
+    const tokenUsageVal = document.getElementById('token-usage-val')!
+    const cheapestModel = document.getElementById('cheapest-model')!
+    const cheapestCost = document.getElementById('cheapest-cost')!
+    const models = [
+      { name: 'GPT-5 Turbo', input: 5, output: 15 },
+      { name: 'Claude 4.5', input: 15, output: 75 },
+      { name: 'Gemini Ultra 2.0', input: 7, output: 21 },
+      { name: 'Llama 4', input: 0.8, output: 0.8 },
+    ]
+    function calcTokens() {
+      const usage = parseInt(tokenUsage.value)
+      tokenUsageVal.textContent = usage + 'M'
+      let cheapest = Infinity, cheapName = ''
+      for (const m of models) {
+        const cost = (usage * 0.7 * m.input) + (usage * 0.3 * m.output)
+        if (cost < cheapest) { cheapest = cost; cheapName = m.name }
+      }
+      cheapestModel.textContent = cheapName
+      cheapestCost.textContent = '$' + Math.round(cheapest).toLocaleString() + '/mo'
+    }
+    tokenUsage.addEventListener('input', calcTokens)
+    calcTokens()
+  </script>
+</IssueLayout>
